@@ -30,4 +30,4 @@ jobs:
               uses: actions/upload-artifact@v4
               with:
                   name: StudentInformationSheet win-x64
-                  path: ./SalesInventorySystem_WAM1/bin/Release/
+                  path: ./bin/Release/

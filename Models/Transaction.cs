@@ -2,6 +2,9 @@
 
 namespace SalesInventorySystem_WAM1.Models
 {
+    /// <summary>
+    /// Represents a transaction in the inventory.
+    /// </summary>
     public class Transaction
     {
         public DateTime Timestamp { get; }

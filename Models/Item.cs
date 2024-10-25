@@ -2,6 +2,9 @@ using System;
 
 namespace SalesInventorySystem_WAM1.Models
 {
+    /// <summary>
+    /// Represents an item in the inventory.
+    /// </summary>
     public class Item
     {
         public int Id { get; }

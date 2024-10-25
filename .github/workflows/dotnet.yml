@@ -1,11 +1,11 @@
-name: Build App
+name: Build and Publish App
 
 on: ["push", "pull_request"]
 
 concurrency:
     group: ${{ github.head_ref || github.run_id }}
     cancel-in-progress: true
-  
+
 jobs:
     build:
         runs-on: windows-latest

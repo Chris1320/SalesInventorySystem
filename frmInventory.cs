@@ -16,5 +16,10 @@ namespace SalesInventorySystem_WAM1
         {
             InitializeComponent();
         }
+
+        private void dgvInventory_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

@@ -32,6 +32,13 @@ namespace SalesInventorySystem_WAM1
             pnlNav.Top = btnSales.Top;
             pnlNav.Left = btnSales.Left;
             btnSales.BackColor = Color.FromArgb(46, 51, 73);
+            //Form Loading
+            lblMenu.Text = "Sales";
+            this.PnlFormLoader.Controls.Clear();
+            frmSales FrmSales_Vrb = new frmSales() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            FrmSales_Vrb.FormBorderStyle = FormBorderStyle.None;
+            this.PnlFormLoader.Controls.Add(FrmSales_Vrb);
+            FrmSales_Vrb.Show();
         }
 
         private void btnSales_Click(object sender, EventArgs e)
@@ -40,6 +47,14 @@ namespace SalesInventorySystem_WAM1
             pnlNav.Top = btnSales.Top;
             pnlNav.Left = btnSales.Left;
             btnSales.BackColor = Color.FromArgb(46, 51, 73);
+
+            //Form Loading
+            lblMenu.Text = "Sales";
+            this.PnlFormLoader.Controls.Clear();
+            frmSales FrmSales_Vrb = new frmSales() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            FrmSales_Vrb.FormBorderStyle = FormBorderStyle.None;
+            this.PnlFormLoader.Controls.Add(FrmSales_Vrb);
+            FrmSales_Vrb.Show();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -53,6 +68,14 @@ namespace SalesInventorySystem_WAM1
             pnlNav.Top = btnInventory.Top;
             pnlNav.Left = btnInventory.Left;
             btnInventory.BackColor = Color.FromArgb(46, 51, 73);
+
+            //Form Loading
+            lblMenu.Text = "Inventory";
+            this.PnlFormLoader.Controls.Clear();
+            frmInventory FrmInventory_Vrb = new frmInventory() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            FrmInventory_Vrb.FormBorderStyle = FormBorderStyle.None;
+            this.PnlFormLoader.Controls.Add(FrmInventory_Vrb);
+            FrmInventory_Vrb.Show();
         }
 
         private void btnSales_Leave(object sender, EventArgs e)
@@ -76,6 +99,14 @@ namespace SalesInventorySystem_WAM1
             pnlNav.Top = btnUsers.Top;
             pnlNav.Left = btnUsers.Left;
             btnUsers.BackColor = Color.FromArgb(46, 51, 73);
+
+            //Form Loading
+            lblMenu.Text = "Users";
+            this.PnlFormLoader.Controls.Clear();
+            frmUsers FrmUsers_Vrb = new frmUsers() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            FrmUsers_Vrb.FormBorderStyle = FormBorderStyle.None;
+            this.PnlFormLoader.Controls.Add(FrmUsers_Vrb);
+            FrmUsers_Vrb.Show();
         }
 
         private void btnUsers_Leave(object sender, EventArgs e)

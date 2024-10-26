@@ -39,6 +39,8 @@
             this.lblUserName = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
             this.pbUserIcon = new System.Windows.Forms.PictureBox();
+            this.lblMenu = new System.Windows.Forms.Label();
+            this.PnlFormLoader = new System.Windows.Forms.Panel();
             this.pnlNavigation.SuspendLayout();
             this.pnlUser.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbUserIcon)).BeginInit();
@@ -186,12 +188,33 @@
             this.pbUserIcon.TabIndex = 1;
             this.pbUserIcon.TabStop = false;
             // 
+            // lblMenu
+            // 
+            this.lblMenu.AutoSize = true;
+            this.lblMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 21F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMenu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(161)))), ((int)(((byte)(176)))));
+            this.lblMenu.Location = new System.Drawing.Point(213, 31);
+            this.lblMenu.Name = "lblMenu";
+            this.lblMenu.Size = new System.Drawing.Size(91, 32);
+            this.lblMenu.TabIndex = 5;
+            this.lblMenu.Text = "Sales";
+            // 
+            // PnlFormLoader
+            // 
+            this.PnlFormLoader.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.PnlFormLoader.Location = new System.Drawing.Point(186, 100);
+            this.PnlFormLoader.Name = "PnlFormLoader";
+            this.PnlFormLoader.Size = new System.Drawing.Size(765, 477);
+            this.PnlFormLoader.TabIndex = 6;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(951, 577);
+            this.Controls.Add(this.PnlFormLoader);
+            this.Controls.Add(this.lblMenu);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.pnlNavigation);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -204,6 +227,7 @@
             this.pnlUser.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbUserIcon)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -220,6 +244,8 @@
         private System.Windows.Forms.Panel pnlNav;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnUsers;
+        private System.Windows.Forms.Label lblMenu;
+        private System.Windows.Forms.Panel PnlFormLoader;
     }
 }
 

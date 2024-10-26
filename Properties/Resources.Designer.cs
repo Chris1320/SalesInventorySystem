@@ -63,6 +63,16 @@ namespace SalesInventorySystem_WAM1.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _10827455 {
+            get {
+                object obj = ResourceManager.GetObject("10827455", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _1177568 {
             get {
                 object obj = ResourceManager.GetObject("1177568", resourceCulture);

@@ -69,5 +69,24 @@ namespace SalesInventorySystem_WAM1
         {
             Application.Exit();
         }
+
+        private void button1_Click(object sender, EventArgs e) //btnUsers
+        {
+            pnlNav.Height = btnUsers.Height;
+            pnlNav.Top = btnUsers.Top;
+            pnlNav.Left = btnUsers.Left;
+            btnUsers.BackColor = Color.FromArgb(46, 51, 73);
+        }
+
+        private void btnUsers_Leave(object sender, EventArgs e)
+        {
+            btnUsers.BackColor = Color.FromArgb(24, 30, 54);
+        }
+
+        private void btnLogOut_Click(object sender, EventArgs e)
+        {
+            new LoginForm().Show();
+            this.Close();
+        }
     }
 }

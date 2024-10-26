@@ -1,0 +1,33 @@
+name: Build and Publish App
+
+on: ["push", "pull_request"]
+
+concurrency:
+    group: ${{ github.head_ref || github.run_id }}
+    cancel-in-progress: true
+
+jobs:
+    build:
+        runs-on: windows-latest
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: Setup MSBuild
+              uses: microsoft/Setup-MSBuild@v2
+
+            - name: Setup NuGet
+              uses: NuGet/setup-nuget@v2
+
+            - name: Restore NuGet Packages
+              run: nuget restore ./SalesInventorySystem_WAM1.sln
+
+            - name: Build and Publish App
+              run: msbuild ./SalesInventorySystem_WAM1.sln /p:Configuration=Release /p:PublishSingleFile=true
+
+            - name: Upload Artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: StudentInformationSheet win-x64
+                  path: ./bin/Release/

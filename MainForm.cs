@@ -27,11 +27,18 @@ namespace SalesInventorySystem_WAM1
             InitializeComponent();
             //Border
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRGN(0, 0, Width, Height, 25, 25));
+
+            navSales(); //Default Navigation
+        }
+
+        private void navSales()
+        {
             //Default Navigation
             pnlNav.Height = btnSales.Height;
             pnlNav.Top = btnSales.Top;
             pnlNav.Left = btnSales.Left;
             btnSales.BackColor = Color.FromArgb(46, 51, 73);
+
             //Form Loading
             lblMenu.Text = "Sales";
             this.PnlFormLoader.Controls.Clear();
@@ -43,18 +50,7 @@ namespace SalesInventorySystem_WAM1
 
         private void btnSales_Click(object sender, EventArgs e)
         {
-            pnlNav.Height = btnSales.Height;
-            pnlNav.Top = btnSales.Top;
-            pnlNav.Left = btnSales.Left;
-            btnSales.BackColor = Color.FromArgb(46, 51, 73);
-
-            //Form Loading
-            lblMenu.Text = "Sales";
-            this.PnlFormLoader.Controls.Clear();
-            frmSales FrmSales_Vrb = new frmSales() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-            FrmSales_Vrb.FormBorderStyle = FormBorderStyle.None;
-            this.PnlFormLoader.Controls.Add(FrmSales_Vrb);
-            FrmSales_Vrb.Show();
+            navSales(); //Default Navigation
         }
 
         private void MainForm_Load(object sender, EventArgs e)

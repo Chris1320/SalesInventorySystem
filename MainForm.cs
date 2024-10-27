@@ -103,7 +103,7 @@ namespace SalesInventorySystem_WAM1
             //Form Loading
             lblMenu.Text = "Users";
             this.PnlFormLoader.Controls.Clear();
-            frmUsers FrmUsers_Vrb = new frmUsers() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            frmUsers FrmUsers_Vrb = new frmUsers(this) { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
             FrmUsers_Vrb.FormBorderStyle = FormBorderStyle.None;
             this.PnlFormLoader.Controls.Add(FrmUsers_Vrb);
             FrmUsers_Vrb.Show();

@@ -28,17 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pnlNavigation = new System.Windows.Forms.Panel();
-            this.btnUsers = new System.Windows.Forms.Button();
             this.pnlNav = new System.Windows.Forms.Panel();
+            this.btnUsers = new System.Windows.Forms.Button();
             this.btnLogOut = new System.Windows.Forms.Button();
             this.btnInventory = new System.Windows.Forms.Button();
             this.btnSales = new System.Windows.Forms.Button();
             this.pnlUser = new System.Windows.Forms.Panel();
             this.lblRole = new System.Windows.Forms.Label();
             this.lblUserName = new System.Windows.Forms.Label();
-            this.btnClose = new System.Windows.Forms.Button();
             this.pbUserIcon = new System.Windows.Forms.PictureBox();
+            this.btnClose = new System.Windows.Forms.Button();
             this.lblMenu = new System.Windows.Forms.Label();
             this.PnlFormLoader = new System.Windows.Forms.Panel();
             this.pnlNavigation.SuspendLayout();
@@ -61,6 +62,14 @@
             this.pnlNavigation.Size = new System.Drawing.Size(186, 577);
             this.pnlNavigation.TabIndex = 0;
             // 
+            // pnlNav
+            // 
+            this.pnlNav.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.pnlNav.Location = new System.Drawing.Point(0, 193);
+            this.pnlNav.Name = "pnlNav";
+            this.pnlNav.Size = new System.Drawing.Size(3, 100);
+            this.pnlNav.TabIndex = 1;
+            // 
             // btnUsers
             // 
             this.btnUsers.Dock = System.Windows.Forms.DockStyle.Top;
@@ -76,14 +85,6 @@
             this.btnUsers.UseVisualStyleBackColor = true;
             this.btnUsers.Click += new System.EventHandler(this.button1_Click);
             this.btnUsers.Leave += new System.EventHandler(this.btnUsers_Leave);
-            // 
-            // pnlNav
-            // 
-            this.pnlNav.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.pnlNav.Location = new System.Drawing.Point(0, 193);
-            this.pnlNav.Name = "pnlNav";
-            this.pnlNav.Size = new System.Drawing.Size(3, 100);
-            this.pnlNav.TabIndex = 1;
             // 
             // btnLogOut
             // 
@@ -165,6 +166,16 @@
             this.lblUserName.TabIndex = 1;
             this.lblUserName.Text = "User Name";
             // 
+            // pbUserIcon
+            // 
+            this.pbUserIcon.Image = global::SalesInventorySystem_WAM1.Properties.Resources._1177568;
+            this.pbUserIcon.Location = new System.Drawing.Point(60, 22);
+            this.pbUserIcon.Name = "pbUserIcon";
+            this.pbUserIcon.Size = new System.Drawing.Size(63, 63);
+            this.pbUserIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbUserIcon.TabIndex = 1;
+            this.pbUserIcon.TabStop = false;
+            // 
             // btnClose
             // 
             this.btnClose.FlatAppearance.BorderSize = 0;
@@ -177,16 +188,6 @@
             this.btnClose.Text = "X";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // pbUserIcon
-            // 
-            this.pbUserIcon.Image = global::SalesInventorySystem_WAM1.Properties.Resources._1177568;
-            this.pbUserIcon.Location = new System.Drawing.Point(60, 22);
-            this.pbUserIcon.Name = "pbUserIcon";
-            this.pbUserIcon.Size = new System.Drawing.Size(63, 63);
-            this.pbUserIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbUserIcon.TabIndex = 1;
-            this.pbUserIcon.TabStop = false;
             // 
             // lblMenu
             // 
@@ -218,6 +219,7 @@
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.pnlNavigation);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sales & Inventory System";
@@ -245,7 +247,7 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnUsers;
         private System.Windows.Forms.Label lblMenu;
-        private System.Windows.Forms.Panel PnlFormLoader;
+        public System.Windows.Forms.Panel PnlFormLoader;
     }
 }
 

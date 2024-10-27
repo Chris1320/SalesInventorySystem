@@ -51,6 +51,9 @@
     <StartupObject>
     </StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>10827455.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -76,6 +79,12 @@
     </Compile>
     <Compile Include="frmSales.Designer.cs">
       <DependentUpon>frmSales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmUserAddModify.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUserAddModify.Designer.cs">
+      <DependentUpon>frmUserAddModify.cs</DependentUpon>
     </Compile>
     <Compile Include="frmUsers.cs">
       <SubType>Form</SubType>
@@ -110,6 +119,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSales.resx">
       <DependentUpon>frmSales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUserAddModify.resx">
+      <DependentUpon>frmUserAddModify.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmUsers.resx">
       <DependentUpon>frmUsers.cs</DependentUpon>
@@ -163,6 +175,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\10827455.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="10827455.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

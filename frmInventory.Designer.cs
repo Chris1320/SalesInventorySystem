@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmInventory));
             this.dgvInventory = new System.Windows.Forms.DataGridView();
             this.lblItemID = new System.Windows.Forms.Label();
             this.txtItemID = new System.Windows.Forms.TextBox();
@@ -283,6 +284,7 @@
             this.Controls.Add(this.lblItemID);
             this.Controls.Add(this.dgvInventory);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmInventory";
             this.Text = "frmInventory";
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).EndInit();

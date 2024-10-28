@@ -27,7 +27,7 @@ namespace SalesInventorySystem_WAM1
 
         private void tmrLoad_Tick(object sender, EventArgs e)
         {
-            pnlLoading.Width += 5;
+            pnlLoading.Width += 10;
 
             if (pnlLoading.Width >= 599)
             {

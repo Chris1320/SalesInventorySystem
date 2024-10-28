@@ -223,7 +223,6 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sales & Inventory System";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.pnlNavigation.ResumeLayout(false);
             this.pnlUser.ResumeLayout(false);
             this.pnlUser.PerformLayout();

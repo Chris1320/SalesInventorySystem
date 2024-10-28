@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SalesInventorySystem_WAM1.Models
 {
-    internal class User
+    public class User
     {
         public int Id { get; }
         public string Username { get; set; }

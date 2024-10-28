@@ -29,5 +29,5 @@ jobs:
             - name: Upload Artifact
               uses: actions/upload-artifact@v4
               with:
-                  name: StudentInformationSheet win-x64
+                  name: SalesInventorySystem_WAM1 win-x64
                   path: ./bin/Release/

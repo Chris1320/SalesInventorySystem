@@ -31,7 +31,10 @@ namespace SalesInventorySystem_WAM1
             var db = new DatabaseHandler();
             var user = db.Login(txtUsername.Text, txtPassword.Text);
             if (user == null)
+            {
                 MessageBox.Show("Invalid Username or Password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             var mainForm = new MainForm(user);
             mainForm.Closed += (s, args) => this.Close();

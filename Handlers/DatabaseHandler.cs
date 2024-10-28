@@ -54,7 +54,7 @@ namespace SalesInventorySystem_WAM1.Handlers
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "SELECT * FROM users WHERE username = @username AND password = @password";
+                    command.CommandText = "SELECT * FROM users WHERE username = @username AND userpass = @password";
                     command.Parameters.AddWithValue("@username", username);
                     command.Parameters.AddWithValue("@password", EncryptPassword(password));
                     using (var reader = command.ExecuteReader())
@@ -63,7 +63,7 @@ namespace SalesInventorySystem_WAM1.Handlers
                         return new User(
                             reader.GetInt32("id"),
                             reader.GetString("username"),
-                            reader.GetString("password")
+                            reader.GetString("userpass")
                         );
                     }
                 }

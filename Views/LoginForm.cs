@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using SalesInventorySystem_WAM1.Handlers;
 
 namespace SalesInventorySystem_WAM1
 {
@@ -15,13 +9,15 @@ namespace SalesInventorySystem_WAM1
     {
         //Border
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern IntPtr CreateRoundRectRGN
-            (int nLeftRect,
-             int nTopTect,
-             int nRightRect,
-             int nBottomRect,
-             int nWidthEllipse,
-             int nHeightEllipse);
+        private static extern IntPtr CreateRoundRectRGN(
+            int nLeftRect,
+            int nTopTect,
+            int nRightRect,
+            int nBottomRect,
+            int nWidthEllipse,
+            int nHeightEllipse
+        );
+
         public LoginForm()
         {
             InitializeComponent();
@@ -29,28 +25,24 @@ namespace SalesInventorySystem_WAM1
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRGN(0, 0, Width, Height, 25, 25));
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
+        private void btnClose_Click(object sender, EventArgs e) => Application.Exit();
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            //Temporary
-            new MainForm().Show();
+            var db = new DatabaseHandler();
+            var user = db.Login(txtUsername.Text, txtPassword.Text);
+            if (user == null)
+                MessageBox.Show("Invalid Username or Password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            var mainForm = new MainForm(user);
+            mainForm.Closed += (s, args) => this.Close();
+            mainForm.Show();
             this.Hide();
         }
 
         private void chkShowPassword_CheckedChanged(object sender, EventArgs e)
         {
-            if (chkShowPassword.Checked == true)
-            {
-                txtPassword.PasswordChar = '\0';
-            }
-            else
-            {
-                txtPassword.PasswordChar = '*';
-            }
+            if (chkShowPassword.Checked == true) txtPassword.PasswordChar = '\0';
+            else txtPassword.PasswordChar = '*';
         }
 
         private void btnClear_Click(object sender, EventArgs e)

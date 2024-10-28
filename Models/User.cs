@@ -11,12 +11,16 @@ namespace SalesInventorySystem_WAM1.Models
         public int Id { get; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public string Name { get; set; }
+        public string Role { get; set; }
 
-        public User(int id, string username, string password)
+        public User(int id, string username, string password, string name, string role)
         {
             Id = id;
             Username = username;
             Password = password;
+            Name = name == null ? null : name;
+            Role = role;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System.Collections.Generic;
 using SalesInventorySystem_WAM1.Models;
 using System.Security.Cryptography;
 using System.Text;
@@ -64,8 +65,70 @@ namespace SalesInventorySystem_WAM1.Handlers
                         return new User(
                             reader.GetInt32("id"),
                             reader.GetString("username"),
-                            reader.GetString("userpass")
+                            reader.GetString("userpass"),
+                            reader.IsDBNull(reader.GetOrdinal("name")) ? string.Empty : reader.GetString("name"),
+                            reader.GetString("role")
                         );
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get all users in the database.
+        /// </summary>
+        /// <returns>A list of users in the database.</returns>
+        public List<User> GetAllUsers()
+        {
+            List<User> users = new List<User>();
+            using (MySqlConnection connection = GetNewConnection())
+            {
+                connection.Open();
+                using (MySqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT * FROM users";
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            users.Add(
+                                new User(
+                                    reader.GetInt32("id"),
+                                    reader.GetString("username"),
+                                    reader.GetString("userpass"),
+                                    reader.IsDBNull(reader.GetOrdinal("name")) ? string.Empty : reader.GetString("name"),
+                                    reader.GetString("role")
+                                )
+                            );
+                        }
+                    }
+                }
+            }
+            return users;
+        }
+
+        public User GetUser(int user_id)
+        {
+            using (MySqlConnection connection = GetNewConnection())
+            {
+                connection.Open();
+                using (MySqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT * FROM users WHERE id = @user_id";
+                    command.Parameters.AddWithValue("@user_id", user_id);
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new User(
+                                reader.GetInt32("id"),
+                                reader.GetString("username"),
+                                reader.GetString("userpass"),
+                                reader.IsDBNull(reader.GetOrdinal("name")) ? string.Empty : reader.GetString("name"),
+                                reader.GetString("role")
+                            );
+                        }
+                        return null;
                     }
                 }
             }

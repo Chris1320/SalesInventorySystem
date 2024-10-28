@@ -54,9 +54,10 @@ namespace SalesInventorySystem_WAM1.Handlers
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
+                    var hashed_pass = EncryptPassword(password);
                     command.CommandText = "SELECT * FROM users WHERE username = @username AND userpass = @password";
                     command.Parameters.AddWithValue("@username", username);
-                    command.Parameters.AddWithValue("@password", EncryptPassword(password));
+                    command.Parameters.AddWithValue("@password", hashed_pass);
                     using (var reader = command.ExecuteReader())
                     {
                         if (!reader.Read()) return null;

@@ -83,5 +83,18 @@ namespace SalesInventorySystem_WAM1
             cbRole.SelectedIndex = -1;
             dtpDate.Value = DateTime.Now;
         }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (selected_user == -1)
+            {
+                MessageBox.Show("Please select a user to delete.");
+                return;
+            }
+
+            db.DeleteUser(selected_user);
+            UpdateUsersList();
+            MessageBox.Show("User deleted successfully.");
+        }
     }
 }

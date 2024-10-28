@@ -133,5 +133,19 @@ namespace SalesInventorySystem_WAM1.Handlers
                 }
             }
         }
+
+        public void DeleteUser(int user_id)
+        {
+            using (MySqlConnection connection = GetNewConnection())
+            {
+                connection.Open();
+                using (MySqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "DELETE FROM users WHERE id = @user_id";
+                    command.Parameters.AddWithValue("@user_id", user_id);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

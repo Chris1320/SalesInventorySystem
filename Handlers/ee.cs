@@ -1,0 +1,27 @@
+﻿using System;
+using System.Text;
+
+namespace SalesInventorySystem_WAM1.Handlers
+{
+    internal class ee
+    {
+        public static string a()
+        {
+            var r = new Random();
+            return Encoding.UTF8.GetString(
+                Convert.FromBase64String(
+                    new string[]{
+                        "U2lnbiBtbyBuYSAndG8gPDM=", "U2FuYSBhbGwgbmFnLWVmZm9ydC4uLg==",
+                        "WWllZWUsIHBhc2FkbyBuYSAneWFuIQ==", "U2VsZi1sb3ZlIG9ubHk="
+                    }[r.Next(0, 4)]
+                )
+            );
+        }
+
+        public static bool c()
+        {
+            var r = new Random();
+            return r.Next(1, 101) <= 25;
+        }
+    }
+}

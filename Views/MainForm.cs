@@ -1,33 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using SalesInventorySystem_WAM1.Models;
 
 namespace SalesInventorySystem_WAM1
 {
     public partial class MainForm : Form
     {
+        User user = null;
+
         //Border
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern IntPtr CreateRoundRectRGN
-            (int nLeftRect,
-             int nTopTect,
-             int nRightRect,
-             int nBottomRect,
-             int nWidthEllipse,
-             int nHeightEllipse);
-        public MainForm()
+        private static extern IntPtr CreateRoundRectRGN(
+            int nLeftRect,
+            int nTopTect,
+            int nRightRect,
+            int nBottomRect,
+            int nWidthEllipse,
+            int nHeightEllipse
+        );
+
+        public MainForm(User user)
         {
+            this.user = user;
+
             InitializeComponent();
             //Border
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRGN(0, 0, Width, Height, 25, 25));
-
+            lblUserName.Text = user.Username;
+            lblRole.Text = user.Role;
+            btnUsers.Visible = user.Role == "admin";
             navSales(); //Default Navigation
         }
 
@@ -48,16 +51,7 @@ namespace SalesInventorySystem_WAM1
             FrmSales_Vrb.Show();
         }
 
-        private void btnSales_Click(object sender, EventArgs e)
-        {
-            navSales(); //Default Navigation
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
+        private void btnSales_Click(object sender, EventArgs e) => navSales(); //Default Navigation
         private void btnInventory_Click(object sender, EventArgs e)
         {
             pnlNav.Height = btnInventory.Height;
@@ -74,20 +68,9 @@ namespace SalesInventorySystem_WAM1
             FrmInventory_Vrb.Show();
         }
 
-        private void btnSales_Leave(object sender, EventArgs e)
-        {
-            btnSales.BackColor = Color.FromArgb(24, 30, 54);
-        }
-
-        private void btnInventory_Leave(object sender, EventArgs e)
-        {
-            btnInventory.BackColor = Color.FromArgb(24, 30, 54);
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
+        private void btnSales_Leave(object sender, EventArgs e) => btnSales.BackColor = Color.FromArgb(24, 30, 54);
+        private void btnInventory_Leave(object sender, EventArgs e) => btnInventory.BackColor = Color.FromArgb(24, 30, 54);
+        private void btnClose_Click(object sender, EventArgs e) => Application.Exit();
 
         private void button1_Click(object sender, EventArgs e) //btnUsers
         {
@@ -105,15 +88,13 @@ namespace SalesInventorySystem_WAM1
             FrmUsers_Vrb.Show();
         }
 
-        private void btnUsers_Leave(object sender, EventArgs e)
-        {
-            btnUsers.BackColor = Color.FromArgb(24, 30, 54);
-        }
-
+        private void btnUsers_Leave(object sender, EventArgs e) => btnUsers.BackColor = Color.FromArgb(24, 30, 54);
         private void btnLogOut_Click(object sender, EventArgs e)
         {
-            new LoginForm().Show();
-            this.Close();
+            var f = new LoginForm();
+            f.Closed += (s, args) => this.Close();
+            this.Hide();
+            f.Show();
         }
     }
 }

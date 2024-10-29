@@ -38,6 +38,7 @@
             this.lblInventory = new System.Windows.Forms.Label();
             this.lblSystem = new System.Windows.Forms.Label();
             this.lblCopyright = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.pnlFullLoading.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.SuspendLayout();
@@ -115,12 +116,22 @@
             this.lblCopyright.TabIndex = 6;
             this.lblCopyright.Text = "© 2024 Christopher Andrei Tayao | Karlo Robert Wagan";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(230, 250);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(0, 13);
+            this.label1.TabIndex = 7;
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // SplashScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(599, 345);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblCopyright);
             this.Controls.Add(this.lblSystem);
             this.Controls.Add(this.lblInventory);
@@ -150,5 +161,6 @@
         private System.Windows.Forms.Label lblInventory;
         private System.Windows.Forms.Label lblSystem;
         private System.Windows.Forms.Label lblCopyright;
+        private System.Windows.Forms.Label label1;
     }
 }

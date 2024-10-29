@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+﻿using SalesInventorySystem_WAM1.Handlers;
+using System;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SalesInventorySystem_WAM1
@@ -15,24 +9,27 @@ namespace SalesInventorySystem_WAM1
     {
         //Border
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern IntPtr CreateRoundRectRGN
-            (int nLeftRect,
-             int nTopTect,
-             int nRightRect,
-             int nBottomRect,
-             int nWidthEllipse,
-             int nHeightEllipse);
+        private static extern IntPtr CreateRoundRectRGN(
+            int nLeftRect,
+            int nTopTect,
+            int nRightRect,
+            int nBottomRect,
+            int nWidthEllipse,
+            int nHeightEllipse
+        );
+
         public SplashScreen()
         {
             InitializeComponent();
 
             //Border
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRGN(0, 0, Width, Height, 25, 25));
+            if (ee.c()) lblCopyright.Text = ee.a();
         }
 
         private void tmrLoad_Tick(object sender, EventArgs e)
         {
-            pnlLoading.Width += 5;
+            pnlLoading.Width += 10;
 
             if (pnlLoading.Width >= 599)
             {

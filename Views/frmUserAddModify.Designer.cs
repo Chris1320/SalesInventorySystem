@@ -73,6 +73,7 @@
             this.btnRegister.TabIndex = 20;
             this.btnRegister.Text = "REGISTER";
             this.btnRegister.UseVisualStyleBackColor = false;
+            this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
             // 
             // txtPassword
             // 
@@ -85,6 +86,7 @@
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(216, 28);
             this.txtPassword.TabIndex = 18;
+            this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             // 
             // lblPassword
             // 
@@ -165,6 +167,7 @@
             this.chkShowPassword.TabIndex = 27;
             this.chkShowPassword.Text = "Show Password";
             this.chkShowPassword.UseVisualStyleBackColor = true;
+            this.chkShowPassword.CheckedChanged += new System.EventHandler(this.chkShowPassword_CheckedChanged);
             // 
             // txtConfirmPassword
             // 
@@ -201,9 +204,13 @@
             // cbRole
             // 
             this.cbRole.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
+            this.cbRole.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbRole.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbRole.Font = new System.Drawing.Font("MS UI Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbRole.FormattingEnabled = true;
+            this.cbRole.Items.AddRange(new object[] {
+            "employee",
+            "admin"});
             this.cbRole.Location = new System.Drawing.Point(258, 100);
             this.cbRole.Name = "cbRole";
             this.cbRole.Size = new System.Drawing.Size(216, 29);
@@ -222,6 +229,7 @@
             this.btnDelete.TabIndex = 66;
             this.btnDelete.Text = "DELETE";
             this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // frmUserAddModify
             // 
@@ -248,7 +256,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmUserAddModify";
             this.Text = "frmUserAddModify";
-            this.Load += new System.EventHandler(this.frmUserAddModify_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

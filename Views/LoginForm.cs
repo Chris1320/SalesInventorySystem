@@ -28,8 +28,8 @@ namespace SalesInventorySystem_WAM1
         private void btnClose_Click(object sender, EventArgs e) => Application.Exit();
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            var db = new DatabaseHandler();
-            var user = db.Login(txtUsername.Text, txtPassword.Text);
+            var user_handler = new UserHandler();
+            var user = user_handler.Login(txtUsername.Text, txtPassword.Text);
             if (user == null)
             {
                 MessageBox.Show("Invalid Username or Password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

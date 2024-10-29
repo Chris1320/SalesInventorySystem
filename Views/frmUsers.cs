@@ -6,7 +6,7 @@ namespace SalesInventorySystem_WAM1
 {
     public partial class frmUsers : Form
     {
-        private DatabaseHandler db = new Handlers.DatabaseHandler();
+        private UserHandler user_handler = new UserHandler();
         private MainForm mainForm;
         private int selected_user;
 
@@ -29,7 +29,7 @@ namespace SalesInventorySystem_WAM1
             };
             if (user_id != -1)
             {
-                var u = db.GetUser(user_id);
+                var u = user_handler.GetUser(user_id);
                 frmUserAddModify_Vrb.user_id = user_id;
                 frmUserAddModify_Vrb.pub_txtName = u.Name;
                 frmUserAddModify_Vrb.pub_cbRole = u.Role;
@@ -44,7 +44,7 @@ namespace SalesInventorySystem_WAM1
         public void UpdateUsersList()
         {
 
-            var db = new DatabaseHandler();
+            var db = new UserHandler();
             var users = db.GetAllUsers();
             dgvUsers.Rows.Clear();
             foreach (var user in users)
@@ -65,7 +65,7 @@ namespace SalesInventorySystem_WAM1
         private void dgvUsers_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int user_id = (int)dgvUsers.Rows[e.RowIndex].Cells["id"].Value;
-            var user = db.GetUser(user_id);
+            var user = user_handler.GetUser(user_id);
 
             selected_user = user_id;
             txtUsername.Text = user.Username;
@@ -107,7 +107,7 @@ namespace SalesInventorySystem_WAM1
             if (MessageBox.Show("Are you sure you want to delete this user?", "Delete User", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-            db.DeleteUser(selected_user);
+            user_handler.DeleteUser(selected_user);
             UpdateUsersList();
             MessageBox.Show("User deleted successfully.");
         }

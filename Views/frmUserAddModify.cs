@@ -7,7 +7,7 @@ namespace SalesInventorySystem_WAM1
 {
     public partial class frmUserAddModify : Form
     {
-        private DatabaseHandler db = new DatabaseHandler();
+        private UserHandler user_handler = new UserHandler();
         private MainForm mainForm;
 
         public int user_id;
@@ -81,11 +81,11 @@ namespace SalesInventorySystem_WAM1
 
             if (user_id == -1)
             {
-                db.AddUser(
+                user_handler.AddUser(
                     new User(
                         -1,
                         txtUsername.Text,
-                        DatabaseHandler.EncryptPassword(txtPassword.Text),
+                        UserHandler.EncryptPassword(txtPassword.Text),
                         txtName.Text,
                         cbRole.SelectedIndex == 1 ? "admin" : "employee",
                         DateTime.Now
@@ -107,11 +107,11 @@ namespace SalesInventorySystem_WAM1
             // Update user information
             if (password_changed)
             {
-                db.UpdateUser(
+                user_handler.UpdateUser(
                     new User(
                         user_id,
                         txtUsername.Text,
-                        DatabaseHandler.EncryptPassword(txtPassword.Text),
+                        UserHandler.EncryptPassword(txtPassword.Text),
                         txtName.Text,
                         cbRole.SelectedIndex == 1 ? "admin" : "employee",
                         DateTime.Now
@@ -120,11 +120,11 @@ namespace SalesInventorySystem_WAM1
             }
             else
             {
-                db.UpdateUser(
+                user_handler.UpdateUser(
                     new User(
                         user_id,
                         txtUsername.Text,
-                        db.GetUser(user_id).Password,
+                        user_handler.GetUser(user_id).Password,
                         txtName.Text,
                         cbRole.SelectedIndex == 1 ? "admin" : "employee",
                         DateTime.Now
@@ -163,7 +163,7 @@ namespace SalesInventorySystem_WAM1
 
             if (MessageBox.Show("Are you sure you want to delete this user?", "Delete User", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                db.DeleteUser(user_id);
+                user_handler.DeleteUser(user_id);
                 MessageBox.Show("User deleted successfully.");
                 btnBack.PerformClick();
             }

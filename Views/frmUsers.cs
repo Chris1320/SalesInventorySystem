@@ -52,7 +52,8 @@ namespace SalesInventorySystem_WAM1
                 dgvUsers.Rows.Add(
                     user.Id,
                     user.Username,
-                    user.Password
+                    string.IsNullOrEmpty(user.Name) ? "N/A" : user.Name,
+                    user.Role
                 );
             }
         }

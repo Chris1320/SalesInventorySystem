@@ -147,5 +147,22 @@ namespace SalesInventorySystem_WAM1.Handlers
                 }
             }
         }
+
+        public void AddUser(User userdata)
+        {
+            using (MySqlConnection connection = GetNewConnection())
+            {
+                connection.Open();
+                using (MySqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "INSERT INTO users (username, userpass, name, role) VALUES (@username, @userpass, @name, @role)";
+                    command.Parameters.AddWithValue("@username", userdata.Username);
+                    command.Parameters.AddWithValue("@userpass", userdata.Password);
+                    command.Parameters.AddWithValue("@name", userdata.Name);
+                    command.Parameters.AddWithValue("@role", userdata.Role);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

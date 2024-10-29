@@ -45,7 +45,8 @@
             this.dgvUsers = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.username = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.userpass = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.role = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             this.SuspendLayout();
             // 
@@ -122,6 +123,7 @@
             // cbRole
             // 
             this.cbRole.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
+            this.cbRole.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbRole.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbRole.ForeColor = System.Drawing.SystemColors.WindowText;
             this.cbRole.FormattingEnabled = true;
@@ -164,6 +166,7 @@
             this.btnSearch.TabIndex = 62;
             this.btnSearch.Text = "SEARCH";
             this.btnSearch.UseVisualStyleBackColor = false;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnAdd
             // 
@@ -214,13 +217,15 @@
             // 
             this.dgvUsers.AllowUserToAddRows = false;
             this.dgvUsers.AllowUserToDeleteRows = false;
+            this.dgvUsers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvUsers.BackgroundColor = System.Drawing.Color.White;
             this.dgvUsers.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUsers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
             this.username,
-            this.userpass});
+            this.name,
+            this.role});
             this.dgvUsers.Location = new System.Drawing.Point(323, 12);
             this.dgvUsers.MultiSelect = false;
             this.dgvUsers.Name = "dgvUsers";
@@ -240,11 +245,17 @@
             this.username.Name = "username";
             this.username.ReadOnly = true;
             // 
-            // userpass
+            // name
             // 
-            this.userpass.HeaderText = "Password";
-            this.userpass.Name = "userpass";
-            this.userpass.ReadOnly = true;
+            this.name.HeaderText = "Name";
+            this.name.Name = "name";
+            this.name.ReadOnly = true;
+            // 
+            // role
+            // 
+            this.role.HeaderText = "Role";
+            this.role.Name = "role";
+            this.role.ReadOnly = true;
             // 
             // frmUsers
             // 
@@ -294,6 +305,7 @@
         private System.Windows.Forms.DataGridView dgvUsers;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn username;
-        private System.Windows.Forms.DataGridViewTextBoxColumn userpass;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn role;
     }
 }

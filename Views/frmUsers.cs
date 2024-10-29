@@ -16,8 +16,7 @@ namespace SalesInventorySystem_WAM1
             InitializeComponent();
             UpdateUsersList();
         }
-
-        private void gotofrmUserAddModify()
+        private void gotofrmUserAddModify(int user_id)
         {
             //Form Loading
             //lblMenu.Text = "Sales";
@@ -28,6 +27,16 @@ namespace SalesInventorySystem_WAM1
                 TopLevel = false,
                 TopMost = true
             };
+            if (user_id != -1)
+            {
+                var u = db.GetUser(user_id);
+                frmUserAddModify_Vrb.user_id = user_id;
+                frmUserAddModify_Vrb.pub_txtName = u.Name;
+                frmUserAddModify_Vrb.pub_cbRole = u.Role;
+                frmUserAddModify_Vrb.pub_txtUsername = u.Username;
+                frmUserAddModify_Vrb.pub_btnRegister = "Modify User";
+            }
+            else frmUserAddModify_Vrb.user_id = -1;
             frmUserAddModify_Vrb.FormBorderStyle = FormBorderStyle.None;
             mainForm.PnlFormLoader.Controls.Add(frmUserAddModify_Vrb);
             frmUserAddModify_Vrb.Show();
@@ -48,8 +57,8 @@ namespace SalesInventorySystem_WAM1
             }
         }
 
-        private void btnAdd_Click(object sender, EventArgs e) => gotofrmUserAddModify();
-        private void btnModify_Click(object sender, EventArgs e) => gotofrmUserAddModify();
+        private void btnAdd_Click(object sender, EventArgs e) => gotofrmUserAddModify(-1);
+        private void btnModify_Click(object sender, EventArgs e) => gotofrmUserAddModify(selected_user);
 
         private void dgvUsers_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -95,6 +104,11 @@ namespace SalesInventorySystem_WAM1
             db.DeleteUser(selected_user);
             UpdateUsersList();
             MessageBox.Show("User deleted successfully.");
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

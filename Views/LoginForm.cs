@@ -50,9 +50,12 @@ namespace SalesInventorySystem_WAM1
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            txtUsername.Text = "";
-            txtPassword.Text = "";
+            txtUsername.Text = string.Empty;
+            txtPassword.Text = string.Empty;
             txtUsername.Focus();
         }
+
+        private void txtUsername_TextChanged(object sender, EventArgs e) => txtUsername.Text = txtUsername.Text.Replace("\n", "").Replace("\r", "").Trim();
+        private void txtPassword_TextChanged(object sender, EventArgs e) => txtPassword.Text = txtPassword.Text.Replace("\n", "").Replace("\r", "").Trim();
     }
 }

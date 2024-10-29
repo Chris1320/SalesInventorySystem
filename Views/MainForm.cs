@@ -28,6 +28,9 @@ namespace SalesInventorySystem_WAM1
             InitializeComponent();
             //Border
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRGN(0, 0, Width, Height, 25, 25));
+            lblUserName.Text = user.Username;
+            lblRole.Text = user.Role;
+            btnUsers.Visible = user.Role == "admin";
             navSales(); //Default Navigation
         }
 

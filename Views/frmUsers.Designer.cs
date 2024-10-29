@@ -47,6 +47,7 @@
             this.username = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.role = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.last_login = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             this.SuspendLayout();
             // 
@@ -137,6 +138,7 @@
             // 
             // dtpDate
             // 
+            this.dtpDate.Enabled = false;
             this.dtpDate.Location = new System.Drawing.Point(114, 156);
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(170, 20);
@@ -149,9 +151,9 @@
             this.lblDate.ForeColor = System.Drawing.Color.White;
             this.lblDate.Location = new System.Drawing.Point(12, 156);
             this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(53, 20);
+            this.lblDate.Size = new System.Drawing.Size(98, 20);
             this.lblDate.TabIndex = 61;
-            this.lblDate.Text = "Date:";
+            this.lblDate.Text = "Last Login:";
             // 
             // btnSearch
             // 
@@ -225,7 +227,8 @@
             this.id,
             this.username,
             this.name,
-            this.role});
+            this.role,
+            this.last_login});
             this.dgvUsers.Location = new System.Drawing.Point(323, 12);
             this.dgvUsers.MultiSelect = false;
             this.dgvUsers.Name = "dgvUsers";
@@ -256,6 +259,12 @@
             this.role.HeaderText = "Role";
             this.role.Name = "role";
             this.role.ReadOnly = true;
+            // 
+            // last_login
+            // 
+            this.last_login.HeaderText = "Last Login";
+            this.last_login.Name = "last_login";
+            this.last_login.ReadOnly = true;
             // 
             // frmUsers
             // 
@@ -307,5 +316,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn username;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridViewTextBoxColumn role;
+        private System.Windows.Forms.DataGridViewTextBoxColumn last_login;
     }
 }

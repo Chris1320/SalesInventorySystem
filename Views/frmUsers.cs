@@ -44,7 +44,7 @@ namespace SalesInventorySystem_WAM1
         public void UpdateUsersList()
         {
 
-            var db = new Handlers.DatabaseHandler();
+            var db = new DatabaseHandler();
             var users = db.GetAllUsers();
             dgvUsers.Rows.Clear();
             foreach (var user in users)
@@ -53,7 +53,8 @@ namespace SalesInventorySystem_WAM1
                     user.Id,
                     user.Username,
                     string.IsNullOrEmpty(user.Name) ? "N/A" : user.Name,
-                    user.Role
+                    user.Role,
+                    user.LastLogin == null ? "N/A" : user.LastLogin.Date.ToString("yyyy-MM-dd HH:mm:ss")
                 );
             }
         }
@@ -83,6 +84,7 @@ namespace SalesInventorySystem_WAM1
                     cbRole.SelectedIndex = -1;
                     break;
             }
+            dtpDate.Value = user.LastLogin;
         }
 
         private void btnClear_Click(object sender, EventArgs e)

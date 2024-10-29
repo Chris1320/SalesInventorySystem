@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using SalesInventorySystem_WAM1.Models;
 using System.Security.Cryptography;
 using System.Text;
+using System;
 
 namespace SalesInventorySystem_WAM1.Handlers
 {
@@ -62,14 +63,30 @@ namespace SalesInventorySystem_WAM1.Handlers
                     using (var reader = command.ExecuteReader())
                     {
                         if (!reader.Read()) return null;
+                        UpdateUserLastLoginTimestamp(reader.GetInt32("id"));
                         return new User(
                             reader.GetInt32("id"),
                             reader.GetString("username"),
                             reader.GetString("userpass"),
                             reader.IsDBNull(reader.GetOrdinal("name")) ? string.Empty : reader.GetString("name"),
-                            reader.GetString("role")
+                            reader.GetString("role"),
+                            reader.IsDBNull(reader.GetOrdinal("last_login")) ? DateTime.Now : reader.GetDateTime("last_login")
                         );
                     }
+                }
+            }
+        }
+
+        public void UpdateUserLastLoginTimestamp(int user_id)
+        {
+            using (var connection = GetNewConnection())
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "UPDATE users SET last_login = NOW() WHERE id = @user_id";
+                    command.Parameters.AddWithValue("@user_id", user_id);
+                    command.ExecuteNonQuery();
                 }
             }
         }
@@ -97,7 +114,8 @@ namespace SalesInventorySystem_WAM1.Handlers
                                     reader.GetString("username"),
                                     reader.GetString("userpass"),
                                     reader.IsDBNull(reader.GetOrdinal("name")) ? string.Empty : reader.GetString("name"),
-                                    reader.GetString("role")
+                                    reader.GetString("role"),
+                                    reader.IsDBNull(reader.GetOrdinal("last_login")) ? DateTime.Now : reader.GetDateTime("last_login")
                                 )
                             );
                         }
@@ -125,7 +143,8 @@ namespace SalesInventorySystem_WAM1.Handlers
                                 reader.GetString("username"),
                                 reader.GetString("userpass"),
                                 reader.IsDBNull(reader.GetOrdinal("name")) ? string.Empty : reader.GetString("name"),
-                                reader.GetString("role")
+                                reader.GetString("role"),
+                                reader.IsDBNull(reader.GetOrdinal("last_login")) ? DateTime.Now : reader.GetDateTime("last_login")
                             );
                         }
                         return null;

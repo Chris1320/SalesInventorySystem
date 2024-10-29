@@ -13,14 +13,16 @@ namespace SalesInventorySystem_WAM1.Models
         public string Password { get; set; }
         public string Name { get; set; }
         public string Role { get; set; }
+        public DateTime LastLogin { get; set; }
 
-        public User(int id, string username, string password, string name, string role)
+        public User(int id, string username, string password, string name, string role, DateTime last_login)
         {
             Id = id;
             Username = username;
             Password = password;
             Name = name == null ? null : name;
             Role = role;
+            LastLogin = last_login;
         }
     }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 28, 2024 at 05:54 PM
+-- Generation Time: Oct 29, 2024 at 02:21 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -32,16 +32,17 @@ CREATE TABLE `users` (
   `username` varchar(64) NOT NULL,
   `userpass` varchar(64) NOT NULL,
   `name` text DEFAULT NULL,
-  `role` text NOT NULL
+  `role` text NOT NULL,
+  `last_login` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `userpass`, `name`, `role`) VALUES
-(1, 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', NULL, 'admin'),
-(2, 'employee', '2fdc0177057d3a5c6c2c0821e01f4fa8d90f9a3bb7afd82b0db526af98d68de8', NULL, 'employee');
+INSERT INTO `users` (`id`, `username`, `userpass`, `name`, `role`, `last_login`) VALUES
+(1, 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', NULL, 'admin', NULL),
+(2, 'employee', '2fdc0177057d3a5c6c2c0821e01f4fa8d90f9a3bb7afd82b0db526af98d68de8', NULL, 'employee', NULL);
 
 --
 -- Indexes for dumped tables

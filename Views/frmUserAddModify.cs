@@ -87,7 +87,8 @@ namespace SalesInventorySystem_WAM1
                         txtUsername.Text,
                         DatabaseHandler.EncryptPassword(txtPassword.Text),
                         txtName.Text,
-                        cbRole.SelectedIndex == 1 ? "admin" : "employee"
+                        cbRole.SelectedIndex == 1 ? "admin" : "employee",
+                        DateTime.Now
                     )
                 );
                 MessageBox.Show("User added successfully.");
@@ -112,7 +113,8 @@ namespace SalesInventorySystem_WAM1
                         txtUsername.Text,
                         DatabaseHandler.EncryptPassword(txtPassword.Text),
                         txtName.Text,
-                        cbRole.SelectedIndex == 1 ? "admin" : "employee"
+                        cbRole.SelectedIndex == 1 ? "admin" : "employee",
+                        DateTime.Now
                     )
                 );
             }
@@ -124,7 +126,8 @@ namespace SalesInventorySystem_WAM1
                         txtUsername.Text,
                         db.GetUser(user_id).Password,
                         txtName.Text,
-                        cbRole.SelectedIndex == 1 ? "admin" : "employee"
+                        cbRole.SelectedIndex == 1 ? "admin" : "employee",
+                        DateTime.Now
                     )
                 );
             }

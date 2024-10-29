@@ -87,6 +87,16 @@ namespace SalesInventorySystem_WAM1
                         cbRole.SelectedIndex == 1 ? "admin" : "employee"
                     )
                 );
+                MessageBox.Show("User added successfully.");
+                var mainfrm = new frmUsers(mainForm)
+                {
+                    Dock = DockStyle.Fill,
+                    TopLevel = false,
+                    TopMost = true
+                };
+                mainForm.PnlFormLoader.Controls.Add(mainfrm);
+                mainfrm.Show();
+                this.Dispose();
             }
         }
 
@@ -97,5 +107,21 @@ namespace SalesInventorySystem_WAM1
         }
 
         private void txtPassword_TextChanged(object sender, EventArgs e) => password_changed = true;
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (user_id == -1)
+            {
+                MessageBox.Show("You are not modifying an existing user, so there's nothing to delete.");
+                return;
+            }
+
+            if (MessageBox.Show("Are you sure you want to delete this user?", "Delete User", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                db.DeleteUser(user_id);
+                MessageBox.Show("User deleted successfully.");
+                btnBack.PerformClick();
+            }
+        }
     }
 }

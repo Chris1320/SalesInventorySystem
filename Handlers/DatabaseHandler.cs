@@ -164,5 +164,23 @@ namespace SalesInventorySystem_WAM1.Handlers
                 }
             }
         }
+
+        public void UpdateUser(User userdata)
+        {
+            using (MySqlConnection connection = GetNewConnection())
+            {
+                connection.Open();
+                using (MySqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "UPDATE users SET username = @username, userpass = @userpass, name = @name, role = @role WHERE id = @id";
+                    command.Parameters.AddWithValue("@username", userdata.Username);
+                    command.Parameters.AddWithValue("@userpass", userdata.Password);
+                    command.Parameters.AddWithValue("@name", userdata.Name);
+                    command.Parameters.AddWithValue("@role", userdata.Role);
+                    command.Parameters.AddWithValue("@id", userdata.Id);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

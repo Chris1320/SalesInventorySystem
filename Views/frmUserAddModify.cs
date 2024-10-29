@@ -72,8 +72,11 @@ namespace SalesInventorySystem_WAM1
         private void btnRegister_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtUsername.Text)) { MessageBox.Show("Invalid Username"); return; }
-            if (string.IsNullOrEmpty(txtPassword.Text)) { MessageBox.Show("Invalid Password"); return; }
-            if (txtPassword.Text != txtConfirmPassword.Text) { MessageBox.Show("Passwords do not match"); return; }
+            if (user_id != -1 && password_changed)
+            {
+                if (string.IsNullOrEmpty(txtPassword.Text)) { MessageBox.Show("Invalid Password"); return; }
+                if (txtPassword.Text != txtConfirmPassword.Text) { MessageBox.Show("Passwords do not match"); return; }
+            }
             if (cbRole.SelectedIndex == -1) { MessageBox.Show("You must select a user role"); return; }
 
             if (user_id == -1)
@@ -94,10 +97,49 @@ namespace SalesInventorySystem_WAM1
                     TopLevel = false,
                     TopMost = true
                 };
+                // Go back to the Users form
                 mainForm.PnlFormLoader.Controls.Add(mainfrm);
                 mainfrm.Show();
                 this.Dispose();
             }
+
+            // Update user information
+            if (password_changed)
+            {
+                db.UpdateUser(
+                    new User(
+                        user_id,
+                        txtUsername.Text,
+                        DatabaseHandler.EncryptPassword(txtPassword.Text),
+                        txtName.Text,
+                        cbRole.SelectedIndex == 1 ? "admin" : "employee"
+                    )
+                );
+            }
+            else
+            {
+                db.UpdateUser(
+                    new User(
+                        user_id,
+                        txtUsername.Text,
+                        db.GetUser(user_id).Password,
+                        txtName.Text,
+                        cbRole.SelectedIndex == 1 ? "admin" : "employee"
+                    )
+                );
+            }
+
+            MessageBox.Show("User updated successfully.");
+            var mainfrm2 = new frmUsers(mainForm)
+            {
+                Dock = DockStyle.Fill,
+                TopLevel = false,
+                TopMost = true
+            };
+            // Go back to the Users form
+            mainForm.PnlFormLoader.Controls.Add(mainfrm2);
+            mainfrm2.Show();
+            this.Dispose();
         }
 
         private void chkShowPassword_CheckedChanged(object sender, EventArgs e)

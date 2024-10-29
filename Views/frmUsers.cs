@@ -101,6 +101,9 @@ namespace SalesInventorySystem_WAM1
                 return;
             }
 
+            if (MessageBox.Show("Are you sure you want to delete this user?", "Delete User", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+
             db.DeleteUser(selected_user);
             UpdateUsersList();
             MessageBox.Show("User deleted successfully.");

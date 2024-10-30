@@ -52,10 +52,8 @@ namespace SalesInventorySystem_WAM1
 
         private void chkShowPassword_CheckedChanged(object sender, EventArgs e)
         {
-            if (chkShowPassword.Checked == true)
-                txtPassword.PasswordChar = '\0';
-            else
-                txtPassword.PasswordChar = '*';
+            if (chkShowPassword.Checked == true) txtPassword.PasswordChar = '\0';
+            else txtPassword.PasswordChar = '*';
         }
 
         private void btnClear_Click(object sender, EventArgs e)

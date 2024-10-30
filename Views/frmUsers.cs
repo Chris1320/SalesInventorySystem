@@ -37,8 +37,8 @@ namespace SalesInventorySystem_WAM1
                 frmUserAddModify_Vrb.pub_txtUsername = u.Username;
                 frmUserAddModify_Vrb.pub_btnRegister = "Modify User";
             }
-            else
-                frmUserAddModify_Vrb.user_id = -1;
+            else frmUserAddModify_Vrb.user_id = -1;
+
             frmUserAddModify_Vrb.FormBorderStyle = FormBorderStyle.None;
             mainForm.PnlFormLoader.Controls.Add(frmUserAddModify_Vrb);
             frmUserAddModify_Vrb.Show();
@@ -85,13 +85,8 @@ namespace SalesInventorySystem_WAM1
             txtName.Text = user.Name;
             switch (user.Role)
             {
-                case "admin":
-                    cbRole.SelectedIndex = 1;
-                    break;
-                case "employee":
-                    cbRole.SelectedIndex = 0;
-                    break;
-
+                case "admin": cbRole.SelectedIndex = 1; break;
+                case "employee": cbRole.SelectedIndex = 0; break;
                 default:
                     MessageBox.Show("User has invalid role.");
                     cbRole.SelectedIndex = -1;

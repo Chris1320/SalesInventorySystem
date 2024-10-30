@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Text;
-using SalesInventorySystem_WAM1.Models;
 using System.Security.Cryptography;
+using System.Text;
 using MySql.Data.MySqlClient;
+using SalesInventorySystem_WAM1.Models;
 
 namespace SalesInventorySystem_WAM1.Handlers
 {
@@ -19,7 +19,8 @@ namespace SalesInventorySystem_WAM1.Handlers
             var c = new SHA256Managed();
             var h = new StringBuilder();
             byte[] hpw = c.ComputeHash(Encoding.UTF8.GetBytes(password));
-            foreach (byte b in hpw) h.Append(b.ToString("x2"));
+            foreach (byte b in hpw)
+                h.Append(b.ToString("x2"));
             return h.ToString();
         }
 
@@ -37,20 +38,26 @@ namespace SalesInventorySystem_WAM1.Handlers
                 using (var command = connection.CreateCommand())
                 {
                     var hashed_pass = EncryptPassword(password);
-                    command.CommandText = "SELECT * FROM users WHERE username = @username AND userpass = @password";
+                    command.CommandText =
+                        "SELECT * FROM users WHERE username = @username AND userpass = @password";
                     command.Parameters.AddWithValue("@username", username);
                     command.Parameters.AddWithValue("@password", hashed_pass);
                     using (var reader = command.ExecuteReader())
                     {
-                        if (!reader.Read()) return null;
+                        if (!reader.Read())
+                            return null;
                         UpdateUserLastLoginTimestamp(reader.GetInt32("id"));
                         return new User(
                             reader.GetInt32("id"),
                             reader.GetString("username"),
                             reader.GetString("userpass"),
-                            reader.IsDBNull(reader.GetOrdinal("name")) ? string.Empty : reader.GetString("name"),
+                            reader.IsDBNull(reader.GetOrdinal("name"))
+                                ? string.Empty
+                                : reader.GetString("name"),
                             reader.GetString("role"),
-                            reader.IsDBNull(reader.GetOrdinal("last_login")) ? DateTime.Now : reader.GetDateTime("last_login")
+                            reader.IsDBNull(reader.GetOrdinal("last_login"))
+                                ? DateTime.Now
+                                : reader.GetDateTime("last_login")
                         );
                     }
                 }
@@ -93,9 +100,13 @@ namespace SalesInventorySystem_WAM1.Handlers
                                     reader.GetInt32("id"),
                                     reader.GetString("username"),
                                     reader.GetString("userpass"),
-                                    reader.IsDBNull(reader.GetOrdinal("name")) ? string.Empty : reader.GetString("name"),
+                                    reader.IsDBNull(reader.GetOrdinal("name"))
+                                        ? string.Empty
+                                        : reader.GetString("name"),
                                     reader.GetString("role"),
-                                    reader.IsDBNull(reader.GetOrdinal("last_login")) ? DateTime.Now : reader.GetDateTime("last_login")
+                                    reader.IsDBNull(reader.GetOrdinal("last_login"))
+                                        ? DateTime.Now
+                                        : reader.GetDateTime("last_login")
                                 )
                             );
                         }
@@ -122,9 +133,13 @@ namespace SalesInventorySystem_WAM1.Handlers
                                 reader.GetInt32("id"),
                                 reader.GetString("username"),
                                 reader.GetString("userpass"),
-                                reader.IsDBNull(reader.GetOrdinal("name")) ? string.Empty : reader.GetString("name"),
+                                reader.IsDBNull(reader.GetOrdinal("name"))
+                                    ? string.Empty
+                                    : reader.GetString("name"),
                                 reader.GetString("role"),
-                                reader.IsDBNull(reader.GetOrdinal("last_login")) ? DateTime.Now : reader.GetDateTime("last_login")
+                                reader.IsDBNull(reader.GetOrdinal("last_login"))
+                                    ? DateTime.Now
+                                    : reader.GetDateTime("last_login")
                             );
                         }
                         return null;
@@ -154,7 +169,8 @@ namespace SalesInventorySystem_WAM1.Handlers
                 connection.Open();
                 using (MySqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO users (username, userpass, name, role) VALUES (@username, @userpass, @name, @role)";
+                    command.CommandText =
+                        "INSERT INTO users (username, userpass, name, role) VALUES (@username, @userpass, @name, @role)";
                     command.Parameters.AddWithValue("@username", userdata.Username);
                     command.Parameters.AddWithValue("@userpass", userdata.Password);
                     command.Parameters.AddWithValue("@name", userdata.Name);
@@ -171,7 +187,8 @@ namespace SalesInventorySystem_WAM1.Handlers
                 connection.Open();
                 using (MySqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "UPDATE users SET username = @username, userpass = @userpass, name = @name, role = @role WHERE id = @id";
+                    command.CommandText =
+                        "UPDATE users SET username = @username, userpass = @userpass, name = @name, role = @role WHERE id = @id";
                     command.Parameters.AddWithValue("@username", userdata.Username);
                     command.Parameters.AddWithValue("@userpass", userdata.Password);
                     command.Parameters.AddWithValue("@name", userdata.Name);

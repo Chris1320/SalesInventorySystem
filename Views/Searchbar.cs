@@ -24,7 +24,7 @@ namespace SalesInventorySystem_WAM1
         }
         public string query = "";
 
-        public Searchbar(DataGridView parent_dgv)
+        public Searchbar()
         {
             InitializeComponent();
             //Border

@@ -137,7 +137,7 @@ namespace SalesInventorySystem_WAM1
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            var searchbar = new Searchbar(dgvUsers);
+            var searchbar = new Searchbar();
             searchbar.searchbar_title = "Search Users";
             var query = searchbar.ShowDialog();
             if (query == DialogResult.OK)

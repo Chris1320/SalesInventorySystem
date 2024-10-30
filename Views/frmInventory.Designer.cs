@@ -128,6 +128,7 @@
             // 
             this.txtItemID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
             this.txtItemID.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtItemID.Enabled = false;
             this.txtItemID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtItemID.Location = new System.Drawing.Point(101, 18);
             this.txtItemID.Multiline = true;
@@ -216,6 +217,7 @@
             // cbCategory
             // 
             this.cbCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
+            this.cbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbCategory.ForeColor = System.Drawing.SystemColors.WindowText;
             this.cbCategory.FormattingEnabled = true;
@@ -288,6 +290,7 @@
             this.btnModify.TabIndex = 24;
             this.btnModify.Text = "MODIFY";
             this.btnModify.UseVisualStyleBackColor = false;
+            this.btnModify.Click += new System.EventHandler(this.btnModify_Click);
             // 
             // btnDelete
             // 

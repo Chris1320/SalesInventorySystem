@@ -35,7 +35,7 @@ namespace SalesInventorySystem_WAM1
             }
         }
 
-        public bool ValidateItems()
+        public bool ValidateComponentValues()
         {
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
@@ -102,7 +102,7 @@ namespace SalesInventorySystem_WAM1
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (!ValidateItems())
+            if (!ValidateComponentValues())
                 return;
 
             txtItemID.Text = item_handler.GenerateItemId().ToString();
@@ -159,7 +159,7 @@ namespace SalesInventorySystem_WAM1
 
         private void btnModify_Click(object sender, EventArgs e)
         {
-            if (!ValidateItems())
+            if (!ValidateComponentValues())
                 return;
 
             dtpDate.Value = DateTime.Now;

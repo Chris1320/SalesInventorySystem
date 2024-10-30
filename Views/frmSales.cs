@@ -153,5 +153,22 @@ namespace SalesInventorySystem_WAM1
         private void cbItem_SelectedIndexChanged(object sender, EventArgs e) => FillUpValues();
 
         private void txtQuantity_TextChanged(object sender, EventArgs e) => FillUpValues();
+
+        private void dgvSales_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+            var trans_id = (DateTime)dgvSales.Rows[e.RowIndex].Cells["id"].Value;
+            var transaction = sh.GetTransaction(trans_id);
+
+            selected_transaction = trans_id;
+            txtTransactionID.Text = trans_id.ToString();
+            cbItem.SelectedIndex = cbItem.FindString($"[{transaction.ItemId}]");
+            cbCategory.SelectedIndex = transaction.Category == "general" ? 0 : 1;
+            txtPrice.Text = transaction.Price.ToString();
+            txtQuantity.Text = transaction.Quantity.ToString();
+            txtStatus.Text = transaction.Status;
+            txtNotes.Text = transaction.Notes;
+        }
     }
 }

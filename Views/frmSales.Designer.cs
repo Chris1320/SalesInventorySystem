@@ -43,13 +43,6 @@
             this.txtTransactionID = new System.Windows.Forms.TextBox();
             this.lblItemID = new System.Windows.Forms.Label();
             this.dgvSales = new System.Windows.Forms.DataGridView();
-            this.txtStatus = new System.Windows.Forms.TextBox();
-            this.lblStatus = new System.Windows.Forms.Label();
-            this.lblNotes = new System.Windows.Forms.Label();
-            this.txtNotes = new System.Windows.Forms.TextBox();
-            this.btnStatus = new System.Windows.Forms.Button();
-            this.btnClear = new System.Windows.Forms.Button();
-            this.cbItem = new System.Windows.Forms.ComboBox();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.category = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,6 +50,13 @@
             this.quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.notes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtStatus = new System.Windows.Forms.TextBox();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.lblNotes = new System.Windows.Forms.Label();
+            this.txtNotes = new System.Windows.Forms.TextBox();
+            this.btnStatus = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
+            this.cbItem = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSales)).BeginInit();
             this.SuspendLayout();
             // 
@@ -228,6 +228,8 @@
             // 
             // dgvSales
             // 
+            this.dgvSales.AllowUserToAddRows = false;
+            this.dgvSales.AllowUserToDeleteRows = false;
             this.dgvSales.BackgroundColor = System.Drawing.Color.White;
             this.dgvSales.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvSales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -243,6 +245,49 @@
             this.dgvSales.Name = "dgvSales";
             this.dgvSales.Size = new System.Drawing.Size(431, 453);
             this.dgvSales.TabIndex = 26;
+            this.dgvSales.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSales_CellClick);
+            // 
+            // id
+            // 
+            this.id.HeaderText = "Date";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            // 
+            // name
+            // 
+            this.name.HeaderText = "Item";
+            this.name.Name = "name";
+            this.name.ReadOnly = true;
+            // 
+            // category
+            // 
+            this.category.HeaderText = "Category";
+            this.category.Name = "category";
+            this.category.ReadOnly = true;
+            // 
+            // price
+            // 
+            this.price.HeaderText = "Price";
+            this.price.Name = "price";
+            this.price.ReadOnly = true;
+            // 
+            // quantity
+            // 
+            this.quantity.HeaderText = "Quantity";
+            this.quantity.Name = "quantity";
+            this.quantity.ReadOnly = true;
+            // 
+            // status
+            // 
+            this.status.HeaderText = "Status";
+            this.status.Name = "status";
+            this.status.ReadOnly = true;
+            // 
+            // notes
+            // 
+            this.notes.HeaderText = "Notes";
+            this.notes.Name = "notes";
+            this.notes.ReadOnly = true;
             // 
             // txtStatus
             // 
@@ -330,48 +375,6 @@
             this.cbItem.Size = new System.Drawing.Size(170, 21);
             this.cbItem.TabIndex = 49;
             this.cbItem.SelectedIndexChanged += new System.EventHandler(this.cbItem_SelectedIndexChanged);
-            // 
-            // id
-            // 
-            this.id.HeaderText = "Date";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            // 
-            // name
-            // 
-            this.name.HeaderText = "Item";
-            this.name.Name = "name";
-            this.name.ReadOnly = true;
-            // 
-            // category
-            // 
-            this.category.HeaderText = "Category";
-            this.category.Name = "category";
-            this.category.ReadOnly = true;
-            // 
-            // price
-            // 
-            this.price.HeaderText = "Price";
-            this.price.Name = "price";
-            this.price.ReadOnly = true;
-            // 
-            // quantity
-            // 
-            this.quantity.HeaderText = "Quantity";
-            this.quantity.Name = "quantity";
-            this.quantity.ReadOnly = true;
-            // 
-            // status
-            // 
-            this.status.HeaderText = "Status";
-            this.status.Name = "status";
-            this.status.ReadOnly = true;
-            // 
-            // notes
-            // 
-            this.notes.HeaderText = "Notes";
-            this.notes.Name = "notes";
-            this.notes.ReadOnly = true;
             // 
             // frmSales
             // 

@@ -35,39 +35,41 @@ namespace SalesInventorySystem_WAM1
             }
         }
 
-        public void ValidateItems()
+        public bool ValidateItems()
         {
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
                 MessageBox.Show("Please enter a name for the item.");
-                return;
+                return false;
             }
             if (cbCategory.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select a category for the item.");
-                return;
+                return false;
             }
             if (string.IsNullOrWhiteSpace(txtUnitPrice.Text))
             {
                 MessageBox.Show("Please enter a unit price for the item.");
-                return;
+                return false;
             }
             if (string.IsNullOrWhiteSpace(txtStock.Text))
             {
                 MessageBox.Show("Please enter a stock quantity for the item.");
-                return;
+                return false;
             }
 
             if (!double.TryParse(txtUnitPrice.Text, out double _))
             {
                 MessageBox.Show("Invalid unit price.");
-                return;
+                return false;
             }
             if (!int.TryParse(txtStock.Text, out int _))
             {
                 MessageBox.Show("Invalid stock quantity.");
-                return;
+                return false;
             }
+
+            return true;
         }
 
         private void dgvInventory_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -100,7 +102,9 @@ namespace SalesInventorySystem_WAM1
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            ValidateItems();
+            if (!ValidateItems())
+                return;
+
             txtItemID.Text = item_handler.GenerateItemId().ToString();
             dtpDate.Value = DateTime.Now;
 
@@ -155,7 +159,9 @@ namespace SalesInventorySystem_WAM1
 
         private void btnModify_Click(object sender, EventArgs e)
         {
-            ValidateItems();
+            if (!ValidateItems())
+                return;
+
             dtpDate.Value = DateTime.Now;
 
             item_handler.UpdateItem(

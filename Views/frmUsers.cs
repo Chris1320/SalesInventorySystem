@@ -8,7 +8,7 @@ namespace SalesInventorySystem_WAM1
     {
         private UserHandler user_handler = new UserHandler();
         private MainForm mainForm;
-        private int selected_user;
+        private int selected_user = -1;
 
         public frmUsers(MainForm mainForm)
         {
@@ -60,7 +60,15 @@ namespace SalesInventorySystem_WAM1
         }
 
         private void btnAdd_Click(object sender, EventArgs e) => gotofrmUserAddModify(-1);
-        private void btnModify_Click(object sender, EventArgs e) => gotofrmUserAddModify(selected_user);
+        private void btnModify_Click(object sender, EventArgs e)
+        {
+            if (selected_user == -1)
+            {
+                MessageBox.Show("Select a user first");
+                return;
+            }
+            gotofrmUserAddModify(selected_user);
+        }
 
         private void dgvUsers_CellClick(object sender, DataGridViewCellEventArgs e)
         {

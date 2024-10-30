@@ -77,6 +77,7 @@ namespace SalesInventorySystem_WAM1
 
         private void dgvUsers_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0) return;
             int user_id = (int)dgvUsers.Rows[e.RowIndex].Cells["id"].Value;
             var user = user_handler.GetUser(user_id);
 

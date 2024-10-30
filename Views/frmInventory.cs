@@ -34,8 +34,9 @@ namespace SalesInventorySystem_WAM1
             }
         }
 
-        private void dgvInventory_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvInventory_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0) return;
             int item_id = (int)dgvInventory.Rows[e.RowIndex].Cells["id"].Value;
             selected_item = item_id;
             var item = item_handler.GetItem(item_id);
@@ -44,12 +45,8 @@ namespace SalesInventorySystem_WAM1
             txtName.Text = item.Name;
             switch (item.Category)
             {
-                case "general":
-                    cbCategory.SelectedIndex = 0;
-                    break;
-                case "electronic":
-                    cbCategory.SelectedIndex = 1;
-                    break;
+                case "general": cbCategory.SelectedIndex = 0; break;
+                case "electronic": cbCategory.SelectedIndex = 1; break;
                 default:
                     MessageBox.Show("Item has invalid category.");
                     cbCategory.SelectedIndex = -1;

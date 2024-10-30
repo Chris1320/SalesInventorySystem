@@ -45,8 +45,8 @@ namespace SalesInventorySystem_WAM1.Handlers
                     using (var reader = command.ExecuteReader())
                     {
                         if (!reader.Read())
-                            return null;
-                        UpdateUserLastLoginTimestamp(reader.GetInt32("id"));
+                            return null; // Return null if the user does not exist.
+                        UpdateUserLastLoginTimestamp(reader.GetInt32("id")); // Update the last login timestamp.
                         return new User(
                             reader.GetInt32("id"),
                             reader.GetString("username"),
@@ -64,6 +64,10 @@ namespace SalesInventorySystem_WAM1.Handlers
             }
         }
 
+        /// <summary>
+        /// Update the last login timestamp of a user.
+        /// </summary>
+        /// <param name="user_id">The user to be updated.</param>
         public void UpdateUserLastLoginTimestamp(int user_id)
         {
             using (var connection = GetNewConnection())
@@ -116,6 +120,11 @@ namespace SalesInventorySystem_WAM1.Handlers
             return users;
         }
 
+        /// <summary>
+        /// Get a user by their ID.
+        /// </summary>
+        /// <param name="user_id">The ID of the user.</param>
+        /// <returns>A User object, or null if the user does not exist.</returns>
         public User GetUser(int user_id)
         {
             using (MySqlConnection connection = GetNewConnection())
@@ -142,12 +151,16 @@ namespace SalesInventorySystem_WAM1.Handlers
                                     : reader.GetDateTime("last_login")
                             );
                         }
-                        return null;
+                        return null; // Return null if the user does not exist.
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// Delete a user from the database.
+        /// </summary>
+        /// <param name="user_id">The ID of the user to be removed.</param>
         public void DeleteUser(int user_id)
         {
             using (MySqlConnection connection = GetNewConnection())
@@ -162,6 +175,10 @@ namespace SalesInventorySystem_WAM1.Handlers
             }
         }
 
+        /// <summary>
+        /// Add a new user to the database.
+        /// </summary>
+        /// <param name="userdata">The details of the new user.</param>
         public void AddUser(User userdata)
         {
             using (MySqlConnection connection = GetNewConnection())
@@ -180,6 +197,10 @@ namespace SalesInventorySystem_WAM1.Handlers
             }
         }
 
+        /// <summary>
+        /// Update a user's details in the database.
+        /// </summary>
+        /// <param name="userdata">The modified user data</param>
         public void UpdateUser(User userdata)
         {
             using (MySqlConnection connection = GetNewConnection())
@@ -199,6 +220,11 @@ namespace SalesInventorySystem_WAM1.Handlers
             }
         }
 
+        /// <summary>
+        /// Search for users in the database.
+        /// </summary>
+        /// <param name="query">The user's query.</param>
+        /// <returns>A list of Users that match the user's query.</returns>
         public List<User> SearchUsers(string query)
         {
             List<User> users = new List<User>();

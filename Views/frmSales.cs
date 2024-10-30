@@ -17,6 +17,10 @@ namespace SalesInventorySystem_WAM1
             UpdateTransactionsList(null);
         }
 
+        /// <summary>
+        /// Updates the transactions list in the DataGridView.
+        /// </summary>
+        /// <param name="query">If not null, search for transactions with details containing this query.</param>
         private void UpdateTransactionsList(string query)
         {
             cbItem.Items.Clear();
@@ -38,6 +42,10 @@ namespace SalesInventorySystem_WAM1
                 );
         }
 
+        /// <summary>
+        /// Validates the values of the components in the form.
+        /// </summary>
+        /// <returns>If the values are valid.</returns>
         private bool ValidateValues()
         {
             if (cbItem.SelectedIndex == -1)
@@ -93,11 +101,15 @@ namespace SalesInventorySystem_WAM1
             return true;
         }
 
+        /// <summary>
+        /// Fills up the values of the form based on the selected item and quantity.
+        /// </summary>
         private void FillUpValues()
         {
             // Get the item data
             if (cbItem.SelectedIndex != -1)
             {
+                // Get the item ID from the combobox
                 int item_id = int.Parse(cbItem.Text.Split(']')[0].Substring(1));
                 var item = ih.GetItem(item_id);
                 // Fill up the category combobox
@@ -106,6 +118,7 @@ namespace SalesInventorySystem_WAM1
                 if (int.TryParse(txtQuantity.Text, out int _))
                     txtPrice.Text = (item.UnitPrice * int.Parse(txtQuantity.Text)).ToString();
 
+                // Fill up the status with default value if it is empty.
                 if (txtStatus.Text == string.Empty)
                     txtStatus.Text = "Unpaid";
 
@@ -163,7 +176,7 @@ namespace SalesInventorySystem_WAM1
         private void dgvSales_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
-                return;
+                return; // do nothing if the header is clicked
             var trans_id = (DateTime)dgvSales.Rows[e.RowIndex].Cells["id"].Value;
             var transaction = sh.GetTransaction(trans_id);
 
@@ -176,6 +189,7 @@ namespace SalesInventorySystem_WAM1
             txtStatus.Text = transaction.Status;
             txtNotes.Text = transaction.Notes;
 
+            // Change the status button text depending on the status of the transaction
             btnStatus.Text = transaction.Status == "Unpaid" ? "PAID" : "UNPAID";
         }
 

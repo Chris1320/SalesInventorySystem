@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SalesInventorySystem_WAM1.Models
 {
+    /// <summary>
+    /// Represents a user in the system.
+    /// </summary>
     public class User
     {
         public int Id { get; }
@@ -15,7 +18,14 @@ namespace SalesInventorySystem_WAM1.Models
         public string Role { get; set; }
         public DateTime LastLogin { get; set; }
 
-        public User(int id, string username, string password, string name, string role, DateTime last_login)
+        public User(
+            int id,
+            string username,
+            string password,
+            string name,
+            string role,
+            DateTime last_login
+        )
         {
             Id = id;
             Username = username;

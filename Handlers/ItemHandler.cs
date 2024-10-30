@@ -24,6 +24,7 @@ namespace SalesInventorySystem_WAM1.Handlers
                     command.Parameters.AddWithValue("@id", new_id);
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
+                        // If the ID already exists, generate a new one.
                         if (reader.Read())
                             return GenerateItemId();
                         return new_id;
@@ -35,7 +36,7 @@ namespace SalesInventorySystem_WAM1.Handlers
         /// <summary>
         /// Add an item to the database.
         /// </summary>
-        /// <param name="itemdata"></param>
+        /// <param name="itemdata">The item to be added to the database.</param>
         public void AddItem(Item itemdata)
         {
             using (MySqlConnection connection = GetNewConnection())
@@ -56,6 +57,11 @@ namespace SalesInventorySystem_WAM1.Handlers
             }
         }
 
+        /// <summary>
+        /// Retrieve an item from the database.
+        /// </summary>
+        /// <param name="id">The ID of the item to be retrieved.</param>
+        /// <returns>An Item object or null if it does not exist.</returns>
         public Item GetItem(int id)
         {
             using (MySqlConnection connection = GetNewConnection())
@@ -79,12 +85,16 @@ namespace SalesInventorySystem_WAM1.Handlers
                                 DateAdded = reader.GetDateTime("date_added"),
                             };
                         }
-                        return null;
+                        return null; // Return null if the item does not exist.
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// Get all items from the database.
+        /// </summary>
+        /// <returns>A list of Items</returns>
         public List<Item> GetAllItems()
         {
             var items = new List<Item>();
@@ -102,6 +112,10 @@ namespace SalesInventorySystem_WAM1.Handlers
             return items;
         }
 
+        /// <summary>
+        /// Delete an item from the database.
+        /// </summary>
+        /// <param name="id">The ID of the item to be removed.</param>
         public void DeleteItem(int id)
         {
             using (MySqlConnection connection = GetNewConnection())
@@ -116,6 +130,10 @@ namespace SalesInventorySystem_WAM1.Handlers
             }
         }
 
+        /// <summary>
+        /// Update an item's information in the database.
+        /// </summary>
+        /// <param name="itemdata">The modified data of the item.</param>
         public void UpdateItem(Item itemdata)
         {
             using (MySqlConnection connection = GetNewConnection())
@@ -135,6 +153,11 @@ namespace SalesInventorySystem_WAM1.Handlers
             }
         }
 
+        /// <summary>
+        /// Search for items in the database.
+        /// </summary>
+        /// <param name="query">The user's search query.</param>
+        /// <returns>A list of Items that match the user's query.</returns>
         public List<Item> SearchItems(string query)
         {
             var items = new List<Item>();

@@ -7,6 +7,10 @@ namespace SalesInventorySystem_WAM1.Handlers
 {
     internal class SalesHandler : DatabaseHandler
     {
+        /// <summary>
+        /// Add a transaction to the database.
+        /// </summary>
+        /// <param name="transaction">The transaction to be added.</param>
         public void AddTransaction(Transaction transaction)
         {
             using (MySqlConnection connection = GetNewConnection())
@@ -27,6 +31,11 @@ namespace SalesInventorySystem_WAM1.Handlers
             }
         }
 
+        /// <summary>
+        /// Retrieve a transaction from the database.
+        /// </summary>
+        /// <param name="id">The ID of the transaction to be retrieved.</param>
+        /// <returns>A Transaction object, or null if it does not exist.</returns>
         public Transaction GetTransaction(DateTime id)
         {
             using (MySqlConnection connection = GetNewConnection())
@@ -52,9 +61,13 @@ namespace SalesInventorySystem_WAM1.Handlers
                     }
                 }
             }
-            return null;
+            return null; // Return null if the transaction does not exist.
         }
 
+        /// <summary>
+        /// Get all transactions from the database.
+        /// </summary>
+        /// <returns>A list of Transactions.</returns>
         public List<Transaction> GetAllTransactions()
         {
             using (MySqlConnection connection = GetNewConnection())
@@ -75,6 +88,10 @@ namespace SalesInventorySystem_WAM1.Handlers
             }
         }
 
+        /// <summary>
+        /// Remove a transaction from the database.
+        /// </summary>
+        /// <param name="id">The ID of the transacation to be deleted.</param>
         public void DeleteTransaction(DateTime id)
         {
             using (MySqlConnection connection = GetNewConnection())
@@ -89,6 +106,10 @@ namespace SalesInventorySystem_WAM1.Handlers
             }
         }
 
+        /// <summary>
+        /// Update a transaction in the database.
+        /// </summary>
+        /// <param name="transaction">The modified Transaction object.</param>
         public void UpdateTransaction(Transaction transaction)
         {
             using (MySqlConnection connection = GetNewConnection())
@@ -110,6 +131,11 @@ namespace SalesInventorySystem_WAM1.Handlers
             }
         }
 
+        /// <summary>
+        /// Search for transactions in the database that match the user's query.
+        /// </summary>
+        /// <param name="query">The user's query.</param>
+        /// <returns>A list of Transactions that match the user's query.</returns>
         public List<Transaction> SearchTransactions(string query)
         {
             using (MySqlConnection connection = GetNewConnection())
@@ -117,6 +143,7 @@ namespace SalesInventorySystem_WAM1.Handlers
                 connection.Open();
                 using (MySqlCommand command = connection.CreateCommand())
                 {
+                    // Join the sales and items tables to get the item name.
                     command.CommandText =
                         "SELECT sales.*, items.name AS item_name FROM sales JOIN items ON sales.item_id = items.id WHERE CONCAT_WS('', sales.id, sales.item_id, items.name, sales.category, sales.price, sales.quantity, sales.status, sales.notes) LIKE @query";
                     command.Parameters.AddWithValue("@query", $"%{query}%");

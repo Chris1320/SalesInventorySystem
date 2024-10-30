@@ -36,6 +36,9 @@ namespace SalesInventorySystem_WAM1
             navSales(); //Default Navigation
         }
 
+        /// <summary>
+        /// Shows the Sales form (default).
+        /// </summary>
         private void navSales()
         {
             //Default Navigation
@@ -89,12 +92,15 @@ namespace SalesInventorySystem_WAM1
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(
-                "Are you sure you want to exit?",
-                "Exit",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            ) == DialogResult.Yes) Application.Exit();
+            if (
+                MessageBox.Show(
+                    "Are you sure you want to exit?",
+                    "Exit",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                ) == DialogResult.Yes
+            )
+                Application.Exit();
         }
 
         private void button1_Click(object sender, EventArgs e) //btnUsers
@@ -123,12 +129,15 @@ namespace SalesInventorySystem_WAM1
 
         private void btnLogOut_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(
-                "Are you sure you want to log out?",
-                "Log Out",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            ) == DialogResult.No) return;
+            if (
+                MessageBox.Show(
+                    "Are you sure you want to log out?",
+                    "Log Out",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                ) == DialogResult.No
+            )
+                return;
 
             var f = new LoginForm();
             f.Closed += (s, args) => this.Close();

@@ -16,6 +16,10 @@ namespace SalesInventorySystem_WAM1
             UpdateItemsList(null);
         }
 
+        /// <summary>
+        /// Updates the items list in the DataGridView.
+        /// </summary>
+        /// <param name="query">If not null, search for items with details containing this query.</param>
         public void UpdateItemsList(string query)
         {
             var items =
@@ -36,6 +40,10 @@ namespace SalesInventorySystem_WAM1
             }
         }
 
+        /// <summary>
+        /// Validates the values of the components in the form.
+        /// </summary>
+        /// <returns>If the values are valid.</returns>
         public bool ValidateComponentValues()
         {
             if (string.IsNullOrWhiteSpace(txtName.Text))
@@ -76,7 +84,7 @@ namespace SalesInventorySystem_WAM1
         private void dgvInventory_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
-                return;
+                return; // do nothing if the header is clicked
             int item_id = (int)dgvInventory.Rows[e.RowIndex].Cells["id"].Value;
             selected_item = item_id;
             var item = item_handler.GetItem(item_id);

@@ -17,6 +17,10 @@ namespace SalesInventorySystem_WAM1
             UpdateUsersList(null);
         }
 
+        /// <summary>
+        /// Go to the User Add/Modify form.
+        /// </summary>
+        /// <param name="user_id">The ID of the user to modify. -1 if adding a new user.</param>
         private void gotofrmUserAddModify(int user_id)
         {
             //Form Loading
@@ -45,6 +49,10 @@ namespace SalesInventorySystem_WAM1
             frmUserAddModify_Vrb.Show();
         }
 
+        /// <summary>
+        /// Updates the users list in the DataGridView.
+        /// </summary>
+        /// <param name="query">If not null, search for users with details containing this query.</param>
         public void UpdateUsersList(string query)
         {
             var users =

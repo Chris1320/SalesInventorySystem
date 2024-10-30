@@ -69,5 +69,27 @@ namespace SalesInventorySystem_WAM1
             txtStock.Text = string.Empty;
             dtpDate.Value = DateTime.Now;
         }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (selected_item == -1)
+            {
+                MessageBox.Show("Please select an item to delete.");
+                return;
+            }
+            if (
+                MessageBox.Show(
+                    "Are you sure you want to delete this item?",
+                    "Delete Item",
+                    MessageBoxButtons.YesNo
+                ) == DialogResult.Yes
+            )
+            {
+                item_handler.DeleteItem(selected_item);
+                UpdateItemsList();
+                MessageBox.Show("Item deleted successfully.");
+                btnClear_Click(sender, e);
+            }
+        }
     }
 }

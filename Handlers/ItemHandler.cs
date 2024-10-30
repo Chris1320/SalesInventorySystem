@@ -113,5 +113,19 @@ namespace SalesInventorySystem_WAM1.Handlers
             }
             return items;
         }
+
+        public void DeleteItem(int id)
+        {
+            using (MySqlConnection connection = GetNewConnection())
+            {
+                connection.Open();
+                using (MySqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "DELETE FROM items WHERE id = @id";
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

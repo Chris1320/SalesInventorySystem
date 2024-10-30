@@ -35,6 +35,41 @@ namespace SalesInventorySystem_WAM1
             }
         }
 
+        public void ValidateItems()
+        {
+            if (string.IsNullOrWhiteSpace(txtName.Text))
+            {
+                MessageBox.Show("Please enter a name for the item.");
+                return;
+            }
+            if (cbCategory.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a category for the item.");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(txtUnitPrice.Text))
+            {
+                MessageBox.Show("Please enter a unit price for the item.");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(txtStock.Text))
+            {
+                MessageBox.Show("Please enter a stock quantity for the item.");
+                return;
+            }
+
+            if (!double.TryParse(txtUnitPrice.Text, out double _))
+            {
+                MessageBox.Show("Invalid unit price.");
+                return;
+            }
+            if (!int.TryParse(txtStock.Text, out int _))
+            {
+                MessageBox.Show("Invalid stock quantity.");
+                return;
+            }
+        }
+
         private void dgvInventory_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
@@ -65,38 +100,7 @@ namespace SalesInventorySystem_WAM1
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtName.Text))
-            {
-                MessageBox.Show("Please enter a name for the item.");
-                return;
-            }
-            if (cbCategory.SelectedIndex == -1)
-            {
-                MessageBox.Show("Please select a category for the item.");
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(txtUnitPrice.Text))
-            {
-                MessageBox.Show("Please enter a unit price for the item.");
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(txtStock.Text))
-            {
-                MessageBox.Show("Please enter a stock quantity for the item.");
-                return;
-            }
-
-            if (!double.TryParse(txtUnitPrice.Text, out double unit_price))
-            {
-                MessageBox.Show("Invalid unit price.");
-                return;
-            }
-            if (!int.TryParse(txtStock.Text, out int stock))
-            {
-                MessageBox.Show("Invalid stock quantity.");
-                return;
-            }
-
+            ValidateItems();
             txtItemID.Text = item_handler.GenerateItemId().ToString();
             dtpDate.Value = DateTime.Now;
 
@@ -106,8 +110,8 @@ namespace SalesInventorySystem_WAM1
                     Id = int.Parse(txtItemID.Text),
                     Name = txtName.Text,
                     Category = cbCategory.SelectedIndex == 0 ? "general" : "electronic",
-                    UnitPrice = unit_price,
-                    Stock = stock,
+                    UnitPrice = double.Parse(txtUnitPrice.Text),
+                    Stock = int.Parse(txtStock.Text),
                     DateAdded = dtpDate.Value,
                 }
             );
@@ -151,11 +155,22 @@ namespace SalesInventorySystem_WAM1
 
         private void btnModify_Click(object sender, EventArgs e)
         {
-            if (selected_item == -1)
-            {
-                MessageBox.Show("Please select an item to modify.");
-                return;
-            }
+            ValidateItems();
+            dtpDate.Value = DateTime.Now;
+
+            item_handler.UpdateItem(
+                new Item
+                {
+                    Id = selected_item,
+                    Name = txtName.Text,
+                    Category = cbCategory.SelectedIndex == 0 ? "general" : "electronic",
+                    UnitPrice = double.Parse(txtUnitPrice.Text),
+                    Stock = int.Parse(txtStock.Text),
+                    DateAdded = dtpDate.Value,
+                }
+            );
+
+            UpdateItemsList();
         }
     }
 }

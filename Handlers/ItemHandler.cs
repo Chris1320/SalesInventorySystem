@@ -1,7 +1,7 @@
-﻿using MySql.Data.MySqlClient;
-using SalesInventorySystem_WAM1.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using MySql.Data.MySqlClient;
+using SalesInventorySystem_WAM1.Models;
 
 namespace SalesInventorySystem_WAM1.Handlers
 {
@@ -24,7 +24,8 @@ namespace SalesInventorySystem_WAM1.Handlers
                     command.Parameters.AddWithValue("@id", new_id);
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
-                        if (reader.Read()) return GenerateItemId();
+                        if (reader.Read())
+                            return GenerateItemId();
                         return new_id;
                     }
                 }
@@ -42,7 +43,8 @@ namespace SalesInventorySystem_WAM1.Handlers
                 connection.Open();
                 using (MySqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO items (id, name, category, unit_price, stock, date_added) VALUES (@id, @name, @category, @unit_price, @stock, @date_added)";
+                    command.CommandText =
+                        "INSERT INTO items (id, name, category, unit_price, stock, date_added) VALUES (@id, @name, @category, @unit_price, @stock, @date_added)";
                     command.Parameters.AddWithValue("@id", itemdata.Id);
                     command.Parameters.AddWithValue("@name", itemdata.Name);
                     command.Parameters.AddWithValue("@category", itemdata.Category);
@@ -74,7 +76,7 @@ namespace SalesInventorySystem_WAM1.Handlers
                                 Category = reader.GetString("category"),
                                 UnitPrice = reader.GetDouble("unit_price"),
                                 Stock = reader.GetInt32("stock"),
-                                DateAdded = reader.GetDateTime("date_added")
+                                DateAdded = reader.GetDateTime("date_added"),
                             };
                         }
                         return null;
@@ -109,6 +111,25 @@ namespace SalesInventorySystem_WAM1.Handlers
                 {
                     command.CommandText = "DELETE FROM items WHERE id = @id";
                     command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void UpdateItem(Item itemdata)
+        {
+            using (MySqlConnection connection = GetNewConnection())
+            {
+                connection.Open();
+                using (MySqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText =
+                        "UPDATE items SET name = @name, category = @category, unit_price = @unit_price, stock = @stock WHERE id = @id";
+                    command.Parameters.AddWithValue("@id", itemdata.Id);
+                    command.Parameters.AddWithValue("@name", itemdata.Name);
+                    command.Parameters.AddWithValue("@category", itemdata.Category);
+                    command.Parameters.AddWithValue("@unit_price", itemdata.UnitPrice);
+                    command.Parameters.AddWithValue("@stock", itemdata.Stock);
                     command.ExecuteNonQuery();
                 }
             }

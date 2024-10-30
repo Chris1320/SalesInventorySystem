@@ -91,24 +91,10 @@ namespace SalesInventorySystem_WAM1.Handlers
                 connection.Open();
                 using (MySqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "SELECT * FROM items";
+                    command.CommandText = "SELECT id FROM items";
                     using (MySqlDataReader reader = command.ExecuteReader())
-                    {
                         while (reader.Read())
-                        {
-                            items.Add(
-                                new Item
-                                {
-                                    Id = reader.GetInt32("id"),
-                                    Name = reader.GetString("name"),
-                                    Category = reader.GetString("category"),
-                                    UnitPrice = reader.GetDouble("unit_price"),
-                                    Stock = reader.GetInt32("stock"),
-                                    DateAdded = reader.GetDateTime("date_added")
-                                }
-                            );
-                        }
-                    }
+                            items.Add(GetItem(reader.GetInt32("id")));
                 }
             }
             return items;

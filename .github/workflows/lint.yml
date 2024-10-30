@@ -18,5 +18,6 @@ jobs:
               env:
                   VALIDATE_ALL_CODEBASE: false
                   VALIDATE_GITLEAKS: false
+                  VALIDATE_SQLFLUFF: false
                   DEFAULT_BRANCH: "master"
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

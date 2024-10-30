@@ -31,6 +31,8 @@ namespace SalesInventorySystem_WAM1
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            btnLogin.Text = "Logging in...";
+            btnLogin.Enabled = false;
             var user_handler = new UserHandler();
             var user = user_handler.Login(txtUsername.Text, txtPassword.Text);
             if (user == null)
@@ -41,6 +43,8 @@ namespace SalesInventorySystem_WAM1
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );
+                btnLogin.Text = "Login";
+                btnLogin.Enabled = true;
                 return;
             }
 

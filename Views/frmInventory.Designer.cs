@@ -183,6 +183,9 @@
             this.cbCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbCategory.ForeColor = System.Drawing.SystemColors.WindowText;
             this.cbCategory.FormattingEnabled = true;
+            this.cbCategory.Items.AddRange(new object[] {
+            "General Item",
+            "Electronic Item"});
             this.cbCategory.Location = new System.Drawing.Point(101, 105);
             this.cbCategory.Name = "cbCategory";
             this.cbCategory.Size = new System.Drawing.Size(170, 21);
@@ -190,6 +193,7 @@
             // 
             // dtpDate
             // 
+            this.dtpDate.Enabled = false;
             this.dtpDate.Location = new System.Drawing.Point(101, 239);
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(170, 20);
@@ -276,6 +280,7 @@
             this.btnClear.TabIndex = 49;
             this.btnClear.Text = "CLEAR";
             this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // id
             // 

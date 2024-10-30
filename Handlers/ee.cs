@@ -13,7 +13,7 @@ namespace SalesInventorySystem_WAM1.Handlers
                     new string[]{
                         "U2lnbiBtbyBuYSAndG8gPDM=", "U2FuYSBhbGwgbmFnLWVmZm9ydC4uLg==",
                         "WWllZWUsIHBhc2FkbyBuYSAneWFuIQ==", "U2VsZi1sb3ZlIG9ubHk="
-                    }[r.Next(0, 4)]
+                    }[r.Next(0, 100) % 4]
                 )
             );
         }

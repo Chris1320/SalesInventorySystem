@@ -13,12 +13,13 @@ namespace SalesInventorySystem_WAM1
         public frmInventory()
         {
             InitializeComponent();
-            UpdateItemsList();
+            UpdateItemsList(null);
         }
 
-        public void UpdateItemsList()
+        public void UpdateItemsList(string query)
         {
-            var items = item_handler.GetAllItems();
+            var items =
+                query == null ? item_handler.GetAllItems() : item_handler.SearchItems(query);
             dgvInventory.Rows.Clear();
             foreach (var item in items)
             {
@@ -120,7 +121,7 @@ namespace SalesInventorySystem_WAM1
                 }
             );
 
-            UpdateItemsList();
+            UpdateItemsList(null);
             selected_item = Convert.ToInt32(txtItemID.Text);
         }
 
@@ -133,6 +134,7 @@ namespace SalesInventorySystem_WAM1
             txtUnitPrice.Text = string.Empty;
             txtStock.Text = string.Empty;
             dtpDate.Value = DateTime.Now;
+            UpdateItemsList(null);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -151,7 +153,7 @@ namespace SalesInventorySystem_WAM1
             )
             {
                 item_handler.DeleteItem(selected_item);
-                UpdateItemsList();
+                UpdateItemsList(null);
                 MessageBox.Show("Item deleted successfully.");
                 btnClear_Click(sender, e);
             }
@@ -176,7 +178,16 @@ namespace SalesInventorySystem_WAM1
                 }
             );
 
-            UpdateItemsList();
+            UpdateItemsList(null);
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            var searchbar = new Searchbar();
+            searchbar.searchbar_title = "Search Items";
+            var query = searchbar.ShowDialog();
+            if (query == DialogResult.OK)
+                UpdateItemsList(searchbar.query);
         }
     }
 }

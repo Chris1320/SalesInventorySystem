@@ -134,5 +134,24 @@ namespace SalesInventorySystem_WAM1.Handlers
                 }
             }
         }
+
+        public List<Item> SearchItems(string query)
+        {
+            var items = new List<Item>();
+            using (MySqlConnection connection = GetNewConnection())
+            {
+                connection.Open();
+                using (MySqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText =
+                        "SELECT * FROM items WHERE CONCAT_WS('', id, name, category, unit_price, stock) LIKE @query";
+                    command.Parameters.AddWithValue("@query", $"%{query}%");
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                        while (reader.Read())
+                            items.Add(GetItem(reader.GetInt32("id")));
+                }
+            }
+            return items;
+        }
     }
 }

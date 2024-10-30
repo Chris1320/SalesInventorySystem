@@ -7,12 +7,14 @@ namespace SalesInventorySystem_WAM1.Models
     /// </summary>
     public class Transaction
     {
-        public DateTime Timestamp { get; }
+        public DateTime Id { get; set; }
 
-        public int ItemId { get; }
-        public int Quantity { get; }
+        public int ItemId { get; set; }
+        public string Category { get; set; }
+        public double Price { get; set; }
+        public int Quantity { get; set; }
 
-        public string Status { get; }
-        public string Notes { get; }
+        public string Status { get; set; }
+        public string Notes { get; set; }
     }
 }

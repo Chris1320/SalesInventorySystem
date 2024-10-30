@@ -33,17 +33,14 @@
             this.btnModify = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.lblDate = new System.Windows.Forms.Label();
-            this.dtpDate = new System.Windows.Forms.DateTimePicker();
             this.cbCategory = new System.Windows.Forms.ComboBox();
             this.txtQuantity = new System.Windows.Forms.TextBox();
             this.txtPrice = new System.Windows.Forms.TextBox();
-            this.txtName = new System.Windows.Forms.TextBox();
             this.lblQuantity = new System.Windows.Forms.Label();
             this.lblPrice = new System.Windows.Forms.Label();
             this.lblCategory = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
-            this.txtItemID = new System.Windows.Forms.TextBox();
+            this.txtTransactionID = new System.Windows.Forms.TextBox();
             this.lblItemID = new System.Windows.Forms.Label();
             this.dgvSales = new System.Windows.Forms.DataGridView();
             this.txtStatus = new System.Windows.Forms.TextBox();
@@ -52,6 +49,14 @@
             this.txtNotes = new System.Windows.Forms.TextBox();
             this.btnStatus = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
+            this.cbItem = new System.Windows.Forms.ComboBox();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.category = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.notes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSales)).BeginInit();
             this.SuspendLayout();
             // 
@@ -96,6 +101,7 @@
             this.btnAdd.TabIndex = 40;
             this.btnAdd.Text = "ADD";
             this.btnAdd.UseVisualStyleBackColor = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnSearch
             // 
@@ -111,30 +117,17 @@
             this.btnSearch.Text = "SEARCH";
             this.btnSearch.UseVisualStyleBackColor = false;
             // 
-            // lblDate
-            // 
-            this.lblDate.AutoSize = true;
-            this.lblDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDate.ForeColor = System.Drawing.Color.White;
-            this.lblDate.Location = new System.Drawing.Point(12, 240);
-            this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(53, 20);
-            this.lblDate.TabIndex = 38;
-            this.lblDate.Text = "Date:";
-            // 
-            // dtpDate
-            // 
-            this.dtpDate.Location = new System.Drawing.Point(101, 239);
-            this.dtpDate.Name = "dtpDate";
-            this.dtpDate.Size = new System.Drawing.Size(170, 20);
-            this.dtpDate.TabIndex = 37;
-            // 
             // cbCategory
             // 
             this.cbCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
+            this.cbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCategory.Enabled = false;
             this.cbCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbCategory.ForeColor = System.Drawing.SystemColors.WindowText;
             this.cbCategory.FormattingEnabled = true;
+            this.cbCategory.Items.AddRange(new object[] {
+            "General Item",
+            "Electronic Item"});
             this.cbCategory.Location = new System.Drawing.Point(101, 105);
             this.cbCategory.Name = "cbCategory";
             this.cbCategory.Size = new System.Drawing.Size(170, 21);
@@ -150,28 +143,20 @@
             this.txtQuantity.Name = "txtQuantity";
             this.txtQuantity.Size = new System.Drawing.Size(170, 20);
             this.txtQuantity.TabIndex = 35;
+            this.txtQuantity.TextChanged += new System.EventHandler(this.txtQuantity_TextChanged);
             // 
             // txtPrice
             // 
             this.txtPrice.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
             this.txtPrice.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtPrice.Enabled = false;
             this.txtPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPrice.Location = new System.Drawing.Point(101, 150);
             this.txtPrice.Multiline = true;
             this.txtPrice.Name = "txtPrice";
+            this.txtPrice.ReadOnly = true;
             this.txtPrice.Size = new System.Drawing.Size(170, 20);
             this.txtPrice.TabIndex = 34;
-            // 
-            // txtName
-            // 
-            this.txtName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
-            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtName.Location = new System.Drawing.Point(101, 62);
-            this.txtName.Multiline = true;
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(170, 20);
-            this.txtName.TabIndex = 33;
             // 
             // lblQuantity
             // 
@@ -180,9 +165,9 @@
             this.lblQuantity.ForeColor = System.Drawing.Color.White;
             this.lblQuantity.Location = new System.Drawing.Point(12, 194);
             this.lblQuantity.Name = "lblQuantity";
-            this.lblQuantity.Size = new System.Drawing.Size(60, 20);
+            this.lblQuantity.Size = new System.Drawing.Size(81, 20);
             this.lblQuantity.TabIndex = 32;
-            this.lblQuantity.Text = "Stock:";
+            this.lblQuantity.Text = "Quantity:";
             // 
             // lblPrice
             // 
@@ -213,20 +198,22 @@
             this.lblName.ForeColor = System.Drawing.Color.White;
             this.lblName.Location = new System.Drawing.Point(12, 62);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(60, 20);
+            this.lblName.Size = new System.Drawing.Size(50, 20);
             this.lblName.TabIndex = 29;
-            this.lblName.Text = "Name:";
+            this.lblName.Text = "Item:";
             // 
-            // txtItemID
+            // txtTransactionID
             // 
-            this.txtItemID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
-            this.txtItemID.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtItemID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtItemID.Location = new System.Drawing.Point(101, 18);
-            this.txtItemID.Multiline = true;
-            this.txtItemID.Name = "txtItemID";
-            this.txtItemID.Size = new System.Drawing.Size(170, 20);
-            this.txtItemID.TabIndex = 28;
+            this.txtTransactionID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
+            this.txtTransactionID.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtTransactionID.Enabled = false;
+            this.txtTransactionID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTransactionID.Location = new System.Drawing.Point(101, 18);
+            this.txtTransactionID.Multiline = true;
+            this.txtTransactionID.Name = "txtTransactionID";
+            this.txtTransactionID.ReadOnly = true;
+            this.txtTransactionID.Size = new System.Drawing.Size(170, 20);
+            this.txtTransactionID.TabIndex = 28;
             // 
             // lblItemID
             // 
@@ -235,15 +222,23 @@
             this.lblItemID.ForeColor = System.Drawing.Color.White;
             this.lblItemID.Location = new System.Drawing.Point(12, 18);
             this.lblItemID.Name = "lblItemID";
-            this.lblItemID.Size = new System.Drawing.Size(74, 20);
+            this.lblItemID.Size = new System.Drawing.Size(53, 20);
             this.lblItemID.TabIndex = 27;
-            this.lblItemID.Text = "Item ID:";
+            this.lblItemID.Text = "Date:";
             // 
             // dgvSales
             // 
             this.dgvSales.BackgroundColor = System.Drawing.Color.White;
             this.dgvSales.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvSales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSales.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id,
+            this.name,
+            this.category,
+            this.price,
+            this.quantity,
+            this.status,
+            this.notes});
             this.dgvSales.Location = new System.Drawing.Point(290, 12);
             this.dgvSales.Name = "dgvSales";
             this.dgvSales.Size = new System.Drawing.Size(431, 453);
@@ -253,8 +248,9 @@
             // 
             this.txtStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
             this.txtStatus.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtStatus.Enabled = false;
             this.txtStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStatus.Location = new System.Drawing.Point(101, 281);
+            this.txtStatus.Location = new System.Drawing.Point(101, 236);
             this.txtStatus.Multiline = true;
             this.txtStatus.Name = "txtStatus";
             this.txtStatus.Size = new System.Drawing.Size(170, 20);
@@ -265,7 +261,7 @@
             this.lblStatus.AutoSize = true;
             this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStatus.ForeColor = System.Drawing.Color.White;
-            this.lblStatus.Location = new System.Drawing.Point(12, 281);
+            this.lblStatus.Location = new System.Drawing.Point(12, 236);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(67, 20);
             this.lblStatus.TabIndex = 44;
@@ -276,7 +272,7 @@
             this.lblNotes.AutoSize = true;
             this.lblNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNotes.ForeColor = System.Drawing.Color.White;
-            this.lblNotes.Location = new System.Drawing.Point(12, 323);
+            this.lblNotes.Location = new System.Drawing.Point(12, 278);
             this.lblNotes.Name = "lblNotes";
             this.lblNotes.Size = new System.Drawing.Size(61, 20);
             this.lblNotes.TabIndex = 45;
@@ -287,7 +283,7 @@
             this.txtNotes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
             this.txtNotes.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNotes.Location = new System.Drawing.Point(101, 323);
+            this.txtNotes.Location = new System.Drawing.Point(101, 278);
             this.txtNotes.Multiline = true;
             this.txtNotes.Name = "txtNotes";
             this.txtNotes.Size = new System.Drawing.Size(170, 68);
@@ -320,6 +316,62 @@
             this.btnClear.TabIndex = 48;
             this.btnClear.Text = "CLEAR";
             this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // cbItem
+            // 
+            this.cbItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
+            this.cbItem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbItem.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.cbItem.FormattingEnabled = true;
+            this.cbItem.Location = new System.Drawing.Point(101, 62);
+            this.cbItem.Name = "cbItem";
+            this.cbItem.Size = new System.Drawing.Size(170, 21);
+            this.cbItem.TabIndex = 49;
+            this.cbItem.SelectedIndexChanged += new System.EventHandler(this.cbItem_SelectedIndexChanged);
+            // 
+            // id
+            // 
+            this.id.HeaderText = "Date";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            // 
+            // name
+            // 
+            this.name.HeaderText = "Item";
+            this.name.Name = "name";
+            this.name.ReadOnly = true;
+            // 
+            // category
+            // 
+            this.category.HeaderText = "Category";
+            this.category.Name = "category";
+            this.category.ReadOnly = true;
+            // 
+            // price
+            // 
+            this.price.HeaderText = "Price";
+            this.price.Name = "price";
+            this.price.ReadOnly = true;
+            // 
+            // quantity
+            // 
+            this.quantity.HeaderText = "Quantity";
+            this.quantity.Name = "quantity";
+            this.quantity.ReadOnly = true;
+            // 
+            // status
+            // 
+            this.status.HeaderText = "Status";
+            this.status.Name = "status";
+            this.status.ReadOnly = true;
+            // 
+            // notes
+            // 
+            this.notes.HeaderText = "Notes";
+            this.notes.Name = "notes";
+            this.notes.ReadOnly = true;
             // 
             // frmSales
             // 
@@ -327,6 +379,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(733, 477);
+            this.Controls.Add(this.cbItem);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnStatus);
             this.Controls.Add(this.txtNotes);
@@ -337,17 +390,14 @@
             this.Controls.Add(this.btnModify);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnSearch);
-            this.Controls.Add(this.lblDate);
-            this.Controls.Add(this.dtpDate);
             this.Controls.Add(this.cbCategory);
             this.Controls.Add(this.txtQuantity);
             this.Controls.Add(this.txtPrice);
-            this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblQuantity);
             this.Controls.Add(this.lblPrice);
             this.Controls.Add(this.lblCategory);
             this.Controls.Add(this.lblName);
-            this.Controls.Add(this.txtItemID);
+            this.Controls.Add(this.txtTransactionID);
             this.Controls.Add(this.lblItemID);
             this.Controls.Add(this.dgvSales);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -366,17 +416,14 @@
         private System.Windows.Forms.Button btnModify;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.Label lblDate;
-        private System.Windows.Forms.DateTimePicker dtpDate;
         private System.Windows.Forms.ComboBox cbCategory;
         private System.Windows.Forms.TextBox txtQuantity;
         private System.Windows.Forms.TextBox txtPrice;
-        private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label lblQuantity;
         private System.Windows.Forms.Label lblPrice;
         private System.Windows.Forms.Label lblCategory;
         private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.TextBox txtItemID;
+        private System.Windows.Forms.TextBox txtTransactionID;
         private System.Windows.Forms.Label lblItemID;
         private System.Windows.Forms.DataGridView dgvSales;
         private System.Windows.Forms.TextBox txtStatus;
@@ -385,5 +432,13 @@
         private System.Windows.Forms.TextBox txtNotes;
         private System.Windows.Forms.Button btnStatus;
         private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.ComboBox cbItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn category;
+        private System.Windows.Forms.DataGridViewTextBoxColumn price;
+        private System.Windows.Forms.DataGridViewTextBoxColumn quantity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn status;
+        private System.Windows.Forms.DataGridViewTextBoxColumn notes;
     }
 }

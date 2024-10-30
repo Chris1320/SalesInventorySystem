@@ -47,10 +47,8 @@ namespace SalesInventorySystem_WAM1
 
         public void UpdateUsersList()
         {
-            var db = new UserHandler();
-            var users = db.GetAllUsers();
             dgvUsers.Rows.Clear();
-            foreach (var user in users)
+            foreach (var user in user_handler.GetAllUsers())
             {
                 dgvUsers.Rows.Add(
                     user.Id,

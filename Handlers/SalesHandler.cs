@@ -74,5 +74,19 @@ namespace SalesInventorySystem_WAM1.Handlers
                 }
             }
         }
+
+        public void DeleteTransaction(DateTime id)
+        {
+            using (MySqlConnection connection = GetNewConnection())
+            {
+                connection.Open();
+                using (MySqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "DELETE FROM sales WHERE id = @id";
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

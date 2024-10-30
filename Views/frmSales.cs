@@ -170,5 +170,38 @@ namespace SalesInventorySystem_WAM1
             txtStatus.Text = transaction.Status;
             txtNotes.Text = transaction.Notes;
         }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (selected_transaction == DateTime.MinValue)
+            {
+                MessageBox.Show(
+                    "Please select a transaction to delete.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+
+            if (
+                MessageBox.Show(
+                    "Are you sure you want to delete this transaction?",
+                    "Delete Transaction",
+                    MessageBoxButtons.YesNo
+                ) == DialogResult.No
+            )
+                return;
+
+            sh.DeleteTransaction(selected_transaction);
+            MessageBox.Show(
+                "Transaction deleted successfully.",
+                "Success",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
+            btnClear.PerformClick();
+            UpdateItemsList();
+        }
     }
 }

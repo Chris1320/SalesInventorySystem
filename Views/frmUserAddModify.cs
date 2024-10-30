@@ -24,18 +24,27 @@ namespace SalesInventorySystem_WAM1
             {
                 switch (cbRole.SelectedIndex)
                 {
-                    case 0: return "employee";
-                    case 1: return "admin";
-                    default: return string.Empty;
+                    case 0:
+                        return "employee";
+                    case 1:
+                        return "admin";
+                    default:
+                        return string.Empty;
                 }
             }
             set
             {
                 switch (value)
                 {
-                    case "employee": cbRole.SelectedIndex = 0; break;
-                    case "admin": cbRole.SelectedIndex = 1; break;
-                    default: cbRole.SelectedIndex = -1; break;
+                    case "employee":
+                        cbRole.SelectedIndex = 0;
+                        break;
+                    case "admin":
+                        cbRole.SelectedIndex = 1;
+                        break;
+                    default:
+                        cbRole.SelectedIndex = -1;
+                        break;
                 }
             }
         }
@@ -63,7 +72,12 @@ namespace SalesInventorySystem_WAM1
             //Form Loading
             //lblMenu.Text = "Sales";
             mainForm.PnlFormLoader.Controls.Clear();
-            frmUsers FrmUsers_Vrb = new frmUsers(mainForm) { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            frmUsers FrmUsers_Vrb = new frmUsers(mainForm)
+            {
+                Dock = DockStyle.Fill,
+                TopLevel = false,
+                TopMost = true,
+            };
             FrmUsers_Vrb.FormBorderStyle = FormBorderStyle.None;
             mainForm.PnlFormLoader.Controls.Add(FrmUsers_Vrb);
             FrmUsers_Vrb.Show();
@@ -71,13 +85,29 @@ namespace SalesInventorySystem_WAM1
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtUsername.Text)) { MessageBox.Show("Invalid Username"); return; }
-            if (user_id != -1 && password_changed)
+            if (string.IsNullOrEmpty(txtUsername.Text))
             {
-                if (string.IsNullOrEmpty(txtPassword.Text)) { MessageBox.Show("Invalid Password"); return; }
-                if (txtPassword.Text != txtConfirmPassword.Text) { MessageBox.Show("Passwords do not match"); return; }
+                MessageBox.Show("Invalid Username");
+                return;
             }
-            if (cbRole.SelectedIndex == -1) { MessageBox.Show("You must select a user role"); return; }
+            if (password_changed || user_id == -1)
+            {
+                if (string.IsNullOrEmpty(txtPassword.Text))
+                {
+                    MessageBox.Show("Invalid Password");
+                    return;
+                }
+                if (txtPassword.Text != txtConfirmPassword.Text)
+                {
+                    MessageBox.Show("Passwords do not match");
+                    return;
+                }
+            }
+            if (cbRole.SelectedIndex == -1)
+            {
+                MessageBox.Show("You must select a user role");
+                return;
+            }
 
             if (user_id == -1)
             {
@@ -96,7 +126,7 @@ namespace SalesInventorySystem_WAM1
                 {
                     Dock = DockStyle.Fill,
                     TopLevel = false,
-                    TopMost = true
+                    TopMost = true,
                 };
                 // Go back to the Users form
                 mainForm.PnlFormLoader.Controls.Add(mainfrm);
@@ -137,7 +167,7 @@ namespace SalesInventorySystem_WAM1
             {
                 Dock = DockStyle.Fill,
                 TopLevel = false,
-                TopMost = true
+                TopMost = true,
             };
             // Go back to the Users form
             mainForm.PnlFormLoader.Controls.Add(mainfrm2);
@@ -157,11 +187,19 @@ namespace SalesInventorySystem_WAM1
         {
             if (user_id == -1)
             {
-                MessageBox.Show("You are not modifying an existing user, so there's nothing to delete.");
+                MessageBox.Show(
+                    "You are not modifying an existing user, so there's nothing to delete."
+                );
                 return;
             }
 
-            if (MessageBox.Show("Are you sure you want to delete this user?", "Delete User", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (
+                MessageBox.Show(
+                    "Are you sure you want to delete this user?",
+                    "Delete User",
+                    MessageBoxButtons.YesNo
+                ) == DialogResult.Yes
+            )
             {
                 user_handler.DeleteUser(user_id);
                 MessageBox.Show("User deleted successfully.");

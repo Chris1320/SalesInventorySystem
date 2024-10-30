@@ -160,7 +160,7 @@
         private System.Windows.Forms.Label lblSales;
         private System.Windows.Forms.Label lblInventory;
         private System.Windows.Forms.Label lblSystem;
-        private System.Windows.Forms.Label lblCopyright;
+        public System.Windows.Forms.Label lblCopyright;
         private System.Windows.Forms.Label label1;
     }
 }

@@ -1,6 +1,6 @@
-﻿using SalesInventorySystem_WAM1.Handlers;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using SalesInventorySystem_WAM1.Handlers;
 
 namespace SalesInventorySystem_WAM1
 {
@@ -8,7 +8,7 @@ namespace SalesInventorySystem_WAM1
     {
         private UserHandler user_handler = new UserHandler();
         private MainForm mainForm;
-        private int selected_user;
+        private int selected_user = -1;
 
         public frmUsers(MainForm mainForm)
         {
@@ -16,6 +16,7 @@ namespace SalesInventorySystem_WAM1
             InitializeComponent();
             UpdateUsersList();
         }
+
         private void gotofrmUserAddModify(int user_id)
         {
             //Form Loading
@@ -25,7 +26,7 @@ namespace SalesInventorySystem_WAM1
             {
                 Dock = DockStyle.Fill,
                 TopLevel = false,
-                TopMost = true
+                TopMost = true,
             };
             if (user_id != -1)
             {
@@ -36,14 +37,16 @@ namespace SalesInventorySystem_WAM1
                 frmUserAddModify_Vrb.pub_txtUsername = u.Username;
                 frmUserAddModify_Vrb.pub_btnRegister = "Modify User";
             }
-            else frmUserAddModify_Vrb.user_id = -1;
+            else
+                frmUserAddModify_Vrb.user_id = -1;
+
             frmUserAddModify_Vrb.FormBorderStyle = FormBorderStyle.None;
             mainForm.PnlFormLoader.Controls.Add(frmUserAddModify_Vrb);
             frmUserAddModify_Vrb.Show();
         }
+
         public void UpdateUsersList()
         {
-
             var db = new UserHandler();
             var users = db.GetAllUsers();
             dgvUsers.Rows.Clear();
@@ -54,16 +57,29 @@ namespace SalesInventorySystem_WAM1
                     user.Username,
                     string.IsNullOrEmpty(user.Name) ? "N/A" : user.Name,
                     user.Role,
-                    user.LastLogin == null ? "N/A" : user.LastLogin.Date.ToString("yyyy-MM-dd HH:mm:ss")
+                    user.LastLogin == null
+                        ? "N/A"
+                        : user.LastLogin.Date.ToString("yyyy-MM-dd HH:mm:ss")
                 );
             }
         }
 
         private void btnAdd_Click(object sender, EventArgs e) => gotofrmUserAddModify(-1);
-        private void btnModify_Click(object sender, EventArgs e) => gotofrmUserAddModify(selected_user);
+
+        private void btnModify_Click(object sender, EventArgs e)
+        {
+            if (selected_user == -1)
+            {
+                MessageBox.Show("Select a user first");
+                return;
+            }
+            gotofrmUserAddModify(selected_user);
+        }
 
         private void dgvUsers_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0)
+                return;
             int user_id = (int)dgvUsers.Rows[e.RowIndex].Cells["id"].Value;
             var user = user_handler.GetUser(user_id);
 
@@ -78,7 +94,6 @@ namespace SalesInventorySystem_WAM1
                 case "employee":
                     cbRole.SelectedIndex = 0;
                     break;
-
                 default:
                     MessageBox.Show("User has invalid role.");
                     cbRole.SelectedIndex = -1;
@@ -104,17 +119,21 @@ namespace SalesInventorySystem_WAM1
                 return;
             }
 
-            if (MessageBox.Show("Are you sure you want to delete this user?", "Delete User", MessageBoxButtons.YesNo) == DialogResult.No)
+            if (
+                MessageBox.Show(
+                    "Are you sure you want to delete this user?",
+                    "Delete User",
+                    MessageBoxButtons.YesNo
+                ) == DialogResult.No
+            )
                 return;
 
             user_handler.DeleteUser(selected_user);
             UpdateUsersList();
+            btnClear.PerformClick();
             MessageBox.Show("User deleted successfully.");
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-
-        }
+        private void btnSearch_Click(object sender, EventArgs e) { }
     }
 }

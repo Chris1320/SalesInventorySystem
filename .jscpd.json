@@ -1,0 +1,5 @@
+{
+    "threshold": 10,
+    "ignore": ["*.Designer.cs"],
+    "absolute": true
+}

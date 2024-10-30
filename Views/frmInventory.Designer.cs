@@ -47,16 +47,32 @@
             this.btnModify = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.category = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.unit_price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stock = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.date_added = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvInventory
             // 
+            this.dgvInventory.AllowUserToAddRows = false;
+            this.dgvInventory.AllowUserToDeleteRows = false;
             this.dgvInventory.BackgroundColor = System.Drawing.Color.White;
             this.dgvInventory.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvInventory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvInventory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id,
+            this.name,
+            this.category,
+            this.unit_price,
+            this.stock,
+            this.date_added});
             this.dgvInventory.Location = new System.Drawing.Point(290, 12);
             this.dgvInventory.Name = "dgvInventory";
+            this.dgvInventory.ReadOnly = true;
             this.dgvInventory.Size = new System.Drawing.Size(431, 453);
             this.dgvInventory.TabIndex = 0;
             this.dgvInventory.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInventory_CellContentClick);
@@ -80,6 +96,7 @@
             this.txtItemID.Location = new System.Drawing.Point(101, 18);
             this.txtItemID.Multiline = true;
             this.txtItemID.Name = "txtItemID";
+            this.txtItemID.ReadOnly = true;
             this.txtItemID.Size = new System.Drawing.Size(170, 20);
             this.txtItemID.TabIndex = 10;
             // 
@@ -185,9 +202,9 @@
             this.lblDate.ForeColor = System.Drawing.Color.White;
             this.lblDate.Location = new System.Drawing.Point(12, 240);
             this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(53, 20);
+            this.lblDate.Size = new System.Drawing.Size(71, 20);
             this.lblDate.TabIndex = 21;
-            this.lblDate.Text = "Date:";
+            this.lblDate.Text = "Added: ";
             // 
             // btnSearch
             // 
@@ -216,6 +233,7 @@
             this.btnAdd.TabIndex = 23;
             this.btnAdd.Text = "ADD";
             this.btnAdd.UseVisualStyleBackColor = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnModify
             // 
@@ -258,6 +276,42 @@
             this.btnClear.TabIndex = 49;
             this.btnClear.Text = "CLEAR";
             this.btnClear.UseVisualStyleBackColor = false;
+            // 
+            // id
+            // 
+            this.id.HeaderText = "ID";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            // 
+            // name
+            // 
+            this.name.HeaderText = "Name";
+            this.name.Name = "name";
+            this.name.ReadOnly = true;
+            // 
+            // category
+            // 
+            this.category.HeaderText = "Category";
+            this.category.Name = "category";
+            this.category.ReadOnly = true;
+            // 
+            // unit_price
+            // 
+            this.unit_price.HeaderText = "Unit Price";
+            this.unit_price.Name = "unit_price";
+            this.unit_price.ReadOnly = true;
+            // 
+            // stock
+            // 
+            this.stock.HeaderText = "Stock";
+            this.stock.Name = "stock";
+            this.stock.ReadOnly = true;
+            // 
+            // date_added
+            // 
+            this.date_added.HeaderText = "Date Added";
+            this.date_added.Name = "date_added";
+            this.date_added.ReadOnly = true;
             // 
             // frmInventory
             // 
@@ -313,5 +367,11 @@
         private System.Windows.Forms.Button btnModify;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn category;
+        private System.Windows.Forms.DataGridViewTextBoxColumn unit_price;
+        private System.Windows.Forms.DataGridViewTextBoxColumn stock;
+        private System.Windows.Forms.DataGridViewTextBoxColumn date_added;
     }
 }

@@ -104,7 +104,9 @@ namespace SalesInventorySystem_WAM1
                 if (int.TryParse(txtQuantity.Text, out int _))
                     txtPrice.Text = (item.UnitPrice * int.Parse(txtQuantity.Text)).ToString();
 
-                txtStatus.Text = "Unpaid";
+                if (txtStatus.Text == string.Empty)
+                    txtStatus.Text = "Unpaid";
+
                 return;
             }
             txtPrice.Text = string.Empty;
@@ -223,6 +225,45 @@ namespace SalesInventorySystem_WAM1
             var transaction = sh.GetTransaction(selected_transaction);
             transaction.Status = transaction.Status == "Unpaid" ? "Paid" : "Unpaid";
             sh.UpdateTransaction(transaction);
+            btnClear.PerformClick();
+            UpdateItemsList();
+        }
+
+        private void btnModify_Click(object sender, EventArgs e)
+        {
+            if (selected_transaction == DateTime.MinValue)
+            {
+                MessageBox.Show(
+                    "Please select a transaction to update.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+
+            if (!ValidateValues())
+                return;
+
+            sh.UpdateTransaction(
+                new Transaction
+                {
+                    Id = selected_transaction,
+                    ItemId = int.Parse(cbItem.Text.Split(']')[0].Substring(1)),
+                    Category = cbCategory.SelectedIndex == 0 ? "general" : "electronic",
+                    Quantity = int.Parse(txtQuantity.Text),
+                    Price = double.Parse(txtPrice.Text),
+                    Status = txtStatus.Text,
+                    Notes = txtNotes.Text,
+                }
+            );
+
+            MessageBox.Show(
+                "Transaction updated successfully.",
+                "Success",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
             btnClear.PerformClick();
             UpdateItemsList();
         }

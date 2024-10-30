@@ -88,6 +88,7 @@
             this.btnModify.TabIndex = 41;
             this.btnModify.Text = "MODIFY";
             this.btnModify.UseVisualStyleBackColor = false;
+            this.btnModify.Click += new System.EventHandler(this.btnModify_Click);
             // 
             // btnAdd
             // 

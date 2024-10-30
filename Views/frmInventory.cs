@@ -81,6 +81,16 @@ namespace SalesInventorySystem_WAM1
                 MessageBox.Show("Invalid stock quantity.");
                 return false;
             }
+            if (double.Parse(txtUnitPrice.Text) < 0)
+            {
+                MessageBox.Show("Unit price cannot be negative.");
+                return false;
+            }
+            if (int.Parse(txtStock.Text) < 0)
+            {
+                MessageBox.Show("Stock quantity cannot be negative.");
+                return false;
+            }
 
             return true;
         }

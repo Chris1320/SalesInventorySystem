@@ -106,6 +106,26 @@ namespace SalesInventorySystem_WAM1
                 );
                 return false;
             }
+            if (int.Parse(txtQuantity.Text) < 0)
+            {
+                MessageBox.Show(
+                    "Quantity must be a positive number.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return false;
+            }
+            if (double.Parse(txtPrice.Text) < 0)
+            {
+                MessageBox.Show(
+                    "Price must be a positive number.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return false;
+            }
             return true;
         }
 
@@ -154,6 +174,20 @@ namespace SalesInventorySystem_WAM1
             if (!ValidateValues())
                 return;
 
+            if (
+                int.Parse(txtQuantity.Text)
+                > ih.GetItem(int.Parse(cbItem.Text.Split(']')[0].Substring(1))).Stock
+            )
+            {
+                MessageBox.Show(
+                    "The quantity exceeds the stock.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+
             sh.AddTransaction(
                 new Transaction
                 {
@@ -166,6 +200,9 @@ namespace SalesInventorySystem_WAM1
                     Notes = txtNotes.Text,
                 }
             );
+            var old_item = ih.GetItem(int.Parse(cbItem.Text.Split(']')[0].Substring(1)));
+            old_item.Stock -= int.Parse(txtQuantity.Text);
+            ih.UpdateItem(old_item);
 
             MessageBox.Show(
                 "Transaction added successfully.",
@@ -219,6 +256,10 @@ namespace SalesInventorySystem_WAM1
                 ) == DialogResult.No
             )
                 return;
+
+            var old_item = ih.GetItem(sh.GetTransaction(selected_transaction).ItemId);
+            old_item.Stock += sh.GetTransaction(selected_transaction).Quantity;
+            ih.UpdateItem(old_item);
 
             sh.DeleteTransaction(selected_transaction);
             MessageBox.Show(
@@ -302,6 +343,21 @@ namespace SalesInventorySystem_WAM1
             if (!ValidateValues())
                 return;
 
+            var old_stock_value = sh.GetTransaction(selected_transaction).Quantity;
+            if (
+                int.Parse(txtQuantity.Text) - old_stock_value
+                > ih.GetItem(int.Parse(cbItem.Text.Split(']')[0].Substring(1))).Stock
+            )
+            {
+                MessageBox.Show(
+                    "The quantity exceeds the stock.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+
             sh.UpdateTransaction(
                 new Transaction
                 {
@@ -314,6 +370,9 @@ namespace SalesInventorySystem_WAM1
                     Notes = txtNotes.Text,
                 }
             );
+            var old_item = ih.GetItem(int.Parse(cbItem.Text.Split(']')[0].Substring(1)));
+            old_item.Stock -= int.Parse(txtQuantity.Text) - old_stock_value;
+            ih.UpdateItem(old_item);
 
             MessageBox.Show(
                 "Transaction updated successfully.",

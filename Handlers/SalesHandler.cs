@@ -88,5 +88,26 @@ namespace SalesInventorySystem_WAM1.Handlers
                 }
             }
         }
+
+        public void UpdateTransaction(Transaction transaction)
+        {
+            using (MySqlConnection connection = GetNewConnection())
+            {
+                connection.Open();
+                using (MySqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText =
+                        "UPDATE sales SET item_id = @item_id, category = @category, price = @price, quantity = @quantity, status = @status, notes = @notes WHERE id = @id";
+                    command.Parameters.AddWithValue("@item_id", transaction.ItemId);
+                    command.Parameters.AddWithValue("@category", transaction.Category);
+                    command.Parameters.AddWithValue("@price", transaction.Price);
+                    command.Parameters.AddWithValue("@quantity", transaction.Quantity);
+                    command.Parameters.AddWithValue("@status", transaction.Status);
+                    command.Parameters.AddWithValue("@notes", transaction.Notes);
+                    command.Parameters.AddWithValue("@id", transaction.Id);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

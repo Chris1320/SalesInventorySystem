@@ -348,6 +348,7 @@
             this.btnStatus.TabIndex = 47;
             this.btnStatus.Text = "PAID";
             this.btnStatus.UseVisualStyleBackColor = false;
+            this.btnStatus.Click += new System.EventHandler(this.btnStatus_Click);
             // 
             // btnClear
             // 

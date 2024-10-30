@@ -23,6 +23,7 @@ namespace SalesInventorySystem_WAM1
             foreach (var item in ih.GetAllItems())
                 cbItem.Items.Add($"[{item.Id}] {item.Name}");
 
+            dgvSales.Rows.Clear();
             foreach (var transaction in sh.GetAllTransactions())
                 dgvSales.Rows.Add(
                     transaction.Id,
@@ -169,6 +170,8 @@ namespace SalesInventorySystem_WAM1
             txtQuantity.Text = transaction.Quantity.ToString();
             txtStatus.Text = transaction.Status;
             txtNotes.Text = transaction.Notes;
+
+            btnStatus.Text = transaction.Status == "Unpaid" ? "PAID" : "UNPAID";
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -200,6 +203,26 @@ namespace SalesInventorySystem_WAM1
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
+            btnClear.PerformClick();
+            UpdateItemsList();
+        }
+
+        private void btnStatus_Click(object sender, EventArgs e)
+        {
+            if (selected_transaction == DateTime.MinValue)
+            {
+                MessageBox.Show(
+                    "Please select a transaction to update.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+
+            var transaction = sh.GetTransaction(selected_transaction);
+            transaction.Status = transaction.Status == "Unpaid" ? "Paid" : "Unpaid";
+            sh.UpdateTransaction(transaction);
             btnClear.PerformClick();
             UpdateItemsList();
         }

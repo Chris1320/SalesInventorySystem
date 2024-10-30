@@ -40,7 +40,7 @@ namespace SalesInventorySystem_WAM1
             dgvSales.Rows.Clear();
             foreach (var transaction in transactions)
                 dgvSales.Rows.Add(
-                    transaction.Id,
+                    transaction.Id.ToString("yyyy-MM-dd HH:mm:ss"),
                     $"[{transaction.ItemId}] {ih.GetItem(transaction.ItemId).Name}",
                     transaction.Category,
                     transaction.Price,
@@ -185,7 +185,7 @@ namespace SalesInventorySystem_WAM1
         {
             if (e.RowIndex < 0)
                 return; // do nothing if the header is clicked
-            var trans_id = (DateTime)dgvSales.Rows[e.RowIndex].Cells["id"].Value;
+            var trans_id = DateTime.Parse((string)dgvSales.Rows[e.RowIndex].Cells["id"].Value);
             var transaction = sh.GetTransaction(trans_id);
 
             selected_transaction = trans_id;

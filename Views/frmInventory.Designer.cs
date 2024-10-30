@@ -336,15 +336,14 @@
             this.picBarcode.TabIndex = 50;
             this.picBarcode.TabStop = false;
             // 
-            // label1
+            // lblBcode
             // 
             this.lblBcode.AutoSize = true;
             this.lblBcode.ForeColor = System.Drawing.Color.White;
             this.lblBcode.Location = new System.Drawing.Point(107, 439);
-            this.lblBcode.Name = "label1";
-            this.lblBcode.Size = new System.Drawing.Size(27, 13);
+            this.lblBcode.Name = "lblBcode";
+            this.lblBcode.Size = new System.Drawing.Size(0, 13);
             this.lblBcode.TabIndex = 51;
-            this.lblBcode.Text = "N/A";
             this.lblBcode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmInventory

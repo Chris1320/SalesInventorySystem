@@ -156,7 +156,7 @@ namespace SalesInventorySystem_WAM1
             txtStock.Text = string.Empty;
             dtpDate.Value = DateTime.Now;
             picBarcode.Image = null;
-            lblBcode.Text = "N/A";
+            lblBcode.Text = string.Empty;
             UpdateItemsList(null);
         }
 

@@ -1,7 +1,7 @@
-﻿using SalesInventorySystem_WAM1.Handlers;
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using SalesInventorySystem_WAM1.Handlers;
 
 namespace SalesInventorySystem_WAM1
 {
@@ -23,8 +23,11 @@ namespace SalesInventorySystem_WAM1
             InitializeComponent();
 
             //Border
-            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRGN(0, 0, Width, Height, 25, 25));
-            if (ee.c()) lblCopyright.Text = ee.a();
+            Region = System.Drawing.Region.FromHrgn(
+                CreateRoundRectRGN(0, 0, Width, Height, 25, 25)
+            );
+            if (ee.c())
+                lblCopyright.Text = ee.a();
         }
 
         private void tmrLoad_Tick(object sender, EventArgs e)

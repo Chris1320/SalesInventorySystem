@@ -1,5 +1,4 @@
-﻿using SalesInventorySystem_WAM1.Handlers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SalesInventorySystem_WAM1.Handlers;
 
 namespace SalesInventorySystem_WAM1
 {
@@ -21,9 +21,9 @@ namespace SalesInventorySystem_WAM1
             InitializeComponent();
             UpdateItemsList();
         }
+
         public void UpdateItemsList()
         {
-
             var items = item_handler.GetAllItems();
             dgvInventory.Rows.Clear();
             foreach (var item in items)
@@ -34,7 +34,9 @@ namespace SalesInventorySystem_WAM1
                     item.Category,
                     item.UnitPrice,
                     item.Stock,
-                    item.DateAdded == null ? "N/A" : item.DateAdded.Date.ToString("yyyy-MM-dd HH:mm:ss")
+                    item.DateAdded == null
+                        ? "N/A"
+                        : item.DateAdded.Date.ToString("yyyy-MM-dd HH:mm:ss")
                 );
             }
         }
@@ -65,10 +67,7 @@ namespace SalesInventorySystem_WAM1
             dtpDate.Value = item.DateAdded;
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            
-        }
+        private void btnAdd_Click(object sender, EventArgs e) { }
 
         private void btnClear_Click(object sender, EventArgs e)
         {

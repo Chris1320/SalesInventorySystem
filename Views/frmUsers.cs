@@ -37,7 +37,8 @@ namespace SalesInventorySystem_WAM1
                 frmUserAddModify_Vrb.pub_txtUsername = u.Username;
                 frmUserAddModify_Vrb.pub_btnRegister = "Modify User";
             }
-            else frmUserAddModify_Vrb.user_id = -1;
+            else
+                frmUserAddModify_Vrb.user_id = -1;
 
             frmUserAddModify_Vrb.FormBorderStyle = FormBorderStyle.None;
             mainForm.PnlFormLoader.Controls.Add(frmUserAddModify_Vrb);
@@ -77,7 +78,8 @@ namespace SalesInventorySystem_WAM1
 
         private void dgvUsers_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return;
+            if (e.RowIndex < 0)
+                return;
             int user_id = (int)dgvUsers.Rows[e.RowIndex].Cells["id"].Value;
             var user = user_handler.GetUser(user_id);
 
@@ -86,8 +88,12 @@ namespace SalesInventorySystem_WAM1
             txtName.Text = user.Name;
             switch (user.Role)
             {
-                case "admin": cbRole.SelectedIndex = 1; break;
-                case "employee": cbRole.SelectedIndex = 0; break;
+                case "admin":
+                    cbRole.SelectedIndex = 1;
+                    break;
+                case "employee":
+                    cbRole.SelectedIndex = 0;
+                    break;
                 default:
                     MessageBox.Show("User has invalid role.");
                     cbRole.SelectedIndex = -1;
@@ -124,6 +130,7 @@ namespace SalesInventorySystem_WAM1
 
             user_handler.DeleteUser(selected_user);
             UpdateUsersList();
+            btnClear.PerformClick();
             MessageBox.Show("User deleted successfully.");
         }
 

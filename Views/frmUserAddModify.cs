@@ -24,18 +24,27 @@ namespace SalesInventorySystem_WAM1
             {
                 switch (cbRole.SelectedIndex)
                 {
-                    case 0: return "employee";
-                    case 1: return "admin";
-                    default: return string.Empty;
+                    case 0:
+                        return "employee";
+                    case 1:
+                        return "admin";
+                    default:
+                        return string.Empty;
                 }
             }
             set
             {
                 switch (value)
                 {
-                    case "employee": cbRole.SelectedIndex = 0; break;
-                    case "admin": cbRole.SelectedIndex = 1; break;
-                    default: cbRole.SelectedIndex = -1; break;
+                    case "employee":
+                        cbRole.SelectedIndex = 0;
+                        break;
+                    case "admin":
+                        cbRole.SelectedIndex = 1;
+                        break;
+                    default:
+                        cbRole.SelectedIndex = -1;
+                        break;
                 }
             }
         }
@@ -81,7 +90,7 @@ namespace SalesInventorySystem_WAM1
                 MessageBox.Show("Invalid Username");
                 return;
             }
-            if (user_id != -1 && password_changed)
+            if (password_changed || user_id == -1)
             {
                 if (string.IsNullOrEmpty(txtPassword.Text))
                 {

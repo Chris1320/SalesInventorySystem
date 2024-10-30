@@ -37,7 +37,8 @@ namespace SalesInventorySystem_WAM1
 
         private void dgvInventory_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return;
+            if (e.RowIndex < 0)
+                return;
             int item_id = (int)dgvInventory.Rows[e.RowIndex].Cells["id"].Value;
             selected_item = item_id;
             var item = item_handler.GetItem(item_id);
@@ -46,8 +47,12 @@ namespace SalesInventorySystem_WAM1
             txtName.Text = item.Name;
             switch (item.Category)
             {
-                case "general": cbCategory.SelectedIndex = 0; break;
-                case "electronic": cbCategory.SelectedIndex = 1; break;
+                case "general":
+                    cbCategory.SelectedIndex = 0;
+                    break;
+                case "electronic":
+                    cbCategory.SelectedIndex = 1;
+                    break;
                 default:
                     MessageBox.Show("Item has invalid category.");
                     cbCategory.SelectedIndex = -1;
@@ -95,17 +100,20 @@ namespace SalesInventorySystem_WAM1
             txtItemID.Text = item_handler.GenerateItemId().ToString();
             dtpDate.Value = DateTime.Now;
 
-            item_handler.AddItem(new Item
-            {
-                Id = int.Parse(txtItemID.Text),
-                Name = txtName.Text,
-                Category = cbCategory.SelectedIndex == 0 ? "general" : "electronic",
-                UnitPrice = unit_price,
-                Stock = stock,
-                DateAdded = dtpDate.Value
-            });
+            item_handler.AddItem(
+                new Item
+                {
+                    Id = int.Parse(txtItemID.Text),
+                    Name = txtName.Text,
+                    Category = cbCategory.SelectedIndex == 0 ? "general" : "electronic",
+                    UnitPrice = unit_price,
+                    Stock = stock,
+                    DateAdded = dtpDate.Value,
+                }
+            );
 
             UpdateItemsList();
+            selected_item = Convert.ToInt32(txtItemID.Text);
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -143,7 +151,8 @@ namespace SalesInventorySystem_WAM1
 
         private void btnModify_Click(object sender, EventArgs e)
         {
-            if (selected_item == -1) {
+            if (selected_item == -1)
+            {
                 MessageBox.Show("Please select an item to modify.");
                 return;
             }

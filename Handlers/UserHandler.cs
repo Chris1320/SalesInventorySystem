@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
@@ -197,6 +197,42 @@ namespace SalesInventorySystem_WAM1.Handlers
                     command.ExecuteNonQuery();
                 }
             }
+        }
+
+        public List<User> SearchUsers(string query)
+        {
+            List<User> users = new List<User>();
+            using (MySqlConnection connection = GetNewConnection())
+            {
+                connection.Open();
+                using (MySqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText =
+                        "SELECT * FROM users WHERE CONCAT_WS('', username, name, role) LIKE @search";
+                    command.Parameters.AddWithValue("@search", $"%{query}%");
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            users.Add(
+                                new User(
+                                    reader.GetInt32("id"),
+                                    reader.GetString("username"),
+                                    reader.GetString("userpass"),
+                                    reader.IsDBNull(reader.GetOrdinal("name"))
+                                        ? string.Empty
+                                        : reader.GetString("name"),
+                                    reader.GetString("role"),
+                                    reader.IsDBNull(reader.GetOrdinal("last_login"))
+                                        ? DateTime.Now
+                                        : reader.GetDateTime("last_login")
+                                )
+                            );
+                        }
+                    }
+                }
+            }
+            return users;
         }
     }
 }

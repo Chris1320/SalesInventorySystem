@@ -151,6 +151,12 @@
       <DependentUpon>frmUsers.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Item.cs" />
+    <Compile Include="Views\Searchbar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Searchbar.Designer.cs">
+      <DependentUpon>Searchbar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,6 +189,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmUsers.resx">
       <DependentUpon>frmUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Searchbar.resx">
+      <DependentUpon>Searchbar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>

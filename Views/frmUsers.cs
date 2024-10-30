@@ -14,7 +14,7 @@ namespace SalesInventorySystem_WAM1
         {
             this.mainForm = mainForm;
             InitializeComponent();
-            UpdateUsersList();
+            UpdateUsersList(null);
         }
 
         private void gotofrmUserAddModify(int user_id)
@@ -45,10 +45,12 @@ namespace SalesInventorySystem_WAM1
             frmUserAddModify_Vrb.Show();
         }
 
-        public void UpdateUsersList()
+        public void UpdateUsersList(string query)
         {
+            var users =
+                query == null ? user_handler.GetAllUsers() : user_handler.SearchUsers(query);
             dgvUsers.Rows.Clear();
-            foreach (var user in user_handler.GetAllUsers())
+            foreach (var user in users)
             {
                 dgvUsers.Rows.Add(
                     user.Id,
@@ -107,6 +109,7 @@ namespace SalesInventorySystem_WAM1
             txtUsername.Text = string.Empty;
             cbRole.SelectedIndex = -1;
             dtpDate.Value = DateTime.Now;
+            UpdateUsersList(null);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -127,11 +130,18 @@ namespace SalesInventorySystem_WAM1
                 return;
 
             user_handler.DeleteUser(selected_user);
-            UpdateUsersList();
+            UpdateUsersList(null);
             btnClear.PerformClick();
             MessageBox.Show("User deleted successfully.");
         }
 
-        private void btnSearch_Click(object sender, EventArgs e) { }
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            var searchbar = new Searchbar(dgvUsers);
+            searchbar.searchbar_title = "Search Users";
+            var query = searchbar.ShowDialog();
+            if (query == DialogResult.OK)
+                UpdateUsersList(searchbar.query);
+        }
     }
 }

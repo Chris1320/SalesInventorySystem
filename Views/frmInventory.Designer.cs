@@ -53,7 +53,10 @@
             this.btnModify = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
+            this.picBarcode = new System.Windows.Forms.PictureBox();
+            this.lblBcode = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBarcode)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvInventory
@@ -255,9 +258,9 @@
             this.btnSearch.FlatAppearance.BorderSize = 0;
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
-            this.btnSearch.Location = new System.Drawing.Point(101, 275);
+            this.btnSearch.Location = new System.Drawing.Point(16, 324);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(170, 31);
+            this.btnSearch.Size = new System.Drawing.Size(167, 31);
             this.btnSearch.TabIndex = 22;
             this.btnSearch.Text = "SEARCH";
             this.btnSearch.UseVisualStyleBackColor = false;
@@ -270,7 +273,7 @@
             this.btnAdd.FlatAppearance.BorderSize = 0;
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdd.ForeColor = System.Drawing.Color.White;
-            this.btnAdd.Location = new System.Drawing.Point(101, 321);
+            this.btnAdd.Location = new System.Drawing.Point(16, 275);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(82, 31);
             this.btnAdd.TabIndex = 23;
@@ -285,7 +288,7 @@
             this.btnModify.FlatAppearance.BorderSize = 0;
             this.btnModify.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnModify.ForeColor = System.Drawing.Color.White;
-            this.btnModify.Location = new System.Drawing.Point(189, 321);
+            this.btnModify.Location = new System.Drawing.Point(101, 275);
             this.btnModify.Name = "btnModify";
             this.btnModify.Size = new System.Drawing.Size(82, 31);
             this.btnModify.TabIndex = 24;
@@ -300,7 +303,7 @@
             this.btnDelete.FlatAppearance.BorderSize = 0;
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnDelete.Location = new System.Drawing.Point(189, 358);
+            this.btnDelete.Location = new System.Drawing.Point(189, 275);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(82, 31);
             this.btnDelete.TabIndex = 25;
@@ -315,7 +318,7 @@
             this.btnClear.FlatAppearance.BorderSize = 0;
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
-            this.btnClear.Location = new System.Drawing.Point(101, 358);
+            this.btnClear.Location = new System.Drawing.Point(189, 324);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(82, 31);
             this.btnClear.TabIndex = 49;
@@ -323,12 +326,35 @@
             this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
+            // picBarcode
+            // 
+            this.picBarcode.BackColor = System.Drawing.Color.White;
+            this.picBarcode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.picBarcode.Location = new System.Drawing.Point(14, 375);
+            this.picBarcode.Name = "picBarcode";
+            this.picBarcode.Size = new System.Drawing.Size(256, 61);
+            this.picBarcode.TabIndex = 50;
+            this.picBarcode.TabStop = false;
+            // 
+            // label1
+            // 
+            this.lblBcode.AutoSize = true;
+            this.lblBcode.ForeColor = System.Drawing.Color.White;
+            this.lblBcode.Location = new System.Drawing.Point(107, 439);
+            this.lblBcode.Name = "label1";
+            this.lblBcode.Size = new System.Drawing.Size(27, 13);
+            this.lblBcode.TabIndex = 51;
+            this.lblBcode.Text = "N/A";
+            this.lblBcode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frmInventory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(733, 477);
+            this.Controls.Add(this.lblBcode);
+            this.Controls.Add(this.picBarcode);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnModify);
@@ -352,6 +378,7 @@
             this.Name = "frmInventory";
             this.Text = "frmInventory";
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBarcode)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -383,5 +410,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn unit_price;
         private System.Windows.Forms.DataGridViewTextBoxColumn stock;
         private System.Windows.Forms.DataGridViewTextBoxColumn date_added;
+        private System.Windows.Forms.PictureBox picBarcode;
+        private System.Windows.Forms.Label lblBcode;
     }
 }

@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
+using BarcodeStandard;
 using SalesInventorySystem_WAM1.Handlers;
 using SalesInventorySystem_WAM1.Models;
+using SkiaSharp;
 
 namespace SalesInventorySystem_WAM1
 {
@@ -107,6 +111,15 @@ namespace SalesInventorySystem_WAM1
             txtUnitPrice.Text = item.UnitPrice.ToString();
             txtStock.Text = item.Stock.ToString();
             dtpDate.Value = item.DateAdded;
+
+            var bcode = new Barcode();
+            bcode.IncludeLabel = true;
+            bcode.ForeColor = SKColors.Black;
+            bcode.BackColor = SKColors.White;
+            bcode.Encode(BarcodeStandard.Type.Code11, item.Id.ToString());
+            MemoryStream ms = new MemoryStream(bcode.EncodedImageBytes);
+            picBarcode.Image = Image.FromStream(ms);
+            lblBcode.Text = item.Id.ToString();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -142,6 +155,8 @@ namespace SalesInventorySystem_WAM1
             txtUnitPrice.Text = string.Empty;
             txtStock.Text = string.Empty;
             dtpDate.Value = DateTime.Now;
+            picBarcode.Image = null;
+            lblBcode.Text = "N/A";
             UpdateItemsList(null);
         }
 

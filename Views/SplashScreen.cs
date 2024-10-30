@@ -37,8 +37,10 @@ namespace SalesInventorySystem_WAM1
             if (pnlLoading.Width >= 599)
             {
                 tmrLoad.Stop();
-                new LoginForm().Show();
+                var newfrm = new LoginForm();
+                newfrm.Closed += (s, args) => this.Close();
                 this.Hide();
+                newfrm.Show();
             }
         }
     }

@@ -340,7 +340,7 @@
             // 
             this.lblBcode.AutoSize = true;
             this.lblBcode.ForeColor = System.Drawing.Color.White;
-            this.lblBcode.Location = new System.Drawing.Point(107, 439);
+            this.lblBcode.Location = new System.Drawing.Point(55, 440);
             this.lblBcode.Name = "lblBcode";
             this.lblBcode.Size = new System.Drawing.Size(0, 13);
             this.lblBcode.TabIndex = 51;

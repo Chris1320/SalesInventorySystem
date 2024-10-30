@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using BarcodeStandard;
 using SalesInventorySystem_WAM1.Handlers;
@@ -129,7 +130,7 @@ namespace SalesInventorySystem_WAM1
             bcode.Encode(BarcodeStandard.Type.Code11, item.Id.ToString());
             MemoryStream ms = new MemoryStream(bcode.EncodedImageBytes);
             picBarcode.Image = Image.FromStream(ms);
-            lblBcode.Text = item.Id.ToString();
+            lblBcode.Text = string.Join("     ", item.Id.ToString().ToCharArray());
         }
 
         private void btnAdd_Click(object sender, EventArgs e)

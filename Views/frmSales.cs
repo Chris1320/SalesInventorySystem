@@ -14,20 +14,22 @@ namespace SalesInventorySystem_WAM1
         public frmSales()
         {
             InitializeComponent();
-            UpdateItemsList();
+            UpdateTransactionsList(null);
         }
 
-        private void UpdateItemsList()
+        private void UpdateTransactionsList(string query)
         {
             cbItem.Items.Clear();
             foreach (var item in ih.GetAllItems())
                 cbItem.Items.Add($"[{item.Id}] {item.Name}");
 
+            var transactions =
+                query == null ? sh.GetAllTransactions() : sh.SearchTransactions(query);
             dgvSales.Rows.Clear();
-            foreach (var transaction in sh.GetAllTransactions())
+            foreach (var transaction in transactions)
                 dgvSales.Rows.Add(
                     transaction.Id,
-                    transaction.ItemId,
+                    $"[{transaction.ItemId}] {ih.GetItem(transaction.ItemId).Name}",
                     transaction.Category,
                     transaction.Price,
                     transaction.Quantity,
@@ -123,6 +125,7 @@ namespace SalesInventorySystem_WAM1
             txtQuantity.Text = string.Empty;
             txtStatus.Text = string.Empty;
             txtNotes.Text = string.Empty;
+            UpdateTransactionsList(null);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -150,7 +153,7 @@ namespace SalesInventorySystem_WAM1
                 MessageBoxIcon.Information
             );
             btnClear.PerformClick();
-            UpdateItemsList();
+            UpdateTransactionsList(null);
         }
 
         private void cbItem_SelectedIndexChanged(object sender, EventArgs e) => FillUpValues();
@@ -206,7 +209,7 @@ namespace SalesInventorySystem_WAM1
                 MessageBoxIcon.Information
             );
             btnClear.PerformClick();
-            UpdateItemsList();
+            UpdateTransactionsList(null);
         }
 
         private void btnStatus_Click(object sender, EventArgs e)
@@ -226,7 +229,7 @@ namespace SalesInventorySystem_WAM1
             transaction.Status = transaction.Status == "Unpaid" ? "Paid" : "Unpaid";
             sh.UpdateTransaction(transaction);
             btnClear.PerformClick();
-            UpdateItemsList();
+            UpdateTransactionsList(null);
         }
 
         private void btnModify_Click(object sender, EventArgs e)
@@ -265,7 +268,16 @@ namespace SalesInventorySystem_WAM1
                 MessageBoxIcon.Information
             );
             btnClear.PerformClick();
-            UpdateItemsList();
+            UpdateTransactionsList(null);
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            var searchbar = new Searchbar();
+            searchbar.searchbar_title = "Search Transactions";
+            var query = searchbar.ShowDialog();
+            if (query == DialogResult.OK)
+                UpdateTransactionsList(searchbar.query);
         }
     }
 }

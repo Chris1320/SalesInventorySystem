@@ -109,5 +109,27 @@ namespace SalesInventorySystem_WAM1.Handlers
                 }
             }
         }
+
+        public List<Transaction> SearchTransactions(string query)
+        {
+            using (MySqlConnection connection = GetNewConnection())
+            {
+                connection.Open();
+                using (MySqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText =
+                        "SELECT sales.*, items.name AS item_name FROM sales JOIN items ON sales.item_id = items.id WHERE CONCAT_WS('', sales.id, sales.item_id, items.name, sales.category, sales.price, sales.quantity, sales.status, sales.notes) LIKE @query";
+                    command.Parameters.AddWithValue("@query", $"%{query}%");
+                    List<Transaction> transactions = new List<Transaction>();
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                            transactions.Add(GetTransaction(reader.GetDateTime("id")));
+
+                        return transactions;
+                    }
+                }
+            }
+        }
     }
 }

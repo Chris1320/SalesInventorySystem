@@ -1,5 +1,13 @@
 ﻿using System;
 using System.Windows.Forms;
+using iText.IO.Font.Constants;
+using iText.Kernel.Colors;
+using iText.Kernel.Font;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Borders;
+using iText.Layout.Element;
+using iText.Layout.Properties;
 using SalesInventorySystem_WAM1.Handlers;
 using SalesInventorySystem_WAM1.Models;
 
@@ -119,13 +127,13 @@ namespace SalesInventorySystem_WAM1
                     txtPrice.Text = (item.UnitPrice * int.Parse(txtQuantity.Text)).ToString();
 
                 // Fill up the status with default value if it is empty.
-                if (txtStatus.Text == string.Empty)
-                    txtStatus.Text = "Unpaid";
+                if (cbStatus.SelectedIndex == -1)
+                    cbStatus.SelectedIndex = 0;
 
                 return;
             }
             txtPrice.Text = string.Empty;
-            txtStatus.Text = string.Empty;
+            cbStatus.SelectedIndex = -1;
         }
 
         private void btnClear_Click(object sender, System.EventArgs e)
@@ -136,7 +144,7 @@ namespace SalesInventorySystem_WAM1
             cbCategory.SelectedIndex = -1;
             txtPrice.Text = string.Empty;
             txtQuantity.Text = string.Empty;
-            txtStatus.Text = string.Empty;
+            cbStatus.SelectedIndex = -1;
             txtNotes.Text = string.Empty;
             UpdateTransactionsList(null);
         }
@@ -154,7 +162,7 @@ namespace SalesInventorySystem_WAM1
                     Category = cbCategory.SelectedIndex == 0 ? "general" : "electronic",
                     Quantity = int.Parse(txtQuantity.Text),
                     Price = double.Parse(txtPrice.Text),
-                    Status = txtStatus.Text,
+                    Status = cbStatus.SelectedIndex == 0 ? "Unpaid" : "Paid",
                     Notes = txtNotes.Text,
                 }
             );
@@ -186,11 +194,8 @@ namespace SalesInventorySystem_WAM1
             cbCategory.SelectedIndex = transaction.Category == "general" ? 0 : 1;
             txtPrice.Text = transaction.Price.ToString();
             txtQuantity.Text = transaction.Quantity.ToString();
-            txtStatus.Text = transaction.Status;
+            cbStatus.SelectedIndex = transaction.Status == "Unpaid" ? 0 : 1;
             txtNotes.Text = transaction.Notes;
-
-            // Change the status button text depending on the status of the transaction
-            btnStatus.Text = transaction.Status == "Unpaid" ? "PAID" : "UNPAID";
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -228,22 +233,57 @@ namespace SalesInventorySystem_WAM1
 
         private void btnStatus_Click(object sender, EventArgs e)
         {
-            if (selected_transaction == DateTime.MinValue)
-            {
-                MessageBox.Show(
-                    "Please select a transaction to update.",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+            // ask the user where to store the PDF
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF Files (*.pdf)|*.pdf";
+            saveFileDialog.Title = "Export Transactions List";
+            saveFileDialog.FileName =
+                $"transactions-{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.pdf";
+            if (saveFileDialog.ShowDialog() == DialogResult.Cancel)
                 return;
-            }
 
-            var transaction = sh.GetTransaction(selected_transaction);
-            transaction.Status = transaction.Status == "Unpaid" ? "Paid" : "Unpaid";
-            sh.UpdateTransaction(transaction);
-            btnClear.PerformClick();
-            UpdateTransactionsList(null);
+            var transactions = sh.GetAllTransactions();
+
+            // create the PDF
+            using (var doc = new Document(new PdfDocument(new PdfWriter(saveFileDialog.FileName))))
+            {
+                // Create a table with 7 columns
+                var table = new Table(new float[] { 1, 2, 1, 1, 1, 1, 3 }).UseAllAvailableWidth();
+                // Add a header
+                table.AddHeaderCell("Transaction Date");
+                table.AddHeaderCell("Item");
+                table.AddHeaderCell("Category");
+                table.AddHeaderCell("Price");
+                table.AddHeaderCell("Quantity");
+                table.AddHeaderCell("Status");
+                table.AddHeaderCell("Notes");
+
+                // Add the transactions to the table
+                foreach (var transaction in transactions)
+                {
+                    table.AddCell(transaction.Id.ToString());
+                    table.AddCell(ih.GetItem(transaction.ItemId).Name);
+                    table.AddCell(transaction.Category);
+                    table.AddCell(transaction.Price.ToString());
+                    table.AddCell(transaction.Quantity.ToString());
+                    table.AddCell(transaction.Status);
+                    table.AddCell(transaction.Notes);
+                }
+
+                // Add the table to the document
+                doc.Add(table);
+
+                // Show a message box to inform the user that the PDF has been created
+                MessageBox.Show(
+                    "Transactions list exported successfully.",
+                    "Success",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
+                // Open the PDF file
+                System.Diagnostics.Process.Start(saveFileDialog.FileName);
+            }
         }
 
         private void btnModify_Click(object sender, EventArgs e)
@@ -270,7 +310,7 @@ namespace SalesInventorySystem_WAM1
                     Category = cbCategory.SelectedIndex == 0 ? "general" : "electronic",
                     Quantity = int.Parse(txtQuantity.Text),
                     Price = double.Parse(txtPrice.Text),
-                    Status = txtStatus.Text,
+                    Status = cbStatus.SelectedIndex == 0 ? "Unpaid" : "Paid",
                     Notes = txtNotes.Text,
                 }
             );

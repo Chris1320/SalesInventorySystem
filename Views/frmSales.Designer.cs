@@ -50,13 +50,13 @@
             this.quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.notes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtStatus = new System.Windows.Forms.TextBox();
             this.lblStatus = new System.Windows.Forms.Label();
             this.lblNotes = new System.Windows.Forms.Label();
             this.txtNotes = new System.Windows.Forms.TextBox();
             this.btnStatus = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.cbItem = new System.Windows.Forms.ComboBox();
+            this.cbStatus = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSales)).BeginInit();
             this.SuspendLayout();
             // 
@@ -292,18 +292,6 @@
             this.notes.Name = "notes";
             this.notes.ReadOnly = true;
             // 
-            // txtStatus
-            // 
-            this.txtStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
-            this.txtStatus.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtStatus.Enabled = false;
-            this.txtStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStatus.Location = new System.Drawing.Point(101, 236);
-            this.txtStatus.Multiline = true;
-            this.txtStatus.Name = "txtStatus";
-            this.txtStatus.Size = new System.Drawing.Size(170, 20);
-            this.txtStatus.TabIndex = 43;
-            // 
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
@@ -348,7 +336,7 @@
             this.btnStatus.Name = "btnStatus";
             this.btnStatus.Size = new System.Drawing.Size(82, 31);
             this.btnStatus.TabIndex = 47;
-            this.btnStatus.Text = "PAID";
+            this.btnStatus.Text = "EXPORT";
             this.btnStatus.UseVisualStyleBackColor = false;
             this.btnStatus.Click += new System.EventHandler(this.btnStatus_Click);
             // 
@@ -380,19 +368,34 @@
             this.cbItem.TabIndex = 49;
             this.cbItem.SelectedIndexChanged += new System.EventHandler(this.cbItem_SelectedIndexChanged);
             // 
+            // cbStatus
+            // 
+            this.cbStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
+            this.cbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbStatus.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.cbStatus.FormattingEnabled = true;
+            this.cbStatus.Items.AddRange(new object[] {
+            "Unpaid",
+            "Paid"});
+            this.cbStatus.Location = new System.Drawing.Point(101, 238);
+            this.cbStatus.Name = "cbStatus";
+            this.cbStatus.Size = new System.Drawing.Size(170, 21);
+            this.cbStatus.TabIndex = 50;
+            // 
             // frmSales
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(733, 477);
+            this.Controls.Add(this.cbStatus);
             this.Controls.Add(this.cbItem);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnStatus);
             this.Controls.Add(this.txtNotes);
             this.Controls.Add(this.lblNotes);
             this.Controls.Add(this.lblStatus);
-            this.Controls.Add(this.txtStatus);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnModify);
             this.Controls.Add(this.btnAdd);
@@ -433,7 +436,6 @@
         private System.Windows.Forms.TextBox txtTransactionID;
         private System.Windows.Forms.Label lblItemID;
         private System.Windows.Forms.DataGridView dgvSales;
-        private System.Windows.Forms.TextBox txtStatus;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Label lblNotes;
         private System.Windows.Forms.TextBox txtNotes;
@@ -447,5 +449,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn quantity;
         private System.Windows.Forms.DataGridViewTextBoxColumn status;
         private System.Windows.Forms.DataGridViewTextBoxColumn notes;
+        private System.Windows.Forms.ComboBox cbStatus;
     }
 }

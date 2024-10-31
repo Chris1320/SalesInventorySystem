@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
+using BarcodeStandard;
 using SalesInventorySystem_WAM1.Handlers;
 using SalesInventorySystem_WAM1.Models;
+using SkiaSharp;
 
 namespace SalesInventorySystem_WAM1
 {
@@ -13,12 +18,17 @@ namespace SalesInventorySystem_WAM1
         public frmInventory()
         {
             InitializeComponent();
-            UpdateItemsList();
+            UpdateItemsList(null);
         }
 
-        public void UpdateItemsList()
+        /// <summary>
+        /// Updates the items list in the DataGridView.
+        /// </summary>
+        /// <param name="query">If not null, search for items with details containing this query.</param>
+        public void UpdateItemsList(string query)
         {
-            var items = item_handler.GetAllItems();
+            var items =
+                query == null ? item_handler.GetAllItems() : item_handler.SearchItems(query);
             dgvInventory.Rows.Clear();
             foreach (var item in items)
             {
@@ -35,6 +45,10 @@ namespace SalesInventorySystem_WAM1
             }
         }
 
+        /// <summary>
+        /// Validates the values of the components in the form.
+        /// </summary>
+        /// <returns>If the values are valid.</returns>
         public bool ValidateComponentValues()
         {
             if (string.IsNullOrWhiteSpace(txtName.Text))
@@ -68,6 +82,16 @@ namespace SalesInventorySystem_WAM1
                 MessageBox.Show("Invalid stock quantity.");
                 return false;
             }
+            if (double.Parse(txtUnitPrice.Text) < 0)
+            {
+                MessageBox.Show("Unit price cannot be negative.");
+                return false;
+            }
+            if (int.Parse(txtStock.Text) < 0)
+            {
+                MessageBox.Show("Stock quantity cannot be negative.");
+                return false;
+            }
 
             return true;
         }
@@ -75,7 +99,7 @@ namespace SalesInventorySystem_WAM1
         private void dgvInventory_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
-                return;
+                return; // do nothing if the header is clicked
             int item_id = (int)dgvInventory.Rows[e.RowIndex].Cells["id"].Value;
             selected_item = item_id;
             var item = item_handler.GetItem(item_id);
@@ -98,6 +122,15 @@ namespace SalesInventorySystem_WAM1
             txtUnitPrice.Text = item.UnitPrice.ToString();
             txtStock.Text = item.Stock.ToString();
             dtpDate.Value = item.DateAdded;
+
+            var bcode = new Barcode();
+            bcode.IncludeLabel = true;
+            bcode.ForeColor = SKColors.Black;
+            bcode.BackColor = SKColors.White;
+            bcode.Encode(BarcodeStandard.Type.Code11, item.Id.ToString());
+            MemoryStream ms = new MemoryStream(bcode.EncodedImageBytes);
+            picBarcode.Image = Image.FromStream(ms);
+            lblBcode.Text = string.Join("     ", item.Id.ToString().ToCharArray());
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -120,7 +153,7 @@ namespace SalesInventorySystem_WAM1
                 }
             );
 
-            UpdateItemsList();
+            UpdateItemsList(null);
             selected_item = Convert.ToInt32(txtItemID.Text);
         }
 
@@ -133,6 +166,9 @@ namespace SalesInventorySystem_WAM1
             txtUnitPrice.Text = string.Empty;
             txtStock.Text = string.Empty;
             dtpDate.Value = DateTime.Now;
+            picBarcode.Image = null;
+            lblBcode.Text = string.Empty;
+            UpdateItemsList(null);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -151,7 +187,7 @@ namespace SalesInventorySystem_WAM1
             )
             {
                 item_handler.DeleteItem(selected_item);
-                UpdateItemsList();
+                UpdateItemsList(null);
                 MessageBox.Show("Item deleted successfully.");
                 btnClear_Click(sender, e);
             }
@@ -176,7 +212,16 @@ namespace SalesInventorySystem_WAM1
                 }
             );
 
-            UpdateItemsList();
+            UpdateItemsList(null);
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            var searchbar = new Searchbar();
+            searchbar.searchbar_title = "Search Items";
+            var query = searchbar.ShowDialog();
+            if (query == DialogResult.OK)
+                UpdateItemsList(searchbar.query);
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using SalesInventorySystem_WAM1.Models;
 using System.Security.Cryptography;
+using System.Text;
 using MySql.Data.MySqlClient;
+using SalesInventorySystem_WAM1.Models;
 
 namespace SalesInventorySystem_WAM1.Handlers
 {
@@ -19,7 +19,8 @@ namespace SalesInventorySystem_WAM1.Handlers
             var c = new SHA256Managed();
             var h = new StringBuilder();
             byte[] hpw = c.ComputeHash(Encoding.UTF8.GetBytes(password));
-            foreach (byte b in hpw) h.Append(b.ToString("x2"));
+            foreach (byte b in hpw)
+                h.Append(b.ToString("x2"));
             return h.ToString();
         }
 
@@ -37,26 +38,36 @@ namespace SalesInventorySystem_WAM1.Handlers
                 using (var command = connection.CreateCommand())
                 {
                     var hashed_pass = EncryptPassword(password);
-                    command.CommandText = "SELECT * FROM users WHERE username = @username AND userpass = @password";
+                    command.CommandText =
+                        "SELECT * FROM users WHERE username = @username AND userpass = @password";
                     command.Parameters.AddWithValue("@username", username);
                     command.Parameters.AddWithValue("@password", hashed_pass);
                     using (var reader = command.ExecuteReader())
                     {
-                        if (!reader.Read()) return null;
-                        UpdateUserLastLoginTimestamp(reader.GetInt32("id"));
+                        if (!reader.Read())
+                            return null; // Return null if the user does not exist.
+                        UpdateUserLastLoginTimestamp(reader.GetInt32("id")); // Update the last login timestamp.
                         return new User(
                             reader.GetInt32("id"),
                             reader.GetString("username"),
                             reader.GetString("userpass"),
-                            reader.IsDBNull(reader.GetOrdinal("name")) ? string.Empty : reader.GetString("name"),
+                            reader.IsDBNull(reader.GetOrdinal("name"))
+                                ? string.Empty
+                                : reader.GetString("name"),
                             reader.GetString("role"),
-                            reader.IsDBNull(reader.GetOrdinal("last_login")) ? DateTime.Now : reader.GetDateTime("last_login")
+                            reader.IsDBNull(reader.GetOrdinal("last_login"))
+                                ? DateTime.Now
+                                : reader.GetDateTime("last_login")
                         );
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// Update the last login timestamp of a user.
+        /// </summary>
+        /// <param name="user_id">The user to be updated.</param>
         public void UpdateUserLastLoginTimestamp(int user_id)
         {
             using (var connection = GetNewConnection())
@@ -93,9 +104,13 @@ namespace SalesInventorySystem_WAM1.Handlers
                                     reader.GetInt32("id"),
                                     reader.GetString("username"),
                                     reader.GetString("userpass"),
-                                    reader.IsDBNull(reader.GetOrdinal("name")) ? string.Empty : reader.GetString("name"),
+                                    reader.IsDBNull(reader.GetOrdinal("name"))
+                                        ? string.Empty
+                                        : reader.GetString("name"),
                                     reader.GetString("role"),
-                                    reader.IsDBNull(reader.GetOrdinal("last_login")) ? DateTime.Now : reader.GetDateTime("last_login")
+                                    reader.IsDBNull(reader.GetOrdinal("last_login"))
+                                        ? DateTime.Now
+                                        : reader.GetDateTime("last_login")
                                 )
                             );
                         }
@@ -105,6 +120,11 @@ namespace SalesInventorySystem_WAM1.Handlers
             return users;
         }
 
+        /// <summary>
+        /// Get a user by their ID.
+        /// </summary>
+        /// <param name="user_id">The ID of the user.</param>
+        /// <returns>A User object, or null if the user does not exist.</returns>
         public User GetUser(int user_id)
         {
             using (MySqlConnection connection = GetNewConnection())
@@ -122,17 +142,25 @@ namespace SalesInventorySystem_WAM1.Handlers
                                 reader.GetInt32("id"),
                                 reader.GetString("username"),
                                 reader.GetString("userpass"),
-                                reader.IsDBNull(reader.GetOrdinal("name")) ? string.Empty : reader.GetString("name"),
+                                reader.IsDBNull(reader.GetOrdinal("name"))
+                                    ? string.Empty
+                                    : reader.GetString("name"),
                                 reader.GetString("role"),
-                                reader.IsDBNull(reader.GetOrdinal("last_login")) ? DateTime.Now : reader.GetDateTime("last_login")
+                                reader.IsDBNull(reader.GetOrdinal("last_login"))
+                                    ? DateTime.Now
+                                    : reader.GetDateTime("last_login")
                             );
                         }
-                        return null;
+                        return null; // Return null if the user does not exist.
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// Delete a user from the database.
+        /// </summary>
+        /// <param name="user_id">The ID of the user to be removed.</param>
         public void DeleteUser(int user_id)
         {
             using (MySqlConnection connection = GetNewConnection())
@@ -147,6 +175,10 @@ namespace SalesInventorySystem_WAM1.Handlers
             }
         }
 
+        /// <summary>
+        /// Add a new user to the database.
+        /// </summary>
+        /// <param name="userdata">The details of the new user.</param>
         public void AddUser(User userdata)
         {
             using (MySqlConnection connection = GetNewConnection())
@@ -154,7 +186,8 @@ namespace SalesInventorySystem_WAM1.Handlers
                 connection.Open();
                 using (MySqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO users (username, userpass, name, role) VALUES (@username, @userpass, @name, @role)";
+                    command.CommandText =
+                        "INSERT INTO users (username, userpass, name, role) VALUES (@username, @userpass, @name, @role)";
                     command.Parameters.AddWithValue("@username", userdata.Username);
                     command.Parameters.AddWithValue("@userpass", userdata.Password);
                     command.Parameters.AddWithValue("@name", userdata.Name);
@@ -164,6 +197,10 @@ namespace SalesInventorySystem_WAM1.Handlers
             }
         }
 
+        /// <summary>
+        /// Update a user's details in the database.
+        /// </summary>
+        /// <param name="userdata">The modified user data</param>
         public void UpdateUser(User userdata)
         {
             using (MySqlConnection connection = GetNewConnection())
@@ -171,7 +208,8 @@ namespace SalesInventorySystem_WAM1.Handlers
                 connection.Open();
                 using (MySqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "UPDATE users SET username = @username, userpass = @userpass, name = @name, role = @role WHERE id = @id";
+                    command.CommandText =
+                        "UPDATE users SET username = @username, userpass = @userpass, name = @name, role = @role WHERE id = @id";
                     command.Parameters.AddWithValue("@username", userdata.Username);
                     command.Parameters.AddWithValue("@userpass", userdata.Password);
                     command.Parameters.AddWithValue("@name", userdata.Name);
@@ -180,6 +218,47 @@ namespace SalesInventorySystem_WAM1.Handlers
                     command.ExecuteNonQuery();
                 }
             }
+        }
+
+        /// <summary>
+        /// Search for users in the database.
+        /// </summary>
+        /// <param name="query">The user's query.</param>
+        /// <returns>A list of Users that match the user's query.</returns>
+        public List<User> SearchUsers(string query)
+        {
+            List<User> users = new List<User>();
+            using (MySqlConnection connection = GetNewConnection())
+            {
+                connection.Open();
+                using (MySqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText =
+                        "SELECT * FROM users WHERE CONCAT_WS('', username, name, role) LIKE @search";
+                    command.Parameters.AddWithValue("@search", $"%{query}%");
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            users.Add(
+                                new User(
+                                    reader.GetInt32("id"),
+                                    reader.GetString("username"),
+                                    reader.GetString("userpass"),
+                                    reader.IsDBNull(reader.GetOrdinal("name"))
+                                        ? string.Empty
+                                        : reader.GetString("name"),
+                                    reader.GetString("role"),
+                                    reader.IsDBNull(reader.GetOrdinal("last_login"))
+                                        ? DateTime.Now
+                                        : reader.GetDateTime("last_login")
+                                )
+                            );
+                        }
+                    }
+                }
+            }
+            return users;
         }
     }
 }

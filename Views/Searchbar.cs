@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using SalesInventorySystem_WAM1.Handlers;
 
 namespace SalesInventorySystem_WAM1
 {
-    public partial class SplashScreen : Form
+    public partial class Searchbar : Form
     {
         //Border
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
@@ -18,30 +17,29 @@ namespace SalesInventorySystem_WAM1
             int nHeightEllipse
         );
 
-        public SplashScreen()
+        public string searchbar_title
+        {
+            get { return lblTitle.Text; }
+            set { lblTitle.Text = value; }
+        }
+        public string query = "";
+
+        public Searchbar()
         {
             InitializeComponent();
-
             //Border
             Region = System.Drawing.Region.FromHrgn(
                 CreateRoundRectRGN(0, 0, Width, Height, 25, 25)
             );
-            if (ee.c())
-                ee.a(this);
         }
 
-        private void tmrLoad_Tick(object sender, EventArgs e)
-        {
-            pnlLoading.Width += 10; // Determines the speed of the loading bar
+        private void btnClose_Click(object sender, EventArgs e) => this.Dispose();
 
-            if (pnlLoading.Width >= 599)
-            {
-                tmrLoad.Stop();
-                var newfrm = new LoginForm();
-                newfrm.Closed += (s, args) => this.Close();
-                this.Hide();
-                newfrm.Show();
-            }
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            query = txtQuery.Text;
+            this.DialogResult = DialogResult.OK;
+            this.Dispose();
         }
     }
 }

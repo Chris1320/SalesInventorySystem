@@ -6,6 +6,14 @@ namespace SalesInventorySystem_WAM1.Handlers
     {
         private readonly string connection_string;
 
+        /// <summary>
+        /// A base class that handles the connection to the database.
+        /// </summary>
+        /// <param name="db_name">The name of the database to connect to.</param>
+        /// <param name="host">The hostname of the database server.</param>
+        /// <param name="port">The port of the database server.</param>
+        /// <param name="username">The username to be used.</param>
+        /// <param name="password">The password to be used.</param>
         public DatabaseHandler(
             string db_name = "sales_inventory_system",
             string host = "localhost",

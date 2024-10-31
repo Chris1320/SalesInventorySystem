@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 30, 2024 at 01:43 AM
+-- Generation Time: Oct 30, 2024 at 03:02 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -34,6 +34,22 @@ CREATE TABLE `items` (
   `unit_price` double NOT NULL,
   `stock` int(11) NOT NULL,
   `date_added` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sales`
+--
+
+CREATE TABLE `sales` (
+  `id` timestamp NOT NULL DEFAULT current_timestamp(),
+  `item_id` int(11) NOT NULL,
+  `category` varchar(128) NOT NULL,
+  `price` double NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `status` varchar(64) NOT NULL,
+  `notes` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -70,6 +86,13 @@ ALTER TABLE `items`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sales`
+--
+ALTER TABLE `sales`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sales_item_id_items_id_fk` (`item_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -90,6 +113,16 @@ ALTER TABLE `items`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `sales`
+--
+ALTER TABLE `sales`
+  ADD CONSTRAINT `sales_item_id_items_id_fk` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

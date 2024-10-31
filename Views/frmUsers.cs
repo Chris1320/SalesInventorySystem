@@ -14,9 +14,13 @@ namespace SalesInventorySystem_WAM1
         {
             this.mainForm = mainForm;
             InitializeComponent();
-            UpdateUsersList();
+            UpdateUsersList(null);
         }
 
+        /// <summary>
+        /// Go to the User Add/Modify form.
+        /// </summary>
+        /// <param name="user_id">The ID of the user to modify. -1 if adding a new user.</param>
         private void gotofrmUserAddModify(int user_id)
         {
             //Form Loading
@@ -45,10 +49,14 @@ namespace SalesInventorySystem_WAM1
             frmUserAddModify_Vrb.Show();
         }
 
-        public void UpdateUsersList()
+        /// <summary>
+        /// Updates the users list in the DataGridView.
+        /// </summary>
+        /// <param name="query">If not null, search for users with details containing this query.</param>
+        public void UpdateUsersList(string query)
         {
-            var db = new UserHandler();
-            var users = db.GetAllUsers();
+            var users =
+                query == null ? user_handler.GetAllUsers() : user_handler.SearchUsers(query);
             dgvUsers.Rows.Clear();
             foreach (var user in users)
             {
@@ -109,6 +117,7 @@ namespace SalesInventorySystem_WAM1
             txtUsername.Text = string.Empty;
             cbRole.SelectedIndex = -1;
             dtpDate.Value = DateTime.Now;
+            UpdateUsersList(null);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -129,11 +138,18 @@ namespace SalesInventorySystem_WAM1
                 return;
 
             user_handler.DeleteUser(selected_user);
-            UpdateUsersList();
+            UpdateUsersList(null);
             btnClear.PerformClick();
             MessageBox.Show("User deleted successfully.");
         }
 
-        private void btnSearch_Click(object sender, EventArgs e) { }
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            var searchbar = new Searchbar();
+            searchbar.searchbar_title = "Search Users";
+            var query = searchbar.ShowDialog();
+            if (query == DialogResult.OK)
+                UpdateUsersList(searchbar.query);
+        }
     }
 }

@@ -72,5 +72,10 @@ namespace SalesInventorySystem_WAM1
 
         private void txtPassword_TextChanged(object sender, EventArgs e) =>
             txtPassword.Text = txtPassword.Text.Replace("\n", "").Replace("\r", "").Trim();
+
+        private void btnMinimize_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
     }
 }

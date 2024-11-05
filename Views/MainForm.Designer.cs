@@ -42,6 +42,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.lblMenu = new System.Windows.Forms.Label();
             this.PnlFormLoader = new System.Windows.Forms.Panel();
+            this.btnMinimize = new System.Windows.Forms.Button();
             this.pnlNavigation.SuspendLayout();
             this.pnlUser.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbUserIcon)).BeginInit();
@@ -208,12 +209,26 @@
             this.PnlFormLoader.Size = new System.Drawing.Size(765, 477);
             this.PnlFormLoader.TabIndex = 6;
             // 
+            // btnMinimize
+            // 
+            this.btnMinimize.FlatAppearance.BorderSize = 0;
+            this.btnMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMinimize.ForeColor = System.Drawing.Color.White;
+            this.btnMinimize.Location = new System.Drawing.Point(883, 12);
+            this.btnMinimize.Name = "btnMinimize";
+            this.btnMinimize.Size = new System.Drawing.Size(25, 25);
+            this.btnMinimize.TabIndex = 7;
+            this.btnMinimize.Text = "🗕";
+            this.btnMinimize.UseVisualStyleBackColor = true;
+            this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(951, 577);
+            this.Controls.Add(this.btnMinimize);
             this.Controls.Add(this.PnlFormLoader);
             this.Controls.Add(this.lblMenu);
             this.Controls.Add(this.btnClose);
@@ -247,6 +262,7 @@
         private System.Windows.Forms.Button btnUsers;
         private System.Windows.Forms.Label lblMenu;
         public System.Windows.Forms.Panel PnlFormLoader;
+        private System.Windows.Forms.Button btnMinimize;
     }
 }
 

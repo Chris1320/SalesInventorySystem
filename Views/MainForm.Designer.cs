@@ -43,6 +43,7 @@
             this.lblMenu = new System.Windows.Forms.Label();
             this.PnlFormLoader = new System.Windows.Forms.Panel();
             this.btnMinimize = new System.Windows.Forms.Button();
+            this.topPanel = new System.Windows.Forms.Panel();
             this.pnlNavigation.SuspendLayout();
             this.pnlUser.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbUserIcon)).BeginInit();
@@ -222,6 +223,17 @@
             this.btnMinimize.UseVisualStyleBackColor = true;
             this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
             // 
+            // topPanel
+            // 
+            this.topPanel.BackColor = System.Drawing.Color.Transparent;
+            this.topPanel.Location = new System.Drawing.Point(186, 0);
+            this.topPanel.Name = "topPanel";
+            this.topPanel.Size = new System.Drawing.Size(765, 49);
+            this.topPanel.TabIndex = 8;
+            this.topPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.topPanel_MouseDown);
+            this.topPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.topPanel_MouseMove);
+            this.topPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.topPanel_MouseUp);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -233,6 +245,7 @@
             this.Controls.Add(this.lblMenu);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.pnlNavigation);
+            this.Controls.Add(this.topPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
@@ -263,6 +276,7 @@
         private System.Windows.Forms.Label lblMenu;
         public System.Windows.Forms.Panel PnlFormLoader;
         private System.Windows.Forms.Button btnMinimize;
+        private System.Windows.Forms.Panel topPanel;
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using SalesInventorySystem_WAM1.Handlers;
@@ -17,6 +18,8 @@ namespace SalesInventorySystem_WAM1
             int nWidthEllipse,
             int nHeightEllipse
         );
+
+        public Point mouseLocation;
 
         public LoginForm()
         {
@@ -76,6 +79,27 @@ namespace SalesInventorySystem_WAM1
         private void btnMinimize_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void topPanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            mouseLocation = new Point(e.X, e.Y);
+        }
+
+        private void topPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                int newX = this.Left + (e.X - mouseLocation.X);
+                int newY = this.Top + (e.Y - mouseLocation.Y);
+
+                this.Location = new Point(newX, newY);
+            }
+        }
+
+        private void topPanel_MouseUp(object sender, MouseEventArgs e)
+        {
+            mouseLocation = Point.Empty;
         }
     }
 }

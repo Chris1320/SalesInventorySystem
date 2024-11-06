@@ -39,6 +39,7 @@
             this.btnLogin = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnMinimize = new System.Windows.Forms.Button();
+            this.topPanel = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -168,6 +169,18 @@
             this.btnMinimize.UseVisualStyleBackColor = true;
             this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
             // 
+            // topPanel
+            // 
+            this.topPanel.BackColor = System.Drawing.Color.Transparent;
+            this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.topPanel.Location = new System.Drawing.Point(0, 0);
+            this.topPanel.Name = "topPanel";
+            this.topPanel.Size = new System.Drawing.Size(289, 50);
+            this.topPanel.TabIndex = 16;
+            this.topPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.topPanel_MouseDown);
+            this.topPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.topPanel_MouseMove);
+            this.topPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.topPanel_MouseUp);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
@@ -184,6 +197,7 @@
             this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lblTitle);
+            this.Controls.Add(this.topPanel);
             this.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -208,5 +222,6 @@
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnMinimize;
+        private System.Windows.Forms.Panel topPanel;
     }
 }

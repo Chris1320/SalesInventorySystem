@@ -63,6 +63,7 @@
             // 
             this.dgvInventory.AllowUserToAddRows = false;
             this.dgvInventory.AllowUserToDeleteRows = false;
+            this.dgvInventory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvInventory.BackgroundColor = System.Drawing.Color.White;
             this.dgvInventory.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvInventory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -76,7 +77,7 @@
             this.dgvInventory.Location = new System.Drawing.Point(290, 12);
             this.dgvInventory.Name = "dgvInventory";
             this.dgvInventory.ReadOnly = true;
-            this.dgvInventory.Size = new System.Drawing.Size(431, 453);
+            this.dgvInventory.Size = new System.Drawing.Size(780, 453);
             this.dgvInventory.TabIndex = 0;
             this.dgvInventory.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInventory_CellClick);
             // 
@@ -351,7 +352,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.ClientSize = new System.Drawing.Size(733, 477);
+            this.ClientSize = new System.Drawing.Size(1082, 477);
             this.Controls.Add(this.lblBcode);
             this.Controls.Add(this.picBarcode);
             this.Controls.Add(this.btnClear);

@@ -47,6 +47,7 @@
             this.pnlNavigation.SuspendLayout();
             this.pnlUser.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbUserIcon)).BeginInit();
+            this.topPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlNavigation
@@ -183,7 +184,7 @@
             this.btnClose.FlatAppearance.BorderSize = 0;
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(914, 12);
+            this.btnClose.Location = new System.Drawing.Point(1077, 12);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(25, 25);
             this.btnClose.TabIndex = 4;
@@ -207,7 +208,7 @@
             this.PnlFormLoader.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.PnlFormLoader.Location = new System.Drawing.Point(186, 100);
             this.PnlFormLoader.Name = "PnlFormLoader";
-            this.PnlFormLoader.Size = new System.Drawing.Size(765, 477);
+            this.PnlFormLoader.Size = new System.Drawing.Size(1114, 477);
             this.PnlFormLoader.TabIndex = 6;
             // 
             // btnMinimize
@@ -215,7 +216,7 @@
             this.btnMinimize.FlatAppearance.BorderSize = 0;
             this.btnMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMinimize.ForeColor = System.Drawing.Color.White;
-            this.btnMinimize.Location = new System.Drawing.Point(883, 12);
+            this.btnMinimize.Location = new System.Drawing.Point(1046, 12);
             this.btnMinimize.Name = "btnMinimize";
             this.btnMinimize.Size = new System.Drawing.Size(25, 25);
             this.btnMinimize.TabIndex = 7;
@@ -226,9 +227,11 @@
             // topPanel
             // 
             this.topPanel.BackColor = System.Drawing.Color.Transparent;
+            this.topPanel.Controls.Add(this.btnMinimize);
+            this.topPanel.Controls.Add(this.btnClose);
             this.topPanel.Location = new System.Drawing.Point(186, 0);
             this.topPanel.Name = "topPanel";
-            this.topPanel.Size = new System.Drawing.Size(765, 49);
+            this.topPanel.Size = new System.Drawing.Size(1114, 49);
             this.topPanel.TabIndex = 8;
             this.topPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.topPanel_MouseDown);
             this.topPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.topPanel_MouseMove);
@@ -239,11 +242,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.ClientSize = new System.Drawing.Size(951, 577);
-            this.Controls.Add(this.btnMinimize);
+            this.ClientSize = new System.Drawing.Size(1300, 577);
             this.Controls.Add(this.PnlFormLoader);
             this.Controls.Add(this.lblMenu);
-            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.pnlNavigation);
             this.Controls.Add(this.topPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -255,6 +256,7 @@
             this.pnlUser.ResumeLayout(false);
             this.pnlUser.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbUserIcon)).EndInit();
+            this.topPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

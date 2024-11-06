@@ -233,6 +233,7 @@
             // 
             this.dgvSales.AllowUserToAddRows = false;
             this.dgvSales.AllowUserToDeleteRows = false;
+            this.dgvSales.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvSales.BackgroundColor = System.Drawing.Color.White;
             this.dgvSales.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvSales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -246,7 +247,7 @@
             this.notes});
             this.dgvSales.Location = new System.Drawing.Point(290, 12);
             this.dgvSales.Name = "dgvSales";
-            this.dgvSales.Size = new System.Drawing.Size(431, 453);
+            this.dgvSales.Size = new System.Drawing.Size(780, 453);
             this.dgvSales.TabIndex = 26;
             this.dgvSales.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSales_CellClick);
             // 
@@ -388,7 +389,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.ClientSize = new System.Drawing.Size(733, 477);
+            this.ClientSize = new System.Drawing.Size(1082, 477);
             this.Controls.Add(this.cbStatus);
             this.Controls.Add(this.cbItem);
             this.Controls.Add(this.btnClear);

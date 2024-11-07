@@ -84,7 +84,7 @@ namespace SalesInventorySystem_WAM1
                         user.Role,
                         user.LastLogin == null
                             ? "N/A"
-                            : user.LastLogin.Date.ToString("yyyy-MM-dd HH:mm:ss")
+                            : user.LastLogin.ToString("yyyy-MM-dd HH:mm:ss")
                     );
                 }
             }

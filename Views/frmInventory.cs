@@ -55,7 +55,7 @@ namespace SalesInventorySystem_WAM1
                     item.Stock,
                     item.DateAdded == null
                         ? "N/A"
-                        : item.DateAdded.Date.ToString("yyyy-MM-dd HH:mm:ss")
+                        : item.DateAdded.ToString("yyyy-MM-dd HH:mm:ss")
                 );
             }
         }

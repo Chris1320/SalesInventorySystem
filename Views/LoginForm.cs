@@ -2,7 +2,9 @@
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 using SalesInventorySystem_WAM1.Handlers;
+using SalesInventorySystem_WAM1.Models;
 
 namespace SalesInventorySystem_WAM1
 {
@@ -25,7 +27,7 @@ namespace SalesInventorySystem_WAM1
         {
             InitializeComponent();
             //Border
-            Region = System.Drawing.Region.FromHrgn(
+            Region = Region.FromHrgn(
                 CreateRoundRectRGN(0, 0, Width, Height, 25, 25)
             );
         }
@@ -36,8 +38,26 @@ namespace SalesInventorySystem_WAM1
         {
             btnLogin.Text = "Logging in...";
             btnLogin.Enabled = false;
-            var user_handler = new UserHandler();
-            var user = user_handler.Login(txtUsername.Text, txtPassword.Text);
+            UserHandler user_handler;
+            User user;
+            try
+            {
+                user_handler = new UserHandler();
+                user = user_handler.Login(txtUsername.Text, txtPassword.Text);
+            }
+            catch (MySqlException exc)
+            {
+                MessageBox.Show(
+                    $"A database-related error occured: {exc.Message}\n\nFailed to log in.",
+                    "Database Connection Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                btnLogin.Text = "Login";
+                btnLogin.Enabled = true;
+                return;
+            }
+
             if (user == null)
             {
                 MessageBox.Show(

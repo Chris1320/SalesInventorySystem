@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 using SalesInventorySystem_WAM1.Handlers;
 using SalesInventorySystem_WAM1.Models;
 
@@ -111,17 +112,31 @@ namespace SalesInventorySystem_WAM1
 
             if (user_id == -1)
             {
-                user_handler.AddUser(
-                    new User(
-                        -1,
-                        txtUsername.Text,
-                        UserHandler.EncryptPassword(txtPassword.Text),
-                        txtName.Text,
-                        cbRole.SelectedIndex == 1 ? "admin" : "employee",
-                        DateTime.Now
-                    )
-                );
-                MessageBox.Show("User added successfully.");
+                try
+                {
+                    user_handler.AddUser(
+                        new User(
+                            -1,
+                            txtUsername.Text,
+                            UserHandler.EncryptPassword(txtPassword.Text),
+                            txtName.Text,
+                            cbRole.SelectedIndex == 1 ? "admin" : "employee",
+                            DateTime.Now
+                        )
+                    );
+                    MessageBox.Show("User added successfully.");
+                }
+                catch (MySqlException exc)
+                {
+                    MessageBox.Show(
+                        $"A database-related error occured: {exc.Message}\n\nFailed to register user.",
+                        "Database Connection Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                    return;
+                }
+
                 var mainfrm = new frmUsers(mainForm)
                 {
                     Dock = DockStyle.Fill,
@@ -135,30 +150,42 @@ namespace SalesInventorySystem_WAM1
             }
 
             // Update user information
-            if (password_changed)
+            try
             {
-                user_handler.UpdateUser(
-                    new User(
-                        user_id,
-                        txtUsername.Text,
-                        UserHandler.EncryptPassword(txtPassword.Text),
-                        txtName.Text,
-                        cbRole.SelectedIndex == 1 ? "admin" : "employee",
-                        DateTime.Now
-                    )
-                );
+                if (password_changed)
+                {
+                    user_handler.UpdateUser(
+                        new User(
+                            user_id,
+                            txtUsername.Text,
+                            UserHandler.EncryptPassword(txtPassword.Text),
+                            txtName.Text,
+                            cbRole.SelectedIndex == 1 ? "admin" : "employee",
+                            DateTime.Now
+                        )
+                    );
+                }
+                else
+                {
+                    user_handler.UpdateUser(
+                        new User(
+                            user_id,
+                            txtUsername.Text,
+                            user_handler.GetUser(user_id).Password,
+                            txtName.Text,
+                            cbRole.SelectedIndex == 1 ? "admin" : "employee",
+                            DateTime.Now
+                        )
+                    );
+                }
             }
-            else
+            catch (MySqlException exc)
             {
-                user_handler.UpdateUser(
-                    new User(
-                        user_id,
-                        txtUsername.Text,
-                        user_handler.GetUser(user_id).Password,
-                        txtName.Text,
-                        cbRole.SelectedIndex == 1 ? "admin" : "employee",
-                        DateTime.Now
-                    )
+                MessageBox.Show(
+                    $"A database-related error occured: {exc.Message}\n\nFailed to update user information.",
+                    "Database Connection Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
                 );
             }
 
@@ -201,9 +228,21 @@ namespace SalesInventorySystem_WAM1
                 ) == DialogResult.Yes
             )
             {
-                user_handler.DeleteUser(user_id);
-                MessageBox.Show("User deleted successfully.");
-                btnBack.PerformClick();
+                try
+                {
+                    user_handler.DeleteUser(user_id);
+                    MessageBox.Show("User deleted successfully.");
+                    btnBack.PerformClick();
+                }
+                catch (MySqlException exc)
+                {
+                    MessageBox.Show(
+                        $"A database-related error occured: {exc.Message}\n\nFailed to delete user information.",
+                        "Database Connection Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                }
             }
         }
     }

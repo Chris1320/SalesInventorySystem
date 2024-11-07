@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
-using iText.IO.Font.Constants;
-using iText.Kernel.Colors;
-using iText.Kernel.Font;
 using iText.Kernel.Pdf;
 using iText.Layout;
-using iText.Layout.Borders;
 using iText.Layout.Element;
-using iText.Layout.Properties;
+using MySql.Data.MySqlClient;
 using SalesInventorySystem_WAM1.Handlers;
 using SalesInventorySystem_WAM1.Models;
 
@@ -31,23 +27,36 @@ namespace SalesInventorySystem_WAM1
         /// <param name="query">If not null, search for transactions with details containing this query.</param>
         private void UpdateTransactionsList(string query)
         {
-            cbItem.Items.Clear();
-            foreach (var item in ih.GetAllItems())
-                cbItem.Items.Add($"[{item.Id}] {item.Name}");
+            try
+            {
+                cbItem.Items.Clear();
+                foreach (var item in ih.GetAllItems())
+                    cbItem.Items.Add($"[{item.Id}] {item.Name}");
 
-            var transactions =
-                query == null ? sh.GetAllTransactions() : sh.SearchTransactions(query);
-            dgvSales.Rows.Clear();
-            foreach (var transaction in transactions)
-                dgvSales.Rows.Add(
-                    transaction.Id.ToString("yyyy-MM-dd HH:mm:ss"),
-                    $"[{transaction.ItemId}] {ih.GetItem(transaction.ItemId).Name}",
-                    transaction.Category,
-                    transaction.Price,
-                    transaction.Quantity,
-                    transaction.Status,
-                    transaction.Notes
+                var transactions =
+                    query == null ? sh.GetAllTransactions() : sh.SearchTransactions(query);
+                dgvSales.Rows.Clear();
+                foreach (var transaction in transactions)
+                    dgvSales.Rows.Add(
+                        transaction.Id.ToString("yyyy-MM-dd HH:mm:ss"),
+                        $"[{transaction.ItemId}] {ih.GetItem(transaction.ItemId).Name}",
+                        transaction.Category,
+                        transaction.Price,
+                        transaction.Quantity,
+                        transaction.Status,
+                        transaction.Notes
+                    );
+            }
+            catch (MySqlException exc)
+            {
+                MessageBox.Show(
+                    $"A database-related error occured: {exc.Message}\n\nFailed to update transactions list.",
+                    "Database Connection Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
                 );
+                return;
+            }
         }
 
         /// <summary>
@@ -139,7 +148,21 @@ namespace SalesInventorySystem_WAM1
             {
                 // Get the item ID from the combobox
                 int item_id = int.Parse(cbItem.Text.Split(']')[0].Substring(1));
-                var item = ih.GetItem(item_id);
+                Item item;
+                try
+                {
+                    item = ih.GetItem(item_id);
+                }
+                catch (MySqlException exc)
+                {
+                    MessageBox.Show(
+                        $"A database-related error occured: {exc.Message}\n\nFailed to acquire item information.",
+                        "Database Connection Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                    return;
+                }
                 // Fill up the category combobox
                 cbCategory.SelectedIndex = item.Category == "general" ? 0 : 1;
                 // Fill up the price textbox if the item and quantity are selected/entered.
@@ -174,43 +197,56 @@ namespace SalesInventorySystem_WAM1
             if (!ValidateValues())
                 return;
 
-            if (
-                int.Parse(txtQuantity.Text)
-                > ih.GetItem(int.Parse(cbItem.Text.Split(']')[0].Substring(1))).Stock
-            )
+            try
+            {
+                if (
+                    int.Parse(txtQuantity.Text)
+                    > ih.GetItem(int.Parse(cbItem.Text.Split(']')[0].Substring(1))).Stock
+                )
+                {
+                    MessageBox.Show(
+                        "The quantity exceeds the stock.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                    return;
+                }
+
+                sh.AddTransaction(
+                    new Transaction
+                    {
+                        Id = DateTime.Now,
+                        ItemId = int.Parse(cbItem.Text.Split(']')[0].Substring(1)),
+                        Category = cbCategory.SelectedIndex == 0 ? "general" : "electronic",
+                        Quantity = int.Parse(txtQuantity.Text),
+                        Price = double.Parse(txtPrice.Text),
+                        Status = cbStatus.SelectedIndex == 0 ? "Unpaid" : "Paid",
+                        Notes = txtNotes.Text,
+                    }
+                );
+                var old_item = ih.GetItem(int.Parse(cbItem.Text.Split(']')[0].Substring(1)));
+                old_item.Stock -= int.Parse(txtQuantity.Text);
+                ih.UpdateItem(old_item);
+
+                MessageBox.Show(
+                    "Transaction added successfully.",
+                    "Success",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+                btnClear.PerformClick();
+            }
+            catch (MySqlException exc)
             {
                 MessageBox.Show(
-                    "The quantity exceeds the stock.",
-                    "Error",
+                    $"A database-related error occured: {exc.Message}\n\nFailed to add the transaction.",
+                    "Database Connection Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );
                 return;
             }
-
-            sh.AddTransaction(
-                new Transaction
-                {
-                    Id = DateTime.Now,
-                    ItemId = int.Parse(cbItem.Text.Split(']')[0].Substring(1)),
-                    Category = cbCategory.SelectedIndex == 0 ? "general" : "electronic",
-                    Quantity = int.Parse(txtQuantity.Text),
-                    Price = double.Parse(txtPrice.Text),
-                    Status = cbStatus.SelectedIndex == 0 ? "Unpaid" : "Paid",
-                    Notes = txtNotes.Text,
-                }
-            );
-            var old_item = ih.GetItem(int.Parse(cbItem.Text.Split(']')[0].Substring(1)));
-            old_item.Stock -= int.Parse(txtQuantity.Text);
-            ih.UpdateItem(old_item);
-
-            MessageBox.Show(
-                "Transaction added successfully.",
-                "Success",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            );
-            btnClear.PerformClick();
             UpdateTransactionsList(null);
         }
 
@@ -223,7 +259,21 @@ namespace SalesInventorySystem_WAM1
             if (e.RowIndex < 0)
                 return; // do nothing if the header is clicked
             var trans_id = DateTime.Parse((string)dgvSales.Rows[e.RowIndex].Cells["id"].Value);
-            var transaction = sh.GetTransaction(trans_id);
+            Transaction transaction;
+            try
+            {
+                transaction = sh.GetTransaction(trans_id);
+            }
+            catch (MySqlException exc)
+            {
+                MessageBox.Show(
+                    $"A database-related error occured: {exc.Message}\n\nFailed to retrieve the transaction.",
+                    "Database Connection Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
 
             selected_transaction = trans_id;
             txtTransactionID.Text = trans_id.ToString();

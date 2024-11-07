@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 using BarcodeStandard;
+using MySql.Data.MySqlClient;
 using SalesInventorySystem_WAM1.Handlers;
 using SalesInventorySystem_WAM1.Models;
 using SkiaSharp;
@@ -27,8 +28,22 @@ namespace SalesInventorySystem_WAM1
         /// <param name="query">If not null, search for items with details containing this query.</param>
         public void UpdateItemsList(string query)
         {
-            var items =
-                query == null ? item_handler.GetAllItems() : item_handler.SearchItems(query);
+            List<Item> items;
+            try
+            {
+                items =
+                    query == null ? item_handler.GetAllItems() : item_handler.SearchItems(query);
+            }
+            catch (MySqlException exc)
+            {
+                MessageBox.Show(
+                    $"A database-related error occured: {exc.Message}\n\nFailed to get item list in the inventory.",
+                    "Database Connection Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
             dgvInventory.Rows.Clear();
             foreach (var item in items)
             {
@@ -102,7 +117,22 @@ namespace SalesInventorySystem_WAM1
                 return; // do nothing if the header is clicked
             int item_id = (int)dgvInventory.Rows[e.RowIndex].Cells["id"].Value;
             selected_item = item_id;
-            var item = item_handler.GetItem(item_id);
+            Item item;
+
+            try
+            {
+                item = item_handler.GetItem(item_id);
+            }
+            catch (MySqlException exc)
+            {
+                MessageBox.Show(
+                    $"A database-related error occured: {exc.Message}\n\nFailed to get item information.",
+                    "Database Connection Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
 
             txtItemID.Text = item.Id.ToString();
             txtName.Text = item.Name;
@@ -141,17 +171,30 @@ namespace SalesInventorySystem_WAM1
             txtItemID.Text = item_handler.GenerateItemId().ToString();
             dtpDate.Value = DateTime.Now;
 
-            item_handler.AddItem(
-                new Item
-                {
-                    Id = int.Parse(txtItemID.Text),
-                    Name = txtName.Text,
-                    Category = cbCategory.SelectedIndex == 0 ? "general" : "electronic",
-                    UnitPrice = double.Parse(txtUnitPrice.Text),
-                    Stock = int.Parse(txtStock.Text),
-                    DateAdded = dtpDate.Value,
-                }
-            );
+            try
+            {
+                item_handler.AddItem(
+                    new Item
+                    {
+                        Id = int.Parse(txtItemID.Text),
+                        Name = txtName.Text,
+                        Category = cbCategory.SelectedIndex == 0 ? "general" : "electronic",
+                        UnitPrice = double.Parse(txtUnitPrice.Text),
+                        Stock = int.Parse(txtStock.Text),
+                        DateAdded = dtpDate.Value,
+                    }
+                );
+            }
+            catch (MySqlException exc)
+            {
+                MessageBox.Show(
+                    $"A database-related error occured: {exc.Message}\n\nFailed to add the item to the database.",
+                    "Database Connection Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
 
             UpdateItemsList(null);
             selected_item = Convert.ToInt32(txtItemID.Text);
@@ -186,7 +229,20 @@ namespace SalesInventorySystem_WAM1
                 ) == DialogResult.Yes
             )
             {
-                item_handler.DeleteItem(selected_item);
+                try
+                {
+                    item_handler.DeleteItem(selected_item);
+                }
+                catch (MySqlException exc)
+                {
+                    MessageBox.Show(
+                        $"A database-related error occured: {exc.Message}\n\nFailed to delete the item from the database.",
+                        "Database Connection Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                    return;
+                }
                 UpdateItemsList(null);
                 MessageBox.Show("Item deleted successfully.");
                 btnClear_Click(sender, e);
@@ -200,17 +256,30 @@ namespace SalesInventorySystem_WAM1
 
             dtpDate.Value = DateTime.Now;
 
-            item_handler.UpdateItem(
-                new Item
-                {
-                    Id = selected_item,
-                    Name = txtName.Text,
-                    Category = cbCategory.SelectedIndex == 0 ? "general" : "electronic",
-                    UnitPrice = double.Parse(txtUnitPrice.Text),
-                    Stock = int.Parse(txtStock.Text),
-                    DateAdded = dtpDate.Value,
-                }
-            );
+            try
+            {
+                item_handler.UpdateItem(
+                    new Item
+                    {
+                        Id = selected_item,
+                        Name = txtName.Text,
+                        Category = cbCategory.SelectedIndex == 0 ? "general" : "electronic",
+                        UnitPrice = double.Parse(txtUnitPrice.Text),
+                        Stock = int.Parse(txtStock.Text),
+                        DateAdded = dtpDate.Value,
+                    }
+                );
+            }
+            catch (MySqlException exc)
+            {
+                MessageBox.Show(
+                    $"A database-related error occured: {exc.Message}\n\nFailed to update item information.",
+                    "Database Connection Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
 
             UpdateItemsList(null);
         }

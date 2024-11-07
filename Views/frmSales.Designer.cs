@@ -70,7 +70,7 @@
             this.btnDelete.Location = new System.Drawing.Point(189, 434);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(82, 31);
-            this.btnDelete.TabIndex = 42;
+            this.btnDelete.TabIndex = 17;
             this.btnDelete.Text = "DELETE";
             this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -85,7 +85,7 @@
             this.btnModify.Location = new System.Drawing.Point(101, 434);
             this.btnModify.Name = "btnModify";
             this.btnModify.Size = new System.Drawing.Size(82, 31);
-            this.btnModify.TabIndex = 41;
+            this.btnModify.TabIndex = 16;
             this.btnModify.Text = "MODIFY";
             this.btnModify.UseVisualStyleBackColor = false;
             this.btnModify.Click += new System.EventHandler(this.btnModify_Click);
@@ -100,7 +100,7 @@
             this.btnAdd.Location = new System.Drawing.Point(13, 434);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(82, 31);
-            this.btnAdd.TabIndex = 40;
+            this.btnAdd.TabIndex = 15;
             this.btnAdd.Text = "ADD";
             this.btnAdd.UseVisualStyleBackColor = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
@@ -115,7 +115,7 @@
             this.btnSearch.Location = new System.Drawing.Point(101, 397);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(82, 31);
-            this.btnSearch.TabIndex = 39;
+            this.btnSearch.TabIndex = 13;
             this.btnSearch.Text = "SEARCH";
             this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -134,7 +134,7 @@
             this.cbCategory.Location = new System.Drawing.Point(101, 105);
             this.cbCategory.Name = "cbCategory";
             this.cbCategory.Size = new System.Drawing.Size(170, 21);
-            this.cbCategory.TabIndex = 36;
+            this.cbCategory.TabIndex = 7;
             // 
             // txtQuantity
             // 
@@ -145,7 +145,7 @@
             this.txtQuantity.Multiline = true;
             this.txtQuantity.Name = "txtQuantity";
             this.txtQuantity.Size = new System.Drawing.Size(170, 20);
-            this.txtQuantity.TabIndex = 35;
+            this.txtQuantity.TabIndex = 9;
             this.txtQuantity.TextChanged += new System.EventHandler(this.txtQuantity_TextChanged);
             // 
             // txtPrice
@@ -159,7 +159,7 @@
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.ReadOnly = true;
             this.txtPrice.Size = new System.Drawing.Size(170, 20);
-            this.txtPrice.TabIndex = 34;
+            this.txtPrice.TabIndex = 8;
             // 
             // lblQuantity
             // 
@@ -216,7 +216,7 @@
             this.txtTransactionID.Name = "txtTransactionID";
             this.txtTransactionID.ReadOnly = true;
             this.txtTransactionID.Size = new System.Drawing.Size(170, 20);
-            this.txtTransactionID.TabIndex = 28;
+            this.txtTransactionID.TabIndex = 5;
             // 
             // lblItemID
             // 
@@ -248,7 +248,7 @@
             this.dgvSales.Location = new System.Drawing.Point(290, 12);
             this.dgvSales.Name = "dgvSales";
             this.dgvSales.Size = new System.Drawing.Size(780, 453);
-            this.dgvSales.TabIndex = 26;
+            this.dgvSales.TabIndex = 18;
             this.dgvSales.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSales_CellClick);
             // 
             // id
@@ -324,7 +324,7 @@
             this.txtNotes.Multiline = true;
             this.txtNotes.Name = "txtNotes";
             this.txtNotes.Size = new System.Drawing.Size(170, 68);
-            this.txtNotes.TabIndex = 46;
+            this.txtNotes.TabIndex = 11;
             // 
             // btnStatus
             // 
@@ -336,7 +336,7 @@
             this.btnStatus.Location = new System.Drawing.Point(189, 397);
             this.btnStatus.Name = "btnStatus";
             this.btnStatus.Size = new System.Drawing.Size(82, 31);
-            this.btnStatus.TabIndex = 47;
+            this.btnStatus.TabIndex = 14;
             this.btnStatus.Text = "EXPORT";
             this.btnStatus.UseVisualStyleBackColor = false;
             this.btnStatus.Click += new System.EventHandler(this.btnStatus_Click);
@@ -351,7 +351,7 @@
             this.btnClear.Location = new System.Drawing.Point(13, 397);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(82, 31);
-            this.btnClear.TabIndex = 48;
+            this.btnClear.TabIndex = 12;
             this.btnClear.Text = "CLEAR";
             this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
@@ -366,7 +366,7 @@
             this.cbItem.Location = new System.Drawing.Point(101, 62);
             this.cbItem.Name = "cbItem";
             this.cbItem.Size = new System.Drawing.Size(170, 21);
-            this.cbItem.TabIndex = 49;
+            this.cbItem.TabIndex = 6;
             this.cbItem.SelectedIndexChanged += new System.EventHandler(this.cbItem_SelectedIndexChanged);
             // 
             // cbStatus
@@ -382,7 +382,7 @@
             this.cbStatus.Location = new System.Drawing.Point(101, 238);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(170, 21);
-            this.cbStatus.TabIndex = 50;
+            this.cbStatus.TabIndex = 10;
             // 
             // frmSales
             // 

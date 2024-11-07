@@ -78,7 +78,7 @@
             this.dgvInventory.Name = "dgvInventory";
             this.dgvInventory.ReadOnly = true;
             this.dgvInventory.Size = new System.Drawing.Size(780, 453);
-            this.dgvInventory.TabIndex = 0;
+            this.dgvInventory.TabIndex = 16;
             this.dgvInventory.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInventory_CellClick);
             // 
             // id
@@ -139,7 +139,7 @@
             this.txtItemID.Name = "txtItemID";
             this.txtItemID.ReadOnly = true;
             this.txtItemID.Size = new System.Drawing.Size(170, 20);
-            this.txtItemID.TabIndex = 10;
+            this.txtItemID.TabIndex = 5;
             // 
             // lblName
             // 
@@ -194,7 +194,7 @@
             this.txtName.Multiline = true;
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(170, 20);
-            this.txtName.TabIndex = 15;
+            this.txtName.TabIndex = 6;
             // 
             // txtUnitPrice
             // 
@@ -205,7 +205,7 @@
             this.txtUnitPrice.Multiline = true;
             this.txtUnitPrice.Name = "txtUnitPrice";
             this.txtUnitPrice.Size = new System.Drawing.Size(170, 20);
-            this.txtUnitPrice.TabIndex = 17;
+            this.txtUnitPrice.TabIndex = 8;
             // 
             // txtStock
             // 
@@ -216,7 +216,7 @@
             this.txtStock.Multiline = true;
             this.txtStock.Name = "txtStock";
             this.txtStock.Size = new System.Drawing.Size(170, 20);
-            this.txtStock.TabIndex = 18;
+            this.txtStock.TabIndex = 9;
             // 
             // cbCategory
             // 
@@ -231,7 +231,7 @@
             this.cbCategory.Location = new System.Drawing.Point(101, 105);
             this.cbCategory.Name = "cbCategory";
             this.cbCategory.Size = new System.Drawing.Size(170, 21);
-            this.cbCategory.TabIndex = 19;
+            this.cbCategory.TabIndex = 7;
             // 
             // dtpDate
             // 
@@ -239,7 +239,7 @@
             this.dtpDate.Location = new System.Drawing.Point(101, 239);
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(170, 20);
-            this.dtpDate.TabIndex = 20;
+            this.dtpDate.TabIndex = 10;
             // 
             // lblDate
             // 
@@ -262,7 +262,7 @@
             this.btnSearch.Location = new System.Drawing.Point(16, 324);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(167, 31);
-            this.btnSearch.TabIndex = 22;
+            this.btnSearch.TabIndex = 14;
             this.btnSearch.Text = "SEARCH";
             this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -277,7 +277,7 @@
             this.btnAdd.Location = new System.Drawing.Point(16, 275);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(82, 31);
-            this.btnAdd.TabIndex = 23;
+            this.btnAdd.TabIndex = 11;
             this.btnAdd.Text = "ADD";
             this.btnAdd.UseVisualStyleBackColor = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
@@ -292,7 +292,7 @@
             this.btnModify.Location = new System.Drawing.Point(101, 275);
             this.btnModify.Name = "btnModify";
             this.btnModify.Size = new System.Drawing.Size(82, 31);
-            this.btnModify.TabIndex = 24;
+            this.btnModify.TabIndex = 12;
             this.btnModify.Text = "MODIFY";
             this.btnModify.UseVisualStyleBackColor = false;
             this.btnModify.Click += new System.EventHandler(this.btnModify_Click);
@@ -307,7 +307,7 @@
             this.btnDelete.Location = new System.Drawing.Point(189, 275);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(82, 31);
-            this.btnDelete.TabIndex = 25;
+            this.btnDelete.TabIndex = 13;
             this.btnDelete.Text = "DELETE";
             this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -322,7 +322,7 @@
             this.btnClear.Location = new System.Drawing.Point(189, 324);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(82, 31);
-            this.btnClear.TabIndex = 49;
+            this.btnClear.TabIndex = 15;
             this.btnClear.Text = "CLEAR";
             this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);

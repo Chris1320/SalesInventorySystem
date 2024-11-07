@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 using SalesInventorySystem_WAM1.Models;
 
 namespace SalesInventorySystem_WAM1
@@ -34,7 +35,9 @@ namespace SalesInventorySystem_WAM1
             );
             lblUserName.Text = user.Username;
             lblRole.Text = user.Role;
-            btnUsers.Visible = user.Role == "admin";
+            if (user.Role == "employee")
+                btnUsers.Text = "Account Settings";
+
             navSales(); //Default Navigation
         }
 
@@ -113,17 +116,55 @@ namespace SalesInventorySystem_WAM1
             btnUsers.BackColor = Color.FromArgb(46, 51, 73);
 
             //Form Loading
-            lblMenu.Text = "Users";
-            this.PnlFormLoader.Controls.Clear();
-            frmUsers FrmUsers_Vrb = new frmUsers(this)
+            if (user.Role == "admin")
             {
-                Dock = DockStyle.Fill,
-                TopLevel = false,
-                TopMost = true,
-            };
-            FrmUsers_Vrb.FormBorderStyle = FormBorderStyle.None;
-            this.PnlFormLoader.Controls.Add(FrmUsers_Vrb);
-            FrmUsers_Vrb.Show();
+                lblMenu.Text = "Users";
+                this.PnlFormLoader.Controls.Clear();
+                frmUsers FrmUsers_Vrb = new frmUsers(this)
+                {
+                    Dock = DockStyle.Fill,
+                    TopLevel = false,
+                    TopMost = true,
+                };
+                FrmUsers_Vrb.FormBorderStyle = FormBorderStyle.None;
+                this.PnlFormLoader.Controls.Add(FrmUsers_Vrb);
+                FrmUsers_Vrb.Show();
+                return;
+            }
+
+            try
+            {
+                PnlFormLoader.Controls.Clear();
+                var frmUserAddModify_Vrb = new frmUserAddModify(this)
+                {
+                    Dock = DockStyle.Fill,
+                    TopLevel = false,
+                    TopMost = true,
+                };
+                frmUserAddModify_Vrb.user_id = user.Id;
+                frmUserAddModify_Vrb.pub_txtName = user.Name;
+                frmUserAddModify_Vrb.pub_cbRole = user.Role;
+                frmUserAddModify_Vrb.pub_txtUsername = user.Username;
+                frmUserAddModify_Vrb.pub_btnRegister = "Update Account";
+                frmUserAddModify_Vrb.pub_btnDeleteVisible = false;
+                frmUserAddModify_Vrb.pub_btnBackVisible = false;
+                frmUserAddModify_Vrb.pub_RoleEnabled = false;
+                frmUserAddModify_Vrb.stay_alive = true;
+
+                frmUserAddModify_Vrb.FormBorderStyle = FormBorderStyle.None;
+                PnlFormLoader.Controls.Add(frmUserAddModify_Vrb);
+                frmUserAddModify_Vrb.Show();
+            }
+            catch (MySqlException exc)
+            {
+                MessageBox.Show(
+                    $"A database-related error occured: {exc.Message}\n\nFailed to acquire user information.",
+                    "Database Connection Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
         }
 
         private void btnUsers_Leave(object sender, EventArgs e) =>

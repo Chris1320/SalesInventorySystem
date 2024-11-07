@@ -12,6 +12,7 @@ namespace SalesInventorySystem_WAM1
         private MainForm mainForm;
 
         public int user_id;
+        public bool stay_alive = false;
         private bool password_changed = false;
 
         public string pub_txtName
@@ -62,6 +63,24 @@ namespace SalesInventorySystem_WAM1
             set { btnRegister.Text = value; }
         }
 
+        public bool pub_RoleEnabled
+        {
+            get { return cbRole.Enabled; }
+            set { cbRole.Enabled = value; }
+        }
+
+        public bool pub_btnDeleteVisible
+        {
+            get { return btnDelete.Visible; }
+            set { btnDelete.Visible = value; }
+        }
+
+        public bool pub_btnBackVisible
+        {
+            get { return btnBack.Visible; }
+            set { btnBack.Visible = value; }
+        }
+
         public frmUserAddModify(MainForm mainForm)
         {
             InitializeComponent();
@@ -70,18 +89,21 @@ namespace SalesInventorySystem_WAM1
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            //Form Loading
-            //lblMenu.Text = "Sales";
-            mainForm.PnlFormLoader.Controls.Clear();
-            frmUsers FrmUsers_Vrb = new frmUsers(mainForm)
+            if (!stay_alive)
             {
-                Dock = DockStyle.Fill,
-                TopLevel = false,
-                TopMost = true,
-            };
-            FrmUsers_Vrb.FormBorderStyle = FormBorderStyle.None;
-            mainForm.PnlFormLoader.Controls.Add(FrmUsers_Vrb);
-            FrmUsers_Vrb.Show();
+                //Form Loading
+                //lblMenu.Text = "Sales";
+                mainForm.PnlFormLoader.Controls.Clear();
+                frmUsers FrmUsers_Vrb = new frmUsers(mainForm)
+                {
+                    Dock = DockStyle.Fill,
+                    TopLevel = false,
+                    TopMost = true,
+                };
+                FrmUsers_Vrb.FormBorderStyle = FormBorderStyle.None;
+                mainForm.PnlFormLoader.Controls.Add(FrmUsers_Vrb);
+                FrmUsers_Vrb.Show();
+            }
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
@@ -137,16 +159,19 @@ namespace SalesInventorySystem_WAM1
                     return;
                 }
 
-                var mainfrm = new frmUsers(mainForm)
+                if (!stay_alive)
                 {
-                    Dock = DockStyle.Fill,
-                    TopLevel = false,
-                    TopMost = true,
-                };
-                // Go back to the Users form
-                mainForm.PnlFormLoader.Controls.Add(mainfrm);
-                mainfrm.Show();
-                this.Dispose();
+                    var mainfrm = new frmUsers(mainForm)
+                    {
+                        Dock = DockStyle.Fill,
+                        TopLevel = false,
+                        TopMost = true,
+                    };
+                    // Go back to the Users form
+                    mainForm.PnlFormLoader.Controls.Add(mainfrm);
+                    mainfrm.Show();
+                    this.Dispose();
+                }
             }
 
             // Update user information
@@ -187,19 +212,23 @@ namespace SalesInventorySystem_WAM1
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );
+                return;
             }
 
             MessageBox.Show("User updated successfully.");
-            var mainfrm2 = new frmUsers(mainForm)
+            if (!stay_alive)
             {
-                Dock = DockStyle.Fill,
-                TopLevel = false,
-                TopMost = true,
-            };
-            // Go back to the Users form
-            mainForm.PnlFormLoader.Controls.Add(mainfrm2);
-            mainfrm2.Show();
-            this.Dispose();
+                var mainfrm2 = new frmUsers(mainForm)
+                {
+                    Dock = DockStyle.Fill,
+                    TopLevel = false,
+                    TopMost = true,
+                };
+                // Go back to the Users form
+                mainForm.PnlFormLoader.Controls.Add(mainfrm2);
+                mainfrm2.Show();
+                this.Dispose();
+            }
         }
 
         private void chkShowPassword_CheckedChanged(object sender, EventArgs e)
@@ -242,7 +271,43 @@ namespace SalesInventorySystem_WAM1
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error
                     );
+                    return;
                 }
+            }
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            if (user_id == -1)
+            {
+                txtName.Text = string.Empty;
+                txtUsername.Text = string.Empty;
+                txtPassword.Text = string.Empty;
+                txtConfirmPassword.Text = string.Empty;
+                cbRole.SelectedIndex = -1;
+                return;
+            }
+
+            try
+            {
+                var u = user_handler.GetUser(user_id);
+
+                txtName.Text = u.Name;
+                txtUsername.Text = u.Username;
+                cbRole.SelectedIndex = u.Role == "admin" ? 1 : 0;
+                txtPassword.Text = string.Empty;
+                txtConfirmPassword.Text = string.Empty;
+                password_changed = false;
+            }
+            catch (MySqlException exc)
+            {
+                MessageBox.Show(
+                    $"A database-related error occured: {exc.Message}\n\nFailed to get user information.",
+                    "Database Connection Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
             }
         }
     }

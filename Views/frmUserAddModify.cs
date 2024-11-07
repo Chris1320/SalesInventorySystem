@@ -212,6 +212,7 @@ namespace SalesInventorySystem_WAM1
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );
+                return;
             }
 
             MessageBox.Show("User updated successfully.");
@@ -270,6 +271,7 @@ namespace SalesInventorySystem_WAM1
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error
                     );
+                    return;
                 }
             }
         }

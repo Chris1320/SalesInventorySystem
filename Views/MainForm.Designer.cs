@@ -83,7 +83,7 @@
             this.btnUsers.Location = new System.Drawing.Point(0, 228);
             this.btnUsers.Name = "btnUsers";
             this.btnUsers.Size = new System.Drawing.Size(186, 42);
-            this.btnUsers.TabIndex = 4;
+            this.btnUsers.TabIndex = 3;
             this.btnUsers.Text = "Users";
             this.btnUsers.UseVisualStyleBackColor = true;
             this.btnUsers.Click += new System.EventHandler(this.button1_Click);
@@ -99,7 +99,7 @@
             this.btnLogOut.Location = new System.Drawing.Point(0, 535);
             this.btnLogOut.Name = "btnLogOut";
             this.btnLogOut.Size = new System.Drawing.Size(186, 42);
-            this.btnLogOut.TabIndex = 3;
+            this.btnLogOut.TabIndex = 4;
             this.btnLogOut.Text = "Log Out";
             this.btnLogOut.UseVisualStyleBackColor = true;
             this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
@@ -187,7 +187,7 @@
             this.btnClose.Location = new System.Drawing.Point(1077, 12);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(25, 25);
-            this.btnClose.TabIndex = 4;
+            this.btnClose.TabIndex = 80;
             this.btnClose.Text = "X";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -219,7 +219,7 @@
             this.btnMinimize.Location = new System.Drawing.Point(1046, 12);
             this.btnMinimize.Name = "btnMinimize";
             this.btnMinimize.Size = new System.Drawing.Size(25, 25);
-            this.btnMinimize.TabIndex = 7;
+            this.btnMinimize.TabIndex = 70;
             this.btnMinimize.Text = "🗕";
             this.btnMinimize.UseVisualStyleBackColor = true;
             this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);

@@ -56,7 +56,7 @@
             this.btnClose.Location = new System.Drawing.Point(608, 12);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(25, 25);
-            this.btnClose.TabIndex = 7;
+            this.btnClose.TabIndex = 20;
             this.btnClose.Text = "X";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -71,13 +71,13 @@
             this.lblSearch.TabIndex = 8;
             this.lblSearch.Text = "Query";
             // 
-            // txtUsername
+            // txtQuery
             // 
             this.txtQuery.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(231)))), ((int)(((byte)(233)))));
             this.txtQuery.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtQuery.Font = new System.Drawing.Font("MS UI Gothic", 19.75F);
             this.txtQuery.Location = new System.Drawing.Point(31, 96);
-            this.txtQuery.Name = "txtUsername";
+            this.txtQuery.Name = "txtQuery";
             this.txtQuery.Size = new System.Drawing.Size(589, 27);
             this.txtQuery.TabIndex = 9;
             // 

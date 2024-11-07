@@ -56,7 +56,7 @@
             this.btnClear.Location = new System.Drawing.Point(416, 421);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(216, 35);
-            this.btnClear.TabIndex = 21;
+            this.btnClear.TabIndex = 12;
             this.btnClear.Text = "CLEAR";
             this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
@@ -71,7 +71,7 @@
             this.btnRegister.Location = new System.Drawing.Point(416, 371);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(216, 35);
-            this.btnRegister.TabIndex = 20;
+            this.btnRegister.TabIndex = 11;
             this.btnRegister.Text = "REGISTER";
             this.btnRegister.UseVisualStyleBackColor = false;
             this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
@@ -86,7 +86,7 @@
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(216, 28);
-            this.txtPassword.TabIndex = 18;
+            this.txtPassword.TabIndex = 8;
             this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             // 
             // lblPassword
@@ -108,7 +108,7 @@
             this.txtUsername.Multiline = true;
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(216, 28);
-            this.txtUsername.TabIndex = 16;
+            this.txtUsername.TabIndex = 7;
             // 
             // lblUsername
             // 
@@ -130,7 +130,7 @@
             this.btnBack.Location = new System.Drawing.Point(12, 12);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(54, 29);
-            this.btnBack.TabIndex = 22;
+            this.btnBack.TabIndex = 13;
             this.btnBack.Text = "BACK";
             this.btnBack.UseVisualStyleBackColor = false;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
@@ -144,7 +144,7 @@
             this.txtName.Multiline = true;
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(216, 28);
-            this.txtName.TabIndex = 24;
+            this.txtName.TabIndex = 5;
             // 
             // lblName
             // 
@@ -165,7 +165,7 @@
             this.chkShowPassword.Location = new System.Drawing.Point(531, 330);
             this.chkShowPassword.Name = "chkShowPassword";
             this.chkShowPassword.Size = new System.Drawing.Size(99, 17);
-            this.chkShowPassword.TabIndex = 27;
+            this.chkShowPassword.TabIndex = 10;
             this.chkShowPassword.Text = "Show Password";
             this.chkShowPassword.UseVisualStyleBackColor = true;
             this.chkShowPassword.CheckedChanged += new System.EventHandler(this.chkShowPassword_CheckedChanged);
@@ -180,7 +180,7 @@
             this.txtConfirmPassword.Name = "txtConfirmPassword";
             this.txtConfirmPassword.PasswordChar = '*';
             this.txtConfirmPassword.Size = new System.Drawing.Size(216, 28);
-            this.txtConfirmPassword.TabIndex = 26;
+            this.txtConfirmPassword.TabIndex = 9;
             // 
             // lblConfirmPassword
             // 
@@ -215,7 +215,7 @@
             this.cbRole.Location = new System.Drawing.Point(416, 100);
             this.cbRole.Name = "cbRole";
             this.cbRole.Size = new System.Drawing.Size(216, 29);
-            this.cbRole.TabIndex = 30;
+            this.cbRole.TabIndex = 6;
             // 
             // btnDelete
             // 
@@ -227,7 +227,7 @@
             this.btnDelete.Location = new System.Drawing.Point(988, 421);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(82, 35);
-            this.btnDelete.TabIndex = 66;
+            this.btnDelete.TabIndex = 14;
             this.btnDelete.Text = "DELETE";
             this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);

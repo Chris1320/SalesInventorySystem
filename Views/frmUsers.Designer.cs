@@ -61,7 +61,7 @@
             this.btnClear.Location = new System.Drawing.Point(202, 246);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(82, 31);
-            this.btnClear.TabIndex = 71;
+            this.btnClear.TabIndex = 13;
             this.btnClear.Text = "CLEAR";
             this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
@@ -86,7 +86,7 @@
             this.txtUsername.Multiline = true;
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(170, 20);
-            this.txtUsername.TabIndex = 51;
+            this.txtUsername.TabIndex = 5;
             // 
             // lblName
             // 
@@ -119,7 +119,7 @@
             this.txtName.Multiline = true;
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(170, 20);
-            this.txtName.TabIndex = 56;
+            this.txtName.TabIndex = 6;
             // 
             // cbRole
             // 
@@ -134,7 +134,7 @@
             this.cbRole.Location = new System.Drawing.Point(114, 105);
             this.cbRole.Name = "cbRole";
             this.cbRole.Size = new System.Drawing.Size(170, 21);
-            this.cbRole.TabIndex = 59;
+            this.cbRole.TabIndex = 7;
             // 
             // dtpDate
             // 
@@ -142,7 +142,7 @@
             this.dtpDate.Location = new System.Drawing.Point(114, 156);
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(170, 20);
-            this.dtpDate.TabIndex = 60;
+            this.dtpDate.TabIndex = 8;
             // 
             // lblDate
             // 
@@ -165,7 +165,7 @@
             this.btnSearch.Location = new System.Drawing.Point(26, 246);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(170, 31);
-            this.btnSearch.TabIndex = 62;
+            this.btnSearch.TabIndex = 12;
             this.btnSearch.Text = "SEARCH";
             this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -180,7 +180,7 @@
             this.btnAdd.Location = new System.Drawing.Point(26, 209);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(82, 31);
-            this.btnAdd.TabIndex = 63;
+            this.btnAdd.TabIndex = 9;
             this.btnAdd.Text = "ADD";
             this.btnAdd.UseVisualStyleBackColor = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
@@ -195,7 +195,7 @@
             this.btnModify.Location = new System.Drawing.Point(114, 209);
             this.btnModify.Name = "btnModify";
             this.btnModify.Size = new System.Drawing.Size(82, 31);
-            this.btnModify.TabIndex = 64;
+            this.btnModify.TabIndex = 10;
             this.btnModify.Text = "MODIFY";
             this.btnModify.UseVisualStyleBackColor = false;
             this.btnModify.Click += new System.EventHandler(this.btnModify_Click);
@@ -210,7 +210,7 @@
             this.btnDelete.Location = new System.Drawing.Point(202, 209);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(82, 31);
-            this.btnDelete.TabIndex = 65;
+            this.btnDelete.TabIndex = 11;
             this.btnDelete.Text = "DELETE";
             this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -233,7 +233,7 @@
             this.dgvUsers.MultiSelect = false;
             this.dgvUsers.Name = "dgvUsers";
             this.dgvUsers.Size = new System.Drawing.Size(747, 453);
-            this.dgvUsers.TabIndex = 49;
+            this.dgvUsers.TabIndex = 14;
             this.dgvUsers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsers_CellClick);
             // 
             // id
